@@ -1,0 +1,71 @@
+========================================================================================
+Report      : INFO
+Date        : Wed Nov 23 11:04:18 MST 2016
+Description : Not installing a signal handler for the already ignored signal 13.
+Node        : localhost.localdomain
+Process     : python2.7 <13494>
+Thread      : main thread 7f604d07b740
+Internals   : V6.4.140320OSS/24b1387/24b1387/os_signalHandlerThread/os_signalHandler.c/793/0/1479924258.163678663
+========================================================================================
+Report      : INFO
+Date        : Wed Nov 23 11:04:18 MST 2016
+Description : u_domainNew:Database allocated on heap
+Node        : localhost.localdomain
+Process     : python2.7 <13494>
+Thread      : spliced 7f604d0a3700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1479924258.164744305
+========================================================================================
+Report      : INFO
+Date        : Wed Nov 23 11:04:18 MST 2016
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : localhost.localdomain
+Process     : python2.7 <13494>
+Thread      : spliced 7f604d0a3700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1479924258.168051312
+========================================================================================
+Report      : INFO
+Date        : Wed Nov 23 11:04:18 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <13494>
+Thread      : spliced 7f604d0a3700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479924258.169501650
+========================================================================================
+Report      : WARNING
+Date        : Wed Nov 23 11:04:18 MST 2016
+Description : using network interface enp0s3 (140.252.32.171) selected arbitrarily from: enp0s3, virbr0
+
+Node        : localhost.localdomain
+Process     : python2.7 <13494>
+Thread      : ddsi2 7f6041cba700
+Internals   : V6.4.140320OSS/24b1387/24b1387/ddsi2/q_nwif.c/668/0/1479924258.172288602
+========================================================================================
+Report      : INFO
+Date        : Wed Nov 23 11:04:18 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <13494>
+Thread      : ddsi2 7f6041cba700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479924258.179528261
+========================================================================================
+Report      : INFO
+Date        : Wed Nov 23 11:04:18 MST 2016
+Description : The durability service can by identified by ID: 86814738
+Node        : localhost.localdomain
+Process     : python2.7 <13494>
+Thread      : durability 7f604202c700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1479924258.482210527

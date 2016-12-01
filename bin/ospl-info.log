@@ -1,0 +1,2887 @@
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:32:31 MST 2016
+Description : Not installing a signal handler for the already ignored signal 13.
+Node        : localhost.localdomain
+Process     : python2.7 <9206>
+Thread      : main thread 7f3386873740
+Internals   : V6.4.140320OSS/24b1387/24b1387/os_signalHandlerThread/os_signalHandler.c/793/0/1479853951.603220247
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:32:31 MST 2016
+Description : u_domainNew:Database allocated on heap
+Node        : localhost.localdomain
+Process     : python2.7 <9206>
+Thread      : spliced 7f3386896700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1479853951.604798252
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:32:31 MST 2016
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : localhost.localdomain
+Process     : python2.7 <9206>
+Thread      : spliced 7f3386896700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1479853951.607826405
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:32:31 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <9206>
+Thread      : spliced 7f3386896700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479853951.609128357
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:32:31 MST 2016
+Description : using network interface enp0s3 (140.252.32.171) selected arbitrarily from: enp0s3, virbr0
+
+Node        : localhost.localdomain
+Process     : python2.7 <9206>
+Thread      : ddsi2 7f33735a1700
+Internals   : V6.4.140320OSS/24b1387/24b1387/ddsi2/q_nwif.c/668/0/1479853951.612770299
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:32:31 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <9206>
+Thread      : ddsi2 7f33735a1700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479853951.618729294
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:32:32 MST 2016
+Description : The durability service can by identified by ID: 1525875074
+Node        : localhost.localdomain
+Process     : python2.7 <9206>
+Thread      : durability 7f3373913700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1479853952.025042015
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:34:28 MST 2016
+Description : Not installing a signal handler for the already ignored signal 13.
+Node        : localhost.localdomain
+Process     : python2.7 <9320>
+Thread      : main thread 7fabbc0bb740
+Internals   : V6.4.140320OSS/24b1387/24b1387/os_signalHandlerThread/os_signalHandler.c/793/0/1479854068.803005704
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:34:28 MST 2016
+Description : u_domainNew:Database allocated on heap
+Node        : localhost.localdomain
+Process     : python2.7 <9320>
+Thread      : spliced 7fabbc0de700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1479854068.806090478
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:34:28 MST 2016
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : localhost.localdomain
+Process     : python2.7 <9320>
+Thread      : spliced 7fabbc0de700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1479854068.809550238
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:34:28 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <9320>
+Thread      : spliced 7fabbc0de700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479854068.810934215
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:34:28 MST 2016
+Description : using network interface enp0s3 (140.252.32.171) selected arbitrarily from: enp0s3, virbr0
+
+Node        : localhost.localdomain
+Process     : python2.7 <9320>
+Thread      : ddsi2 7faba8de9700
+Internals   : V6.4.140320OSS/24b1387/24b1387/ddsi2/q_nwif.c/668/0/1479854068.813961175
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:34:28 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <9320>
+Thread      : ddsi2 7faba8de9700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479854068.819290983
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:34:29 MST 2016
+Description : The durability service can by identified by ID: 1563994201
+Node        : localhost.localdomain
+Process     : python2.7 <9320>
+Thread      : durability 7faba915b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1479854069.326091400
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:34:43 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_enable(967904366), but hexapod::command_test(786614926) defined
+Node        : localhost.localdomain
+Process     : python2.7 <9320>
+Thread      : OSPL Kernel Manager 7fabbbf74700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479854083.943456350
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:34:43 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_configureVelocity(1714456574), but hexapod::command_test(786614926) defined
+Node        : localhost.localdomain
+Process     : python2.7 <9320>
+Thread      : OSPL Kernel Manager 7fabbbf74700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479854083.944910658
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:34:43 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_offset(-2028362611), but hexapod::command_test(786614926) defined
+Node        : localhost.localdomain
+Process     : python2.7 <9320>
+Thread      : OSPL Kernel Manager 7fabbbf74700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479854083.946407396
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:34:43 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_start(-1633664759), but hexapod::command_test(786614926) defined
+Node        : localhost.localdomain
+Process     : python2.7 <9320>
+Thread      : OSPL Kernel Manager 7fabbbf74700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479854083.947418314
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:34:43 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_abort(-1299888566), but hexapod::command_test(786614926) defined
+Node        : localhost.localdomain
+Process     : python2.7 <9320>
+Thread      : OSPL Kernel Manager 7fabbbf74700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479854083.948068926
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:35:11 MST 2016
+Description : Not installing a signal handler for the already ignored signal 13.
+Node        : localhost.localdomain
+Process     : python2.7 <9408>
+Thread      : main thread 7f4402f26740
+Internals   : V6.4.140320OSS/24b1387/24b1387/os_signalHandlerThread/os_signalHandler.c/793/0/1479854111.591132182
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:35:11 MST 2016
+Description : u_domainNew:Database allocated on heap
+Node        : localhost.localdomain
+Process     : python2.7 <9408>
+Thread      : spliced 7f4402f49700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1479854111.593919213
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:35:11 MST 2016
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : localhost.localdomain
+Process     : python2.7 <9408>
+Thread      : spliced 7f4402f49700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1479854111.597316763
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:35:11 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <9408>
+Thread      : spliced 7f4402f49700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479854111.597751935
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:35:11 MST 2016
+Description : using network interface enp0s3 (140.252.32.171) selected arbitrarily from: enp0s3, virbr0
+
+Node        : localhost.localdomain
+Process     : python2.7 <9408>
+Thread      : ddsi2 7f43f0123700
+Internals   : V6.4.140320OSS/24b1387/24b1387/ddsi2/q_nwif.c/668/0/1479854111.604909558
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:35:11 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <9408>
+Thread      : ddsi2 7f43f0123700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479854111.608648444
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:35:12 MST 2016
+Description : The durability service can by identified by ID: 1017539763
+Node        : localhost.localdomain
+Process     : python2.7 <9408>
+Thread      : durability 7f43f0224700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1479854112.217598989
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:35:26 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_enable(967904366), but hexapod::command_test(786614926) defined
+Node        : localhost.localdomain
+Process     : python2.7 <9408>
+Thread      : OSPL Kernel Manager 7f4402ddf700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479854126.597369703
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:35:26 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_configureVelocity(1714456574), but hexapod::command_test(786614926) defined
+Node        : localhost.localdomain
+Process     : python2.7 <9408>
+Thread      : OSPL Kernel Manager 7f4402ddf700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479854126.600157476
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:35:26 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_offset(-2028362611), but hexapod::command_test(786614926) defined
+Node        : localhost.localdomain
+Process     : python2.7 <9408>
+Thread      : OSPL Kernel Manager 7f4402ddf700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479854126.601255714
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:35:26 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_start(-1633664759), but hexapod::command_test(786614926) defined
+Node        : localhost.localdomain
+Process     : python2.7 <9408>
+Thread      : OSPL Kernel Manager 7f4402ddf700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479854126.602362253
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:35:26 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_abort(-1299888566), but hexapod::command_test(786614926) defined
+Node        : localhost.localdomain
+Process     : python2.7 <9408>
+Thread      : OSPL Kernel Manager 7f4402ddf700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479854126.603008708
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:35:28 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'durability' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <9408>
+Thread      : durability 7f43f0224700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479854128.393999503
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:36:54 MST 2016
+Description : Not installing a signal handler for the already ignored signal 13.
+Node        : localhost.localdomain
+Process     : python2.7 <9507>
+Thread      : main thread 7f3b12639740
+Internals   : V6.4.140320OSS/24b1387/24b1387/os_signalHandlerThread/os_signalHandler.c/793/0/1479854214.368920865
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:36:54 MST 2016
+Description : u_domainNew:Database allocated on heap
+Node        : localhost.localdomain
+Process     : python2.7 <9507>
+Thread      : spliced 7f3b1265c700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1479854214.369923181
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:36:54 MST 2016
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : localhost.localdomain
+Process     : python2.7 <9507>
+Thread      : spliced 7f3b1265c700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1479854214.373398248
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:36:54 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <9507>
+Thread      : spliced 7f3b1265c700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479854214.378953604
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:36:54 MST 2016
+Description : using network interface enp0s3 (140.252.32.171) selected arbitrarily from: enp0s3, virbr0
+
+Node        : localhost.localdomain
+Process     : python2.7 <9507>
+Thread      : ddsi2 7f3aff367700
+Internals   : V6.4.140320OSS/24b1387/24b1387/ddsi2/q_nwif.c/668/0/1479854214.381082013
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:36:54 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <9507>
+Thread      : ddsi2 7f3aff367700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479854214.388600002
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:36:54 MST 2016
+Description : The durability service can by identified by ID: 699409495
+Node        : localhost.localdomain
+Process     : python2.7 <9507>
+Thread      : durability 7f3aff6d9700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1479854214.594787171
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:37:39 MST 2016
+Description : Not installing a signal handler for the already ignored signal 13.
+Node        : localhost.localdomain
+Process     : python2.7 <9562>
+Thread      : main thread 7ffa81572740
+Internals   : V6.4.140320OSS/24b1387/24b1387/os_signalHandlerThread/os_signalHandler.c/793/0/1479854259.012514421
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:37:39 MST 2016
+Description : u_domainNew:Database allocated on heap
+Node        : localhost.localdomain
+Process     : python2.7 <9562>
+Thread      : spliced 7ffa81595700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1479854259.014227056
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:37:39 MST 2016
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : localhost.localdomain
+Process     : python2.7 <9562>
+Thread      : spliced 7ffa81595700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1479854259.017570322
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:37:39 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <9562>
+Thread      : spliced 7ffa81595700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479854259.018334351
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:37:39 MST 2016
+Description : using network interface enp0s3 (140.252.32.171) selected arbitrarily from: enp0s3, virbr0
+
+Node        : localhost.localdomain
+Process     : python2.7 <9562>
+Thread      : ddsi2 7ffa6e2a0700
+Internals   : V6.4.140320OSS/24b1387/24b1387/ddsi2/q_nwif.c/668/0/1479854259.020451362
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:37:39 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <9562>
+Thread      : ddsi2 7ffa6e2a0700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479854259.025574422
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:37:39 MST 2016
+Description : The durability service can by identified by ID: 763349673
+Node        : localhost.localdomain
+Process     : python2.7 <9562>
+Thread      : durability 7ffa6e612700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1479854259.834304798
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:38:35 MST 2016
+Description : Not installing a signal handler for the already ignored signal 13.
+Node        : localhost.localdomain
+Process     : python2.7 <9631>
+Thread      : main thread 7f7b859e4740
+Internals   : V6.4.140320OSS/24b1387/24b1387/os_signalHandlerThread/os_signalHandler.c/793/0/1479854315.009845450
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:38:35 MST 2016
+Description : u_domainNew:Database allocated on heap
+Node        : localhost.localdomain
+Process     : python2.7 <9631>
+Thread      : spliced 7f7b85a07700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1479854315.011104025
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:38:35 MST 2016
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : localhost.localdomain
+Process     : python2.7 <9631>
+Thread      : spliced 7f7b85a07700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1479854315.014241040
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:38:35 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <9631>
+Thread      : spliced 7f7b85a07700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479854315.014686847
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:38:35 MST 2016
+Description : using network interface enp0s3 (140.252.32.171) selected arbitrarily from: enp0s3, virbr0
+
+Node        : localhost.localdomain
+Process     : python2.7 <9631>
+Thread      : ddsi2 7f7b72712700
+Internals   : V6.4.140320OSS/24b1387/24b1387/ddsi2/q_nwif.c/668/0/1479854315.019168293
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:38:35 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <9631>
+Thread      : ddsi2 7f7b72712700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479854315.025328545
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:38:35 MST 2016
+Description : The durability service can by identified by ID: 2082553852
+Node        : localhost.localdomain
+Process     : python2.7 <9631>
+Thread      : durability 7f7b72a84700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1479854315.435144912
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:38:44 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_start(-1633664759), but hexapod::command_offset(-2028362611) defined
+Node        : localhost.localdomain
+Process     : python2.7 <9631>
+Thread      : OSPL Kernel Manager 7f7b8589d700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479854324.724473771
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:38:44 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_abort(-1299888566), but hexapod::command_offset(-2028362611) defined
+Node        : localhost.localdomain
+Process     : python2.7 <9631>
+Thread      : OSPL Kernel Manager 7f7b8589d700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479854324.724725720
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:38:44 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_test(786614926), but hexapod::command_offset(-2028362611) defined
+Node        : localhost.localdomain
+Process     : python2.7 <9631>
+Thread      : OSPL Kernel Manager 7f7b8589d700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479854324.747498748
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:38:44 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_enable(967904366), but hexapod::command_offset(-2028362611) defined
+Node        : localhost.localdomain
+Process     : python2.7 <9631>
+Thread      : OSPL Kernel Manager 7f7b8589d700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479854324.747661967
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:38:44 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_configureVelocity(1714456574), but hexapod::command_offset(-2028362611) defined
+Node        : localhost.localdomain
+Process     : python2.7 <9631>
+Thread      : OSPL Kernel Manager 7f7b8589d700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479854324.748376301
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:38:46 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'durability' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <9631>
+Thread      : durability 7f7b72a84700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479854326.601479751
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:38:49 MST 2016
+Description : Not installing a signal handler for the already ignored signal 13.
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : main thread 7efd4a449740
+Internals   : V6.4.140320OSS/24b1387/24b1387/os_signalHandlerThread/os_signalHandler.c/793/0/1479854329.169943461
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:38:49 MST 2016
+Description : u_domainNew:Database allocated on heap
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : spliced 7efd4a46c700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1479854329.171226176
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:38:49 MST 2016
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : spliced 7efd4a46c700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1479854329.174560430
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:38:49 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : spliced 7efd4a46c700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479854329.175814057
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:38:49 MST 2016
+Description : using network interface enp0s3 (140.252.32.171) selected arbitrarily from: enp0s3, virbr0
+
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : ddsi2 7efd37177700
+Internals   : V6.4.140320OSS/24b1387/24b1387/ddsi2/q_nwif.c/668/0/1479854329.177939047
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:38:49 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : ddsi2 7efd37177700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479854329.181413459
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:38:49 MST 2016
+Description : The durability service can by identified by ID: 903760492
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : durability 7efd374e9700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1479854329.798040358
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:39:13 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_enable(967904366), but hexapod::command_test(786614926) defined
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : OSPL Kernel Manager 7efd4a302700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479854353.059675400
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:39:13 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_configureVelocity(1714456574), but hexapod::command_test(786614926) defined
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : OSPL Kernel Manager 7efd4a302700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479854353.060971743
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:39:13 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_offset(-2028362611), but hexapod::command_test(786614926) defined
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : OSPL Kernel Manager 7efd4a302700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479854353.062006110
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:39:13 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_start(-1633664759), but hexapod::command_test(786614926) defined
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : OSPL Kernel Manager 7efd4a302700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479854353.062747096
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:39:13 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_abort(-1299888566), but hexapod::command_test(786614926) defined
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : OSPL Kernel Manager 7efd4a302700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479854353.063399257
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:39:15 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'durability' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : durability 7efd374e9700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479854355.957706594
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:39:23 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 45274876. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : OSPL Garbage Collector 7efd377d9700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854363.205864120
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:39:23 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 166903785. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : OSPL Garbage Collector 7efd377d9700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854363.226420004
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:39:23 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 174791654. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : OSPL Garbage Collector 7efd377d9700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854363.249504003
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:39:23 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 842645731. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : OSPL Garbage Collector 7efd377d9700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854363.269762268
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:39:23 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 858246245. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : OSPL Garbage Collector 7efd377d9700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854363.291213110
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:39:23 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 961225369. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : OSPL Garbage Collector 7efd377d9700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854363.311778041
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:39:23 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1030755735. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : OSPL Garbage Collector 7efd377d9700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854363.332162503
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:39:23 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1129193618. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : OSPL Garbage Collector 7efd377d9700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854363.352443305
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:39:23 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1148132826. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : OSPL Garbage Collector 7efd377d9700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854363.373435984
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:39:23 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1194260493. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : OSPL Garbage Collector 7efd377d9700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854363.393955236
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:39:23 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1545147087. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : OSPL Garbage Collector 7efd377d9700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854363.416370405
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:39:23 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1775967401. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : OSPL Garbage Collector 7efd377d9700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854363.436884709
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:39:23 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1810728869. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : OSPL Garbage Collector 7efd377d9700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854363.457445447
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:39:23 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1840342487. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : OSPL Garbage Collector 7efd377d9700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854363.477904278
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:39:23 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1902684234. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : OSPL Garbage Collector 7efd377d9700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854363.498314630
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:39:23 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1912218350. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : OSPL Garbage Collector 7efd377d9700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854363.519441405
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:39:23 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1990920015. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <9684>
+Thread      : OSPL Garbage Collector 7efd377d9700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854363.539889975
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:42:26 MST 2016
+Description : Not installing a signal handler for the already ignored signal 13.
+Node        : localhost.localdomain
+Process     : python2.7 <9993>
+Thread      : main thread 7fb7c7898740
+Internals   : V6.4.140320OSS/24b1387/24b1387/os_signalHandlerThread/os_signalHandler.c/793/0/1479854546.021940187
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:42:26 MST 2016
+Description : u_domainNew:Database allocated on heap
+Node        : localhost.localdomain
+Process     : python2.7 <9993>
+Thread      : spliced 7fb7c78bb700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1479854546.023089145
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:42:26 MST 2016
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : localhost.localdomain
+Process     : python2.7 <9993>
+Thread      : spliced 7fb7c78bb700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1479854546.026514106
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:42:26 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <9993>
+Thread      : spliced 7fb7c78bb700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479854546.027776258
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:42:26 MST 2016
+Description : using network interface enp0s3 (140.252.32.171) selected arbitrarily from: enp0s3, virbr0
+
+Node        : localhost.localdomain
+Process     : python2.7 <9993>
+Thread      : ddsi2 7fb7b45c6700
+Internals   : V6.4.140320OSS/24b1387/24b1387/ddsi2/q_nwif.c/668/0/1479854546.030721110
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:42:26 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <9993>
+Thread      : ddsi2 7fb7b45c6700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479854546.035801408
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:42:26 MST 2016
+Description : The durability service can by identified by ID: 1128293713
+Node        : localhost.localdomain
+Process     : python2.7 <9993>
+Thread      : durability 7fb7b4938700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1479854546.142368904
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:42:43 MST 2016
+Description : Not installing a signal handler for the already ignored signal 13.
+Node        : localhost.localdomain
+Process     : python2.7 <10047>
+Thread      : main thread 7fbc22417740
+Internals   : V6.4.140320OSS/24b1387/24b1387/os_signalHandlerThread/os_signalHandler.c/793/0/1479854563.946044169
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:42:43 MST 2016
+Description : u_domainNew:Database allocated on heap
+Node        : localhost.localdomain
+Process     : python2.7 <10047>
+Thread      : spliced 7fbc2243a700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1479854563.947173391
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:42:43 MST 2016
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : localhost.localdomain
+Process     : python2.7 <10047>
+Thread      : spliced 7fbc2243a700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1479854563.950977081
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:42:43 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <10047>
+Thread      : spliced 7fbc2243a700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479854563.952732177
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:42:43 MST 2016
+Description : using network interface enp0s3 (140.252.32.171) selected arbitrarily from: enp0s3, virbr0
+
+Node        : localhost.localdomain
+Process     : python2.7 <10047>
+Thread      : ddsi2 7fbc0f145700
+Internals   : V6.4.140320OSS/24b1387/24b1387/ddsi2/q_nwif.c/668/0/1479854563.954447452
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:42:43 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <10047>
+Thread      : ddsi2 7fbc0f145700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479854563.962925093
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:42:44 MST 2016
+Description : The durability service can by identified by ID: 827643132
+Node        : localhost.localdomain
+Process     : python2.7 <10047>
+Thread      : durability 7fbc0f4b7700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1479854564.569363226
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:43:13 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 45274876. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10047>
+Thread      : OSPL Garbage Collector 7fbc0f7a7700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854593.965840041
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:43:13 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 166903785. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10047>
+Thread      : OSPL Garbage Collector 7fbc0f7a7700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854593.986807798
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:43:14 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 174791654. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10047>
+Thread      : OSPL Garbage Collector 7fbc0f7a7700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854594.007311305
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:43:14 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 842645731. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10047>
+Thread      : OSPL Garbage Collector 7fbc0f7a7700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854594.029242950
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:43:14 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 858246245. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10047>
+Thread      : OSPL Garbage Collector 7fbc0f7a7700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854594.049691793
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:43:14 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 961225369. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10047>
+Thread      : OSPL Garbage Collector 7fbc0f7a7700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854594.073551779
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:43:14 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1030755735. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10047>
+Thread      : OSPL Garbage Collector 7fbc0f7a7700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854594.095342327
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:43:14 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1129193618. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10047>
+Thread      : OSPL Garbage Collector 7fbc0f7a7700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854594.115771789
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:43:14 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1148132826. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10047>
+Thread      : OSPL Garbage Collector 7fbc0f7a7700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854594.136791645
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:43:14 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1194260493. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10047>
+Thread      : OSPL Garbage Collector 7fbc0f7a7700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854594.158337928
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:43:14 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1545147087. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10047>
+Thread      : OSPL Garbage Collector 7fbc0f7a7700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854594.179715434
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:43:14 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1775967401. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10047>
+Thread      : OSPL Garbage Collector 7fbc0f7a7700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854594.200955834
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:43:14 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1810728869. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10047>
+Thread      : OSPL Garbage Collector 7fbc0f7a7700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854594.222060902
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:43:14 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1840342487. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10047>
+Thread      : OSPL Garbage Collector 7fbc0f7a7700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854594.243369921
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:43:14 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1902684234. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10047>
+Thread      : OSPL Garbage Collector 7fbc0f7a7700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854594.264183065
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:43:14 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1912218350. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10047>
+Thread      : OSPL Garbage Collector 7fbc0f7a7700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854594.285535891
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:43:14 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1990920015. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10047>
+Thread      : OSPL Garbage Collector 7fbc0f7a7700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854594.306010306
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:46:44 MST 2016
+Description : Not installing a signal handler for the already ignored signal 13.
+Node        : localhost.localdomain
+Process     : python2.7 <10180>
+Thread      : main thread 7fc16ef4d740
+Internals   : V6.4.140320OSS/24b1387/24b1387/os_signalHandlerThread/os_signalHandler.c/793/0/1479854804.800116460
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:46:44 MST 2016
+Description : u_domainNew:Database allocated on heap
+Node        : localhost.localdomain
+Process     : python2.7 <10180>
+Thread      : spliced 7fc16ef70700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1479854804.801195092
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:46:44 MST 2016
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : localhost.localdomain
+Process     : python2.7 <10180>
+Thread      : spliced 7fc16ef70700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1479854804.804719935
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:46:44 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <10180>
+Thread      : spliced 7fc16ef70700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479854804.805851212
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:46:44 MST 2016
+Description : using network interface enp0s3 (140.252.32.171) selected arbitrarily from: enp0s3, virbr0
+
+Node        : localhost.localdomain
+Process     : python2.7 <10180>
+Thread      : ddsi2 7fc15c14a700
+Internals   : V6.4.140320OSS/24b1387/24b1387/ddsi2/q_nwif.c/668/0/1479854804.808092481
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:46:44 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <10180>
+Thread      : ddsi2 7fc15c14a700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479854804.814582213
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:46:44 MST 2016
+Description : The durability service can by identified by ID: 414789083
+Node        : localhost.localdomain
+Process     : python2.7 <10180>
+Thread      : durability 7fc15c24b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1479854804.919960260
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:47:02 MST 2016
+Description : Not installing a signal handler for the already ignored signal 13.
+Node        : localhost.localdomain
+Process     : python2.7 <10242>
+Thread      : main thread 7f3238652740
+Internals   : V6.4.140320OSS/24b1387/24b1387/os_signalHandlerThread/os_signalHandler.c/793/0/1479854822.538535575
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:47:02 MST 2016
+Description : u_domainNew:Database allocated on heap
+Node        : localhost.localdomain
+Process     : python2.7 <10242>
+Thread      : spliced 7f3238675700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1479854822.541413120
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:47:02 MST 2016
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : localhost.localdomain
+Process     : python2.7 <10242>
+Thread      : spliced 7f3238675700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1479854822.545263066
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:47:02 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <10242>
+Thread      : spliced 7f3238675700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479854822.546311441
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:47:02 MST 2016
+Description : using network interface enp0s3 (140.252.32.171) selected arbitrarily from: enp0s3, virbr0
+
+Node        : localhost.localdomain
+Process     : python2.7 <10242>
+Thread      : ddsi2 7f3225380700
+Internals   : V6.4.140320OSS/24b1387/24b1387/ddsi2/q_nwif.c/668/0/1479854822.549852313
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:47:02 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <10242>
+Thread      : ddsi2 7f3225380700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479854822.554735232
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:47:03 MST 2016
+Description : The durability service can by identified by ID: 1162671048
+Node        : localhost.localdomain
+Process     : python2.7 <10242>
+Thread      : durability 7f32256f2700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1479854823.065714495
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:48:49 MST 2016
+Description : Not installing a signal handler for the already ignored signal 13.
+Node        : localhost.localdomain
+Process     : python2.7 <10315>
+Thread      : main thread 7f84cb91f740
+Internals   : V6.4.140320OSS/24b1387/24b1387/os_signalHandlerThread/os_signalHandler.c/793/0/1479854929.252759911
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:48:49 MST 2016
+Description : u_domainNew:Database allocated on heap
+Node        : localhost.localdomain
+Process     : python2.7 <10315>
+Thread      : spliced 7f84cb942700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1479854929.253772171
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:48:49 MST 2016
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : localhost.localdomain
+Process     : python2.7 <10315>
+Thread      : spliced 7f84cb942700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1479854929.257075896
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:48:49 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <10315>
+Thread      : spliced 7f84cb942700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479854929.258111794
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:48:49 MST 2016
+Description : using network interface enp0s3 (140.252.32.171) selected arbitrarily from: enp0s3, virbr0
+
+Node        : localhost.localdomain
+Process     : python2.7 <10315>
+Thread      : ddsi2 7f84b864d700
+Internals   : V6.4.140320OSS/24b1387/24b1387/ddsi2/q_nwif.c/668/0/1479854929.260147978
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:48:49 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <10315>
+Thread      : ddsi2 7f84b864d700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479854929.264190632
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:48:49 MST 2016
+Description : The durability service can by identified by ID: 1223379385
+Node        : localhost.localdomain
+Process     : python2.7 <10315>
+Thread      : durability 7f84b89bf700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1479854929.775609893
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:49:07 MST 2016
+Description : Not installing a signal handler for the already ignored signal 13.
+Node        : localhost.localdomain
+Process     : python2.7 <10377>
+Thread      : main thread 7f6767545740
+Internals   : V6.4.140320OSS/24b1387/24b1387/os_signalHandlerThread/os_signalHandler.c/793/0/1479854947.601837189
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:49:07 MST 2016
+Description : u_domainNew:Database allocated on heap
+Node        : localhost.localdomain
+Process     : python2.7 <10377>
+Thread      : spliced 7f6767568700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1479854947.603008455
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:49:07 MST 2016
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : localhost.localdomain
+Process     : python2.7 <10377>
+Thread      : spliced 7f6767568700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1479854947.606964358
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:49:07 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <10377>
+Thread      : spliced 7f6767568700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479854947.608227355
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:49:07 MST 2016
+Description : using network interface enp0s3 (140.252.32.171) selected arbitrarily from: enp0s3, virbr0
+
+Node        : localhost.localdomain
+Process     : python2.7 <10377>
+Thread      : ddsi2 7f6754273700
+Internals   : V6.4.140320OSS/24b1387/24b1387/ddsi2/q_nwif.c/668/0/1479854947.611240507
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:49:07 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <10377>
+Thread      : ddsi2 7f6754273700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479854947.614512851
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:49:08 MST 2016
+Description : The durability service can by identified by ID: 1654329579
+Node        : localhost.localdomain
+Process     : python2.7 <10377>
+Thread      : durability 7f67545e5700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1479854948.125064158
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:49:37 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 45274876. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10377>
+Thread      : OSPL Garbage Collector 7f67548d5700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854977.625794129
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:49:37 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 166903785. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10377>
+Thread      : OSPL Garbage Collector 7f67548d5700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854977.646684673
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:49:37 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 174791654. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10377>
+Thread      : OSPL Garbage Collector 7f67548d5700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854977.666984624
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:49:37 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 842645731. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10377>
+Thread      : OSPL Garbage Collector 7f67548d5700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854977.687253807
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:49:37 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 858246245. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10377>
+Thread      : OSPL Garbage Collector 7f67548d5700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854977.707772797
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:49:37 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 961225369. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10377>
+Thread      : OSPL Garbage Collector 7f67548d5700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854977.728199350
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:49:37 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1030755735. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10377>
+Thread      : OSPL Garbage Collector 7f67548d5700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854977.749317244
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:49:37 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1129193618. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10377>
+Thread      : OSPL Garbage Collector 7f67548d5700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854977.769689753
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:49:37 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1148132826. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10377>
+Thread      : OSPL Garbage Collector 7f67548d5700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854977.790042828
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:49:37 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1194260493. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10377>
+Thread      : OSPL Garbage Collector 7f67548d5700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854977.811362028
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:49:37 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1545147087. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10377>
+Thread      : OSPL Garbage Collector 7f67548d5700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854977.832932074
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:49:37 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1775967401. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10377>
+Thread      : OSPL Garbage Collector 7f67548d5700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854977.853453917
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:49:37 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1810728869. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10377>
+Thread      : OSPL Garbage Collector 7f67548d5700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854977.874893565
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:49:37 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1840342487. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10377>
+Thread      : OSPL Garbage Collector 7f67548d5700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854977.895723669
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:49:37 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1902684234. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10377>
+Thread      : OSPL Garbage Collector 7f67548d5700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854977.916166481
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:49:37 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1912218350. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10377>
+Thread      : OSPL Garbage Collector 7f67548d5700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854977.936454309
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:49:37 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1990920015. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10377>
+Thread      : OSPL Garbage Collector 7f67548d5700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479854977.957490131
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:50:53 MST 2016
+Description : Not installing a signal handler for the already ignored signal 13.
+Node        : localhost.localdomain
+Process     : python2.7 <10580>
+Thread      : main thread 7f2430fdb740
+Internals   : V6.4.140320OSS/24b1387/24b1387/os_signalHandlerThread/os_signalHandler.c/793/0/1479855053.504569181
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:50:53 MST 2016
+Description : u_domainNew:Database allocated on heap
+Node        : localhost.localdomain
+Process     : python2.7 <10580>
+Thread      : spliced 7f2430ffe700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1479855053.512117934
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:50:53 MST 2016
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : localhost.localdomain
+Process     : python2.7 <10580>
+Thread      : spliced 7f2430ffe700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1479855053.515135261
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:50:53 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <10580>
+Thread      : spliced 7f2430ffe700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479855053.516525787
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:50:53 MST 2016
+Description : using network interface enp0s3 (140.252.32.171) selected arbitrarily from: enp0s3, virbr0
+
+Node        : localhost.localdomain
+Process     : python2.7 <10580>
+Thread      : ddsi2 7f241dd09700
+Internals   : V6.4.140320OSS/24b1387/24b1387/ddsi2/q_nwif.c/668/0/1479855053.527883037
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:50:53 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <10580>
+Thread      : ddsi2 7f241dd09700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479855053.534813844
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:50:53 MST 2016
+Description : The durability service can by identified by ID: 1983122700
+Node        : localhost.localdomain
+Process     : python2.7 <10580>
+Thread      : durability 7f241e07b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1479855053.941281738
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:51:19 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 45274876. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10580>
+Thread      : OSPL Garbage Collector 7f241e36b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855079.533933126
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:51:19 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 166903785. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10580>
+Thread      : OSPL Garbage Collector 7f241e36b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855079.554347493
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:51:19 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 174791654. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10580>
+Thread      : OSPL Garbage Collector 7f241e36b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855079.574628919
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:51:19 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 842645731. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10580>
+Thread      : OSPL Garbage Collector 7f241e36b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855079.597257275
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:51:19 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 858246245. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10580>
+Thread      : OSPL Garbage Collector 7f241e36b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855079.617789497
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:51:19 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 961225369. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10580>
+Thread      : OSPL Garbage Collector 7f241e36b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855079.638118865
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:51:19 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1030755735. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10580>
+Thread      : OSPL Garbage Collector 7f241e36b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855079.658272309
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:51:19 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1129193618. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10580>
+Thread      : OSPL Garbage Collector 7f241e36b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855079.678992312
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:51:19 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1148132826. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10580>
+Thread      : OSPL Garbage Collector 7f241e36b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855079.699943718
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:51:19 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1194260493. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10580>
+Thread      : OSPL Garbage Collector 7f241e36b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855079.722051857
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:51:19 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1545147087. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10580>
+Thread      : OSPL Garbage Collector 7f241e36b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855079.742686622
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:51:19 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1645463830. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10580>
+Thread      : OSPL Garbage Collector 7f241e36b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855079.764076068
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:51:19 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1775967401. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10580>
+Thread      : OSPL Garbage Collector 7f241e36b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855079.785015300
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:51:19 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1810728869. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10580>
+Thread      : OSPL Garbage Collector 7f241e36b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855079.805486908
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:51:19 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1840342487. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10580>
+Thread      : OSPL Garbage Collector 7f241e36b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855079.825936565
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:51:19 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1902684234. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10580>
+Thread      : OSPL Garbage Collector 7f241e36b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855079.846887436
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:51:19 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1912218350. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10580>
+Thread      : OSPL Garbage Collector 7f241e36b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855079.868093654
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:51:19 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1990920015. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10580>
+Thread      : OSPL Garbage Collector 7f241e36b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855079.888446799
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:51:31 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1645463830. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <10580>
+Thread      : OSPL Garbage Collector 7f241e36b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855091.539032479
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:52:31 MST 2016
+Description : Not installing a signal handler for the already ignored signal 13.
+Node        : localhost.localdomain
+Process     : python2.7 <10681>
+Thread      : main thread 7f453b994740
+Internals   : V6.4.140320OSS/24b1387/24b1387/os_signalHandlerThread/os_signalHandler.c/793/0/1479855151.409944041
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:52:31 MST 2016
+Description : u_domainNew:Database allocated on heap
+Node        : localhost.localdomain
+Process     : python2.7 <10681>
+Thread      : spliced 7f453b9b7700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1479855151.411164750
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:52:31 MST 2016
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : localhost.localdomain
+Process     : python2.7 <10681>
+Thread      : spliced 7f453b9b7700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1479855151.415378021
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:52:31 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <10681>
+Thread      : spliced 7f453b9b7700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479855151.417755346
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:52:31 MST 2016
+Description : using network interface enp0s3 (140.252.32.171) selected arbitrarily from: enp0s3, virbr0
+
+Node        : localhost.localdomain
+Process     : python2.7 <10681>
+Thread      : ddsi2 7f45286c2700
+Internals   : V6.4.140320OSS/24b1387/24b1387/ddsi2/q_nwif.c/668/0/1479855151.419706311
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:52:31 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <10681>
+Thread      : ddsi2 7f45286c2700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479855151.424913701
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:52:31 MST 2016
+Description : The durability service can by identified by ID: 1295994267
+Node        : localhost.localdomain
+Process     : python2.7 <10681>
+Thread      : durability 7f4528a34700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1479855151.732866758
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:52:46 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_enable(967904366), but hexapod::command_test(786614926) defined
+Node        : localhost.localdomain
+Process     : python2.7 <10681>
+Thread      : OSPL Kernel Manager 7f453b84d700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479855166.135151924
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:52:46 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_configureVelocity(1714456574), but hexapod::command_test(786614926) defined
+Node        : localhost.localdomain
+Process     : python2.7 <10681>
+Thread      : OSPL Kernel Manager 7f453b84d700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479855166.137023272
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:52:46 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_offset(-2028362611), but hexapod::command_test(786614926) defined
+Node        : localhost.localdomain
+Process     : python2.7 <10681>
+Thread      : OSPL Kernel Manager 7f453b84d700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479855166.138431753
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:52:46 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_start(-1633664759), but hexapod::command_test(786614926) defined
+Node        : localhost.localdomain
+Process     : python2.7 <10681>
+Thread      : OSPL Kernel Manager 7f453b84d700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479855166.139294256
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:52:46 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_abort(-1299888566), but hexapod::command_test(786614926) defined
+Node        : localhost.localdomain
+Process     : python2.7 <10681>
+Thread      : OSPL Kernel Manager 7f453b84d700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479855166.139926150
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:52:50 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'durability' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <10681>
+Thread      : durability 7f4528a34700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479855170.631078264
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:54:23 MST 2016
+Description : Not installing a signal handler for the already ignored signal 13.
+Node        : localhost.localdomain
+Process     : python2.7 <10785>
+Thread      : main thread 7fe26aa5e740
+Internals   : V6.4.140320OSS/24b1387/24b1387/os_signalHandlerThread/os_signalHandler.c/793/0/1479855263.110957329
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:54:23 MST 2016
+Description : u_domainNew:Database allocated on heap
+Node        : localhost.localdomain
+Process     : python2.7 <10785>
+Thread      : spliced 7fe26aa81700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1479855263.112691110
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:54:23 MST 2016
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : localhost.localdomain
+Process     : python2.7 <10785>
+Thread      : spliced 7fe26aa81700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1479855263.116338163
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:54:23 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <10785>
+Thread      : spliced 7fe26aa81700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479855263.117506226
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:54:23 MST 2016
+Description : using network interface enp0s3 (140.252.32.171) selected arbitrarily from: enp0s3, virbr0
+
+Node        : localhost.localdomain
+Process     : python2.7 <10785>
+Thread      : ddsi2 7fe253721700
+Internals   : V6.4.140320OSS/24b1387/24b1387/ddsi2/q_nwif.c/668/0/1479855263.120270116
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:54:23 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <10785>
+Thread      : ddsi2 7fe253721700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479855263.123361568
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:54:23 MST 2016
+Description : The durability service can by identified by ID: 1347966416
+Node        : localhost.localdomain
+Process     : python2.7 <10785>
+Thread      : durability 7fe253a93700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1479855263.330243361
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:54:41 MST 2016
+Description : Not installing a signal handler for the already ignored signal 13.
+Node        : localhost.localdomain
+Process     : python2.7 <10839>
+Thread      : main thread 7f5470e96740
+Internals   : V6.4.140320OSS/24b1387/24b1387/os_signalHandlerThread/os_signalHandler.c/793/0/1479855281.142732793
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:54:41 MST 2016
+Description : u_domainNew:Database allocated on heap
+Node        : localhost.localdomain
+Process     : python2.7 <10839>
+Thread      : spliced 7f5470eb9700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1479855281.143418767
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:54:41 MST 2016
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : localhost.localdomain
+Process     : python2.7 <10839>
+Thread      : spliced 7f5470eb9700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1479855281.147858792
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:54:41 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <10839>
+Thread      : spliced 7f5470eb9700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479855281.148861806
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:54:41 MST 2016
+Description : using network interface enp0s3 (140.252.32.171) selected arbitrarily from: enp0s3, virbr0
+
+Node        : localhost.localdomain
+Process     : python2.7 <10839>
+Thread      : ddsi2 7f545dbc4700
+Internals   : V6.4.140320OSS/24b1387/24b1387/ddsi2/q_nwif.c/668/0/1479855281.151374204
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:54:41 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <10839>
+Thread      : ddsi2 7f545dbc4700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479855281.156035766
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:54:41 MST 2016
+Description : The durability service can by identified by ID: 1782615927
+Node        : localhost.localdomain
+Process     : python2.7 <10839>
+Thread      : durability 7f545df36700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1479855281.363143909
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:55:03 MST 2016
+Description : Not installing a signal handler for the already ignored signal 13.
+Node        : localhost.localdomain
+Process     : python2.7 <11476>
+Thread      : main thread 7f4607f8e740
+Internals   : V6.4.140320OSS/24b1387/24b1387/os_signalHandlerThread/os_signalHandler.c/793/0/1479855303.217503935
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:55:03 MST 2016
+Description : u_domainNew:Database allocated on heap
+Node        : localhost.localdomain
+Process     : python2.7 <11476>
+Thread      : spliced 7f4607fb1700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1479855303.218612919
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:55:03 MST 2016
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : localhost.localdomain
+Process     : python2.7 <11476>
+Thread      : spliced 7f4607fb1700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1479855303.222176132
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:55:03 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <11476>
+Thread      : spliced 7f4607fb1700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479855303.223317935
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:55:03 MST 2016
+Description : using network interface enp0s3 (140.252.32.171) selected arbitrarily from: enp0s3, virbr0
+
+Node        : localhost.localdomain
+Process     : python2.7 <11476>
+Thread      : ddsi2 7f45f4cbc700
+Internals   : V6.4.140320OSS/24b1387/24b1387/ddsi2/q_nwif.c/668/0/1479855303.228418450
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:55:03 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <11476>
+Thread      : ddsi2 7f45f4cbc700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479855303.232166364
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:55:03 MST 2016
+Description : The durability service can by identified by ID: 1390819846
+Node        : localhost.localdomain
+Process     : python2.7 <11476>
+Thread      : durability 7f45f502e700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1479855303.341796376
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:55:25 MST 2016
+Description : Not installing a signal handler for the already ignored signal 13.
+Node        : localhost.localdomain
+Process     : python2.7 <11530>
+Thread      : main thread 7f475f41e740
+Internals   : V6.4.140320OSS/24b1387/24b1387/os_signalHandlerThread/os_signalHandler.c/793/0/1479855325.798654875
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:55:25 MST 2016
+Description : u_domainNew:Database allocated on heap
+Node        : localhost.localdomain
+Process     : python2.7 <11530>
+Thread      : spliced 7f475f441700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1479855325.800399903
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:55:25 MST 2016
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : localhost.localdomain
+Process     : python2.7 <11530>
+Thread      : spliced 7f475f441700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1479855325.803518795
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:55:25 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <11530>
+Thread      : spliced 7f475f441700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479855325.804503160
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:55:25 MST 2016
+Description : using network interface enp0s3 (140.252.32.171) selected arbitrarily from: enp0s3, virbr0
+
+Node        : localhost.localdomain
+Process     : python2.7 <11530>
+Thread      : ddsi2 7f474c14c700
+Internals   : V6.4.140320OSS/24b1387/24b1387/ddsi2/q_nwif.c/668/0/1479855325.811091405
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:55:25 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <11530>
+Thread      : ddsi2 7f474c14c700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479855325.815990321
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:55:25 MST 2016
+Description : The durability service can by identified by ID: 225157544
+Node        : localhost.localdomain
+Process     : python2.7 <11530>
+Thread      : durability 7f474c4be700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1479855325.923282243
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:55:55 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 45274876. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11530>
+Thread      : OSPL Garbage Collector 7f474c7ae700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855355.823754148
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:55:55 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 166903785. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11530>
+Thread      : OSPL Garbage Collector 7f474c7ae700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855355.844157539
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:55:55 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 174791654. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11530>
+Thread      : OSPL Garbage Collector 7f474c7ae700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855355.867623218
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:55:55 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 842645731. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11530>
+Thread      : OSPL Garbage Collector 7f474c7ae700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855355.888809507
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:55:55 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 858246245. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11530>
+Thread      : OSPL Garbage Collector 7f474c7ae700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855355.910339319
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:55:55 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 961225369. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11530>
+Thread      : OSPL Garbage Collector 7f474c7ae700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855355.930778300
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:55:55 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1030755735. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11530>
+Thread      : OSPL Garbage Collector 7f474c7ae700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855355.951191433
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:55:55 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1129193618. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11530>
+Thread      : OSPL Garbage Collector 7f474c7ae700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855355.971747429
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:55:55 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1148132826. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11530>
+Thread      : OSPL Garbage Collector 7f474c7ae700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855355.992160902
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:55:56 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1194260493. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11530>
+Thread      : OSPL Garbage Collector 7f474c7ae700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855356.012782016
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:55:56 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1545147087. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11530>
+Thread      : OSPL Garbage Collector 7f474c7ae700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855356.034624680
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:55:56 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1775967401. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11530>
+Thread      : OSPL Garbage Collector 7f474c7ae700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855356.055936966
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:55:56 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1810728869. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11530>
+Thread      : OSPL Garbage Collector 7f474c7ae700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855356.076549964
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:55:56 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1840342487. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11530>
+Thread      : OSPL Garbage Collector 7f474c7ae700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855356.096852805
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:55:56 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1902684234. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11530>
+Thread      : OSPL Garbage Collector 7f474c7ae700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855356.117184201
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:55:56 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1912218350. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11530>
+Thread      : OSPL Garbage Collector 7f474c7ae700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855356.137458610
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:55:56 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1990920015. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11530>
+Thread      : OSPL Garbage Collector 7f474c7ae700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855356.158443000
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:56:24 MST 2016
+Description : Not installing a signal handler for the already ignored signal 13.
+Node        : localhost.localdomain
+Process     : python2.7 <11594>
+Thread      : main thread 7f749e426740
+Internals   : V6.4.140320OSS/24b1387/24b1387/os_signalHandlerThread/os_signalHandler.c/793/0/1479855384.021865710
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:56:24 MST 2016
+Description : u_domainNew:Database allocated on heap
+Node        : localhost.localdomain
+Process     : python2.7 <11594>
+Thread      : spliced 7f749e449700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1479855384.023294906
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:56:24 MST 2016
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : localhost.localdomain
+Process     : python2.7 <11594>
+Thread      : spliced 7f749e449700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1479855384.026949497
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:56:24 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <11594>
+Thread      : spliced 7f749e449700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479855384.028252116
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:56:24 MST 2016
+Description : using network interface enp0s3 (140.252.32.171) selected arbitrarily from: enp0s3, virbr0
+
+Node        : localhost.localdomain
+Process     : python2.7 <11594>
+Thread      : ddsi2 7f748b156700
+Internals   : V6.4.140320OSS/24b1387/24b1387/ddsi2/q_nwif.c/668/0/1479855384.030853458
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:56:24 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <11594>
+Thread      : ddsi2 7f748b156700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479855384.037323087
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:56:24 MST 2016
+Description : The durability service can by identified by ID: 1946736969
+Node        : localhost.localdomain
+Process     : python2.7 <11594>
+Thread      : durability 7f748b4c8700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1479855384.441048540
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:56:42 MST 2016
+Description : Not installing a signal handler for the already ignored signal 13.
+Node        : localhost.localdomain
+Process     : python2.7 <11648>
+Thread      : main thread 7fa62f180740
+Internals   : V6.4.140320OSS/24b1387/24b1387/os_signalHandlerThread/os_signalHandler.c/793/0/1479855402.298284690
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:56:42 MST 2016
+Description : u_domainNew:Database allocated on heap
+Node        : localhost.localdomain
+Process     : python2.7 <11648>
+Thread      : spliced 7fa62f1a3700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1479855402.299386740
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:56:42 MST 2016
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : localhost.localdomain
+Process     : python2.7 <11648>
+Thread      : spliced 7fa62f1a3700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1479855402.303360619
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:56:42 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <11648>
+Thread      : spliced 7fa62f1a3700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479855402.303866815
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:56:42 MST 2016
+Description : using network interface enp0s3 (140.252.32.171) selected arbitrarily from: enp0s3, virbr0
+
+Node        : localhost.localdomain
+Process     : python2.7 <11648>
+Thread      : ddsi2 7fa61c11f700
+Internals   : V6.4.140320OSS/24b1387/24b1387/ddsi2/q_nwif.c/668/0/1479855402.306380274
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:56:42 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <11648>
+Thread      : ddsi2 7fa61c11f700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479855402.313929512
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:56:42 MST 2016
+Description : The durability service can by identified by ID: 211873096
+Node        : localhost.localdomain
+Process     : python2.7 <11648>
+Thread      : durability 7fa61c220700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1479855402.619026034
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:57:12 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 45274876. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11648>
+Thread      : OSPL Garbage Collector 7fa61c510700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855432.326694261
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:57:12 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 166903785. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11648>
+Thread      : OSPL Garbage Collector 7fa61c510700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855432.347977779
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:57:12 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 174791654. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11648>
+Thread      : OSPL Garbage Collector 7fa61c510700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855432.369334727
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:57:12 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 842645731. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11648>
+Thread      : OSPL Garbage Collector 7fa61c510700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855432.389833630
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:57:12 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 858246245. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11648>
+Thread      : OSPL Garbage Collector 7fa61c510700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855432.410199657
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:57:12 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 961225369. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11648>
+Thread      : OSPL Garbage Collector 7fa61c510700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855432.431431865
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:57:12 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1030755735. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11648>
+Thread      : OSPL Garbage Collector 7fa61c510700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855432.451855414
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:57:12 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1129193618. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11648>
+Thread      : OSPL Garbage Collector 7fa61c510700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855432.472241650
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:57:12 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1148132826. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11648>
+Thread      : OSPL Garbage Collector 7fa61c510700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855432.493218894
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:57:12 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1194260493. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11648>
+Thread      : OSPL Garbage Collector 7fa61c510700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855432.513585102
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:57:12 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1545147087. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11648>
+Thread      : OSPL Garbage Collector 7fa61c510700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855432.534762025
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:57:12 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1775967401. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11648>
+Thread      : OSPL Garbage Collector 7fa61c510700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855432.555240939
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:57:12 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1810728869. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11648>
+Thread      : OSPL Garbage Collector 7fa61c510700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855432.575617014
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:57:12 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1840342487. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11648>
+Thread      : OSPL Garbage Collector 7fa61c510700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855432.596001843
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:57:12 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1902684234. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11648>
+Thread      : OSPL Garbage Collector 7fa61c510700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855432.616332212
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:57:12 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1912218350. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11648>
+Thread      : OSPL Garbage Collector 7fa61c510700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855432.636809449
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:57:12 MST 2016
+Description : Missed heartbeat for node - heartbeat id : 1990920015. (DCPSPublication state 1)
+Node        : localhost.localdomain
+Process     : python2.7 <11648>
+Thread      : OSPL Garbage Collector 7fa61c510700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/2439/0/1479855432.657116843
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:57:38 MST 2016
+Description : Not installing a signal handler for the already ignored signal 13.
+Node        : localhost.localdomain
+Process     : python2.7 <12090>
+Thread      : main thread 7f3a0eadd740
+Internals   : V6.4.140320OSS/24b1387/24b1387/os_signalHandlerThread/os_signalHandler.c/793/0/1479855458.293530697
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:57:38 MST 2016
+Description : u_domainNew:Database allocated on heap
+Node        : localhost.localdomain
+Process     : python2.7 <12090>
+Thread      : spliced 7f3a0eb00700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1479855458.294674619
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:57:38 MST 2016
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : localhost.localdomain
+Process     : python2.7 <12090>
+Thread      : spliced 7f3a0eb00700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1479855458.298310730
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:57:38 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <12090>
+Thread      : spliced 7f3a0eb00700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479855458.299791669
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:57:38 MST 2016
+Description : using network interface enp0s3 (140.252.32.171) selected arbitrarily from: enp0s3, virbr0
+
+Node        : localhost.localdomain
+Process     : python2.7 <12090>
+Thread      : ddsi2 7f39fb80b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/ddsi2/q_nwif.c/668/0/1479855458.302601441
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:57:38 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <12090>
+Thread      : ddsi2 7f39fb80b700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479855458.309841266
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:57:38 MST 2016
+Description : The durability service can by identified by ID: 1618357465
+Node        : localhost.localdomain
+Process     : python2.7 <12090>
+Thread      : durability 7f39fbb7d700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1479855458.917433075
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:57:58 MST 2016
+Description : Not installing a signal handler for the already ignored signal 13.
+Node        : localhost.localdomain
+Process     : python2.7 <12151>
+Thread      : main thread 7ff47d15b740
+Internals   : V6.4.140320OSS/24b1387/24b1387/os_signalHandlerThread/os_signalHandler.c/793/0/1479855478.750295091
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:57:58 MST 2016
+Description : u_domainNew:Database allocated on heap
+Node        : localhost.localdomain
+Process     : python2.7 <12151>
+Thread      : spliced 7ff47d17e700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1479855478.752006152
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:57:58 MST 2016
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : localhost.localdomain
+Process     : python2.7 <12151>
+Thread      : spliced 7ff47d17e700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1479855478.754849973
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:57:58 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <12151>
+Thread      : spliced 7ff47d17e700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479855478.755700621
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:57:58 MST 2016
+Description : using network interface enp0s3 (140.252.32.171) selected arbitrarily from: enp0s3, virbr0
+
+Node        : localhost.localdomain
+Process     : python2.7 <12151>
+Thread      : ddsi2 7ff469e89700
+Internals   : V6.4.140320OSS/24b1387/24b1387/ddsi2/q_nwif.c/668/0/1479855478.758274878
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:57:58 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <12151>
+Thread      : ddsi2 7ff469e89700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479855478.762106455
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:57:59 MST 2016
+Description : The durability service can by identified by ID: 1766545116
+Node        : localhost.localdomain
+Process     : python2.7 <12151>
+Thread      : durability 7ff46a1fb700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1479855479.170654982
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:58:17 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_enable(967904366), but hexapod::command_test(786614926) defined
+Node        : localhost.localdomain
+Process     : python2.7 <12151>
+Thread      : OSPL Kernel Manager 7ff47d014700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479855497.593045674
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:58:17 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_configureVelocity(1714456574), but hexapod::command_test(786614926) defined
+Node        : localhost.localdomain
+Process     : python2.7 <12151>
+Thread      : OSPL Kernel Manager 7ff47d014700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479855497.594243802
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:58:17 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_offset(-2028362611), but hexapod::command_test(786614926) defined
+Node        : localhost.localdomain
+Process     : python2.7 <12151>
+Thread      : OSPL Kernel Manager 7ff47d014700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479855497.595539010
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:58:17 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_start(-1633664759), but hexapod::command_test(786614926) defined
+Node        : localhost.localdomain
+Process     : python2.7 <12151>
+Thread      : OSPL Kernel Manager 7ff47d014700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479855497.596217837
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:58:17 MST 2016
+Description : Inconsistent topic keyedCommand on types: hexapod::command_abort(-1299888566), but hexapod::command_test(786614926) defined
+Node        : localhost.localdomain
+Process     : python2.7 <12151>
+Thread      : OSPL Kernel Manager 7ff47d014700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_spliced/v_spliced.c/560/0/1479855497.596888998
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:58:21 MST 2016
+Description : Not installing a signal handler for the already ignored signal 13.
+Node        : localhost.localdomain
+Process     : python2.7 <12926>
+Thread      : main thread 7f43c4f34740
+Internals   : V6.4.140320OSS/24b1387/24b1387/os_signalHandlerThread/os_signalHandler.c/793/0/1479855501.025368298
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:58:21 MST 2016
+Description : u_domainNew:Database allocated on heap
+Node        : localhost.localdomain
+Process     : python2.7 <12926>
+Thread      : spliced 7f43c4f57700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1479855501.026747612
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:58:21 MST 2016
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : localhost.localdomain
+Process     : python2.7 <12926>
+Thread      : spliced 7f43c4f57700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1479855501.030682171
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:58:21 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <12926>
+Thread      : spliced 7f43c4f57700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479855501.033257254
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:58:21 MST 2016
+Description : using network interface enp0s3 (140.252.32.171) selected arbitrarily from: enp0s3, virbr0
+
+Node        : localhost.localdomain
+Process     : python2.7 <12926>
+Thread      : ddsi2 7f43b1c62700
+Internals   : V6.4.140320OSS/24b1387/24b1387/ddsi2/q_nwif.c/668/0/1479855501.037926446
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:58:21 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <12926>
+Thread      : ddsi2 7f43b1c62700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479855501.041583333
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:58:21 MST 2016
+Description : The durability service can by identified by ID: 413424659
+Node        : localhost.localdomain
+Process     : python2.7 <12926>
+Thread      : durability 7f43b1fd4700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1479855501.948242877
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:59:05 MST 2016
+Description : Not installing a signal handler for the already ignored signal 13.
+Node        : localhost.localdomain
+Process     : python2.7 <12989>
+Thread      : main thread 7f282fc04740
+Internals   : V6.4.140320OSS/24b1387/24b1387/os_signalHandlerThread/os_signalHandler.c/793/0/1479855545.685061770
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:59:05 MST 2016
+Description : u_domainNew:Database allocated on heap
+Node        : localhost.localdomain
+Process     : python2.7 <12989>
+Thread      : spliced 7f282fc27700
+Internals   : V6.4.140320OSS/24b1387/24b1387/user::u_domain::u_domainNew/u_domain.c/706/0/1479855545.685795944
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:59:05 MST 2016
+Description : ---------------------------------------------------------------
+              -- The service is using the following configuration settings --
+              ---------------------------------------------------------------
+              Domain (id)          : ospl_sp_ddsi (0)
+              Storage              : 10240 Kbytes
+              Storage threshold    : 1024 Kbytes
+              Storage address      : Not available
+              Locking              : default
+              Memory mode          : Heap memory
+              Builtin topics       : true
+              Priority inheritance : false
+Node        : localhost.localdomain
+Process     : python2.7 <12989>
+Thread      : spliced 7f282fc27700
+Internals   : V6.4.140320OSS/24b1387/24b1387/The OpenSplice domain service/u_domain.c/827/0/1479855545.689684229
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:59:05 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'splicedaemon' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <12989>
+Thread      : spliced 7f282fc27700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479855545.690249477
+========================================================================================
+Report      : WARNING
+Date        : Tue Nov 22 15:59:05 MST 2016
+Description : using network interface enp0s3 (140.252.32.171) selected arbitrarily from: enp0s3, virbr0
+
+Node        : localhost.localdomain
+Process     : python2.7 <12989>
+Thread      : ddsi2 7f281c934700
+Internals   : V6.4.140320OSS/24b1387/24b1387/ddsi2/q_nwif.c/668/0/1479855545.691240398
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:59:05 MST 2016
+Description : ++++++++++++++++++++++++++++++++++++++++++++++++
+              ++ The service 'ddsi2' is now operational. 
+              ++++++++++++++++++++++++++++++++++++++++++++++++
+Node        : localhost.localdomain
+Process     : python2.7 <12989>
+Thread      : ddsi2 7f281c934700
+Internals   : V6.4.140320OSS/24b1387/24b1387/v_serviceChangeState/v_service.c/329/0/1479855545.699828166
+========================================================================================
+Report      : INFO
+Date        : Tue Nov 22 15:59:06 MST 2016
+Description : The durability service can by identified by ID: 619071527
+Node        : localhost.localdomain
+Process     : python2.7 <12989>
+Thread      : durability 7f281cca6700
+Internals   : V6.4.140320OSS/24b1387/24b1387/DurabilityService/d_durability.c/476/0/1479855546.213094309

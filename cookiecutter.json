@@ -1,0 +1,11 @@
+{
+    "full_name"                 : "Philip N. Daly",
+    "email"                     : "pdaly@lsst.org",
+    "github_username"           : "pndaly",
+    "project_name"              : "LSST TS OCS Sequencer",
+    "repo_name"                 : "ts_ocs_sequencer",
+    "project_short_description" : "LSST TS OCS Sequencer contains code for the OCS sequencer component",
+    "release_date"              : "2016-11-15",
+    "year"                      : "2016",
+    "version"                   : "0.1.0"
+}
