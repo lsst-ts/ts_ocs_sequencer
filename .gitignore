@@ -25,6 +25,8 @@ pip-log.txt
 .tox
 nosetests.xml
 htmlcov
+ospl-info.log
+ospl-error.log
 
 # Translations
 *.mo
