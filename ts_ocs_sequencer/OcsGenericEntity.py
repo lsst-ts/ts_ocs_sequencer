@@ -76,11 +76,13 @@ class OcsGenericEntity(object):
         self.logger.debug("Starting {0:s} {1:s} commandable entity".format(self._system, self._entity))
 
         # send event with payload
-        self.evh = OcsEvents(False)
-        if self.evh:
-            self.startup_ocsid = ocs_id(False)
-            self.evh.sendEvent('ocsCommandableEntityStartup', Name='{0:1}-{1:s}'.format(self._system, self._entity), 
-                Identifier=float(self.startup_ocsid), Timestamp=ocs_mjd_to_iso(self.startup_ocsid), Address=id(self.evh), priority=SAL__EVENT_INFO)
+        self._instance_evh = OcsEvents(False)
+        self._instance_ocsid = ocs_id(False)
+        self._instance_name = '{0:1}-{1:s}-{2:d}'.format(self._system, self._entity, id(self)) 
+        if self._instance_evh:
+            self._instance_evh.sendEvent('ocsCommandableEntityStartup', Name=self._instance_name,
+                Identifier=float(self._instance_ocsid), Timestamp=ocs_mjd_to_iso(self._instance_ocsid), 
+                Address=id(self._instance_evh), priority=SAL__EVENT_INFO)
 
         # declare some variables and initialize them
         self.logger.debug("Initializing variables")
@@ -121,6 +123,7 @@ class OcsGenericEntity(object):
         self.__stop_retval = None
 
         # method agument value(s)
+        self._ocsid = None
         self._device = None
         self._parameter = None
         self._startid = None
@@ -195,11 +198,11 @@ class OcsGenericEntity(object):
     # method: __del__()
     # -
     def __del__(self):
-        if self.evh:
-            self.ocsid = ocs_id(False)
+        if self._instance_evh:
             try:
-                self.evh.sendEvent('ocsCommandableEntityShutdown', Name='{0:1}-{1:s}'.format(self._system, self._entity), 
-                    Identifier=float(self.startup_ocsid), Timestamp=ocs_mjd_to_iso(self.startup_ocsid), Address=id(self.evh), priority=SAL__EVENT_INFO)
+                self._instance_evh.sendEvent('ocsCommandableEntityShutdown', Name=self._instance_name,
+                    Identifier=float(self._instance_ocsid), Timestamp=ocs_mjd_to_iso(self._instance_ocsid), 
+                    Address=id(self._instance_evh), priority=SAL__EVENT_INFO)
             except:
                 pass
 
@@ -215,15 +218,46 @@ class OcsGenericEntity(object):
             return so()
 
     # +
-    # (hiddetn method: _get_cmd_status()
+    # (hidden) method: _get_cmd_status()
     # -
-    def _get_cmd_status(self, command='', retval=-1):
-        if retval == SAL__CMD_COMPLETE:
-            self.logger.debug("command {0:s} completed ok".format(command))
+    def _get_cmd_status(self, command='', seqnum=-1, retval=-1):
+        if retval == SAL__CMD_ACK:
+            self._status='{0:s} ({1:d}) acknowledged'.format(command, seqnum)
+            self.logger.debug(self._status)
+        elif retval == SAL__CMD_INPROGRESS:
+            self._status='{0:s} ({1:d}) in progress'.format(command, seqnum)
+            self.logger.debug(self._status)
+        elif retval == SAL__CMD_STALLED:
+            self._status='{0:s} ({1:d}) stalled'.format(command, seqnum)
+            self.logger.debug(self._status)
+        elif retval == SAL__CMD_COMPLETE:
+            self._status='{0:s} ({1:d}) complete'.format(command, seqnum)
+            self.logger.debug(self._status)
+        elif retval == SAL__CMD_NOPERM:
+            self._status='{0:s} ({1:d}) no permission'.format(command, seqnum)
+            self.logger.debug(self._status)
+        elif retval == SAL__CMD_NOACK:
+            self._status='{0:s} ({1:d}) no acknowledgement'.format(command, seqnum)
+            self.logger.debug(self._status)
+        elif retval == SAL__CMD_FAILED:
+            self._status='{0:s} ({1:d}) failed'.format(command, seqnum)
+            self.logger.debug(self._status)
         elif retval == SAL__CMD_ABORTED:
-            self.logger.debug("command {0:s} aborted ok".format(command))
+            self._status='{0:s} ({1:d}) aborted'.format(command, seqnum)
+            self.logger.debug(self._status)
+        elif retval == SAL__CMD_TIMEOUT:
+            self._status='{0:s} ({1:d}) timed out'.format(command, seqnum)
+            self.logger.debug(self._status)
         else:
-            self.logger.critical("command {0:s} failed".format(command))
+            self._status='{0:s} ({1:d}) unknown error'.format(command, seqnum)
+            self.logger.critical(self._status)
+
+        if self._instance_evh:
+            self._ocsid = ocs_id(False)
+            self._instance_evh.sendEvent('ocsCommandStatus', CommandSource=self._instance_name,
+                SequenceNumber=long(seqnum), Identifier=float(self._ocsid), Timestamp=ocs_mjd_to_iso(self._ocsid),
+                CommandSent=command, Status=self._status, StatusValue=long(retval), priority=SAL__EVENT_INFO)
+
 
     # +
     # method: abort()
@@ -245,33 +279,33 @@ class OcsGenericEntity(object):
         # send command
         else:
             if self.__mgr and self.__abortC:
-                cname = '{0:s}_command_abort'.format(self._entity_lc)
+                cname = '{0:s}_command_abort timeout={1:d}'.format(self._entity_lc, self._timeout)
 
                 # set up command (cf. mgr.salCommand("camera_command_abort"))
-                self.logger.debug("setting up for command {0:s}".format(cname))
+                self.logger.debug("setting up: {0:s}".format(cname))
                 self.__mgr.salCommand(cname)
 
                 # set up payload (cf. data = camera_command_abortC(); data.state = 'ok')
                 self.__abortC.state = os.getenv('USER')
 
                 # issue command (cf. id = mgr.issueCommand_abort(data))
-                self.logger.debug("issuing command {0:s}".format(cname))
+                self.logger.debug("issuing: {0:s}".format(cname))
                 self.__abort_id = self.__mgr.issueCommand_abort(self.__abortC)
-                self.logger.debug("issued command {0:s}, id={1:d}".format(cname,self.__abort_id))
+                self.logger.debug("issued: {0:s}, id={1:d}".format(cname,self.__abort_id))
 
                 # issue an event
-                if self.evh:
-                    self.ocsid = ocs_id(False)
-                    self.evh.sendEvent('ocsCommandIssued', CommandSource='{0:1}-{1:s}-{2:d}'.format(self._system, self._entity, id(self)), 
-                        SequenceNumber=long(self.__abort_id), Identifier=float(self.ocsid), Timestamp=ocs_mjd_to_iso(self.ocsid),
-                        CommandSent=cname, ReturnValue=long(SAL__CMD_INPROGRESS), priority=SAL__EVENT_INFO)
+                if self._instance_evh:
+                    self._ocsid = ocs_id(False)
+                    self._instance_evh.sendEvent('ocsCommandIssued', CommandSource=self._instance_name,
+                        SequenceNumber=long(self.__abort_id), Identifier=float(self._ocsid), Timestamp=ocs_mjd_to_iso(self._ocsid),
+                        CommandSent=cname, ReturnValue=long(SAL__CMD_ACK), priority=SAL__EVENT_INFO)
 
                 # wait for command (cf. retval = mgr.waitForCompletion_abort(id, timeout))
                 if self._timeout > 0:
-                    self.logger.debug("waiting for command {0:s} to complete".format(cname))
+                    self.logger.debug("waiting for: {0:s}".format(cname))
                     self.__abort_retval = self.__mgr.waitForCompletion_abort(self.__abort_id, self._timeout)
-                    self.logger.debug("waited for command {0:s} to complete, retval={1:d}".format(cname,self.__abort_retval))
-                    self._get_cmd_status(cname, self.__abort_retval)
+                    self.logger.debug("waited for: {0:s}, retval={1:d}".format(cname,self.__abort_retval))
+                    self._get_cmd_status(cname, self.__abort_id, self.__abort_retval)
         self.logger.debug("abort() exit")
 
     # +
@@ -294,33 +328,33 @@ class OcsGenericEntity(object):
         # send command
         else:
             if self.__mgr and self.__disableC:
-                cname = '{0:s}_command_disable'.format(self._entity_lc)
+                cname = '{0:s}_command_disable timeout={1:d}'.format(self._entity_lc, self._timeout)
 
                 # set up command (cf. mgr.salCommand("camera_command_disable"))
-                self.logger.debug("setting up for command {0:s}".format(cname))
+                self.logger.debug("setting up: {0:s}".format(cname))
                 self.__mgr.salCommand(cname)
 
                 # set up payload (cf. data = camera_command_disableC(); data.state = 'ok')
                 self.__disableC.state = os.getenv('USER')
 
                 # issue command (cf. id = mgr.issueCommand_disable(data))
-                self.logger.debug("issuing command {0:s}".format(cname))
+                self.logger.debug("issuing: {0:s}".format(cname))
                 self.__disable_id = self.__mgr.issueCommand_disable(self.__disableC)
-                self.logger.debug("issued command {0:s}, id={1:d}".format(cname,self.__disable_id))
+                self.logger.debug("issued: {0:s}, id={1:d}".format(cname,self.__disable_id))
 
                 # issue an event
-                if self.evh:
-                    self.ocsid = ocs_id(False)
-                    self.evh.sendEvent('ocsCommandIssued', CommandSource='{0:1}-{1:s}-{2:d}'.format(self._system, self._entity, id(self)), 
-                        SequenceNumber=long(self.__disable_id), Identifier=float(self.ocsid), Timestamp=ocs_mjd_to_iso(self.ocsid),
-                        CommandSent=cname, ReturnValue=long(SAL__CMD_INPROGRESS), priority=SAL__EVENT_INFO)
+                if self._instance_evh:
+                    self._ocsid = ocs_id(False)
+                    self._instance_evh.sendEvent('ocsCommandIssued', CommandSource=self._instance_name,
+                        SequenceNumber=long(self.__disable_id), Identifier=float(self._ocsid), Timestamp=ocs_mjd_to_iso(self._ocsid),
+                        CommandSent=cname, ReturnValue=long(SAL__CMD_ACK), priority=SAL__EVENT_INFO)
 
                 # wait for command (cf. retval = mgr.waitForCompletion_disable(id, timeout))
                 if self._timeout > 0:
-                    self.logger.debug("waiting for command {0:s} to complete".format(cname))
+                    self.logger.debug("waiting for: {0:s}".format(cname))
                     self.__disable_retval = self.__mgr.waitForCompletion_disable(self.__disable_id, self._timeout)
-                    self.logger.debug("waited for command {0:s} to complete, retval={1:d}".format(cname,self.__disable_retval))
-                    self._get_cmd_status(cname, self.__disable_retval)
+                    self.logger.debug("waited for: {0:s}, retval={1:d}".format(cname,self.__disable_retval))
+                    self._get_cmd_status(cname, self.__disable_id, self.__disable_retval)
         self.logger.debug("disable() exit")
 
     # +
@@ -343,33 +377,33 @@ class OcsGenericEntity(object):
         # send command
         else:
             if self.__mgr and self.__enableC:
-                cname = '{0:s}_command_enable'.format(self._entity_lc)
+                cname = '{0:s}_command_enable timeout={1:d}'.format(self._entity_lc, self._timeout)
 
                 # set up command (cf. mgr.salCommand("camera_command_enable"))
-                self.logger.debug("setting up for command {0:s}".format(cname))
+                self.logger.debug("setting up: {0:s}".format(cname))
                 self.__mgr.salCommand(cname)
 
                 # set up payload (cf. data = camera_command_enableC(); data.state = 'ok')
                 self.__enableC.state = os.getenv('USER')
 
                 # issue command (cf. id = mgr.issueCommand_enable(data))
-                self.logger.debug("issuing command {0:s}".format(cname))
+                self.logger.debug("issuing: {0:s}".format(cname))
                 self.__enable_id = self.__mgr.issueCommand_enable(self.__enableC)
-                self.logger.debug("issued command {0:s}, id={1:d}".format(cname,self.__enable_id))
+                self.logger.debug("issued: {0:s}, id={1:d}".format(cname,self.__enable_id))
 
                 # issue an event
-                if self.evh:
-                    self.ocsid = ocs_id(False)
-                    self.evh.sendEvent('ocsCommandIssued', CommandSource='{0:1}-{1:s}-{2:d}'.format(self._system, self._entity, id(self)), 
-                        SequenceNumber=long(self.__enable_id), Identifier=float(self.ocsid), Timestamp=ocs_mjd_to_iso(self.ocsid),
-                        CommandSent=cname, ReturnValue=long(SAL__CMD_INPROGRESS), priority=SAL__EVENT_INFO)
+                if self._instance_evh:
+                    self._ocsid = ocs_id(False)
+                    self._instance_evh.sendEvent('ocsCommandIssued', CommandSource=self._instance_name,
+                        SequenceNumber=long(self.__enable_id), Identifier=float(self._ocsid), Timestamp=ocs_mjd_to_iso(self._ocsid),
+                        CommandSent=cname, ReturnValue=long(SAL__CMD_ACK), priority=SAL__EVENT_INFO)
 
                 # wait for command (cf. retval = mgr.waitForCompletion_enable(id, timeout))
                 if self._timeout > 0:
-                    self.logger.debug("waiting for command {0:s} to complete".format(cname))
+                    self.logger.debug("waiting for: {0:s}".format(cname))
                     self.__enable_retval = self.__mgr.waitForCompletion_enable(self.__enable_id, self._timeout)
-                    self.logger.debug("waited for command {0:s} to complete, retval={1:d}".format(cname,self.__enable_retval))
-                    self._get_cmd_status(cname, self.__enable_retval)
+                    self.logger.debug("waited for: {0:s}, retval={1:d}".format(cname,self.__enable_retval))
+                    self._get_cmd_status(cname, self.__enable_id, self.__enable_retval)
         self.logger.debug("enable() exit")
 
     # +
@@ -392,33 +426,33 @@ class OcsGenericEntity(object):
         # send command
         else:
             if self.__mgr and self.__entercontrolC:
-                cname = '{0:s}_command_enterControl'.format(self._entity_lc)
+                cname = '{0:s}_command_enterControl timeout={1:d}'.format(self._entity_lc, self._timeout)
 
                 # set up command (cf. mgr.salCommand("camera_command_enterControl"))
-                self.logger.debug("setting up for command {0:s}".format(cname))
+                self.logger.debug("setting up: {0:s}".format(cname))
                 self.__mgr.salCommand(cname)
 
                 # set up payload (cf. data = camera_command_enterControlC(); data.state = 'ok')
                 self.__entercontrolC.state = os.getenv('USER')
 
                 # issue command (cf. id = mgr.issueCommand_enterControl(data))
-                self.logger.debug("issuing command {0:s}".format(cname))
+                self.logger.debug("issuing: {0:s}".format(cname))
                 self.__entercontrol_id = self.__mgr.issueCommand_enterControl(self.__entercontrolC)
-                self.logger.debug("issued command {0:s}, id={1:d}".format(cname,self.__entercontrol_id))
+                self.logger.debug("issued: {0:s}, id={1:d}".format(cname,self.__entercontrol_id))
 
                 # issue an event
-                if self.evh:
-                    self.ocsid = ocs_id(False)
-                    self.evh.sendEvent('ocsCommandIssued', CommandSource='{0:1}-{1:s}-{2:d}'.format(self._system, self._entity, id(self)), 
-                        SequenceNumber=long(self.__entercontrol_id), Identifier=float(self.ocsid), Timestamp=ocs_mjd_to_iso(self.ocsid),
-                        CommandSent=cname, ReturnValue=long(SAL__CMD_INPROGRESS), priority=SAL__EVENT_INFO)
+                if self._instance_evh:
+                    self._ocsid = ocs_id(False)
+                    self._instance_evh.sendEvent('ocsCommandIssued', CommandSource=self._instance_name,
+                        SequenceNumber=long(self.__entercontrol_id), Identifier=float(self._ocsid), Timestamp=ocs_mjd_to_iso(self._ocsid),
+                        CommandSent=cname, ReturnValue=long(SAL__CMD_ACK), priority=SAL__EVENT_INFO)
 
                 # wait for command (cf. retval = mgr.waitForCompletion_enterControl(id, timeout))
                 if self._timeout > 0:
-                    self.logger.debug("waiting for command {0:s} to complete".format(cname))
+                    self.logger.debug("waiting for: {0:s}".format(cname))
                     self.__entercontrol_retval = self.__mgr.waitForCompletion_enterControl(self.__entercontrol_id, self._timeout)
-                    self.logger.debug("waited for command {0:s} to complete, retval={1:d}".format(cname,self.__entercontrol_retval))
-                    self._get_cmd_status(cname, self.__entercontrol_retval)
+                    self.logger.debug("waited for: {0:s}, retval={1:d}".format(cname,self.__entercontrol_retval))
+                    self._get_cmd_status(cname, self.__entercontrol_id, self.__entercontrol_retval)
         self.logger.debug("entercontrol() exit")
 
 
@@ -442,33 +476,33 @@ class OcsGenericEntity(object):
         # send command
         else:
             if self.__mgr and self.__exitcontrolC:
-                cname = '{0:s}_command_exitControl'.format(self._entity_lc)
+                cname = '{0:s}_command_exitControl timeout={1:d}'.format(self._entity_lc, self._timeout)
 
                 # set up command (cf. mgr.salCommand("camera_command_exitControl"))
-                self.logger.debug("setting up for command {0:s}".format(cname))
+                self.logger.debug("setting up: {0:s}".format(cname))
                 self.__mgr.salCommand(cname)
 
                 # set up payload (cf. data = camera_command_exitControlC(); data.state = 'ok')
                 self.__exitcontrolC.state = os.getenv('USER')
 
                 # issue command (cf. id = mgr.issueCommand_exitControl(data))
-                self.logger.debug("issuing command {0:s}".format(cname))
+                self.logger.debug("issuing: {0:s}".format(cname))
                 self.__exitcontrol_id = self.__mgr.issueCommand_exitControl(self.__exitcontrolC)
-                self.logger.debug("issued command {0:s}, id={1:d}".format(cname,self.__exitcontrol_id))
+                self.logger.debug("issued: {0:s}, id={1:d}".format(cname,self.__exitcontrol_id))
 
                 # issue an event
-                if self.evh:
-                    self.ocsid = ocs_id(False)
-                    self.evh.sendEvent('ocsCommandIssued', CommandSource='{0:1}-{1:s}-{2:d}'.format(self._system, self._entity, id(self)), 
-                        SequenceNumber=long(self.__exitcontrol_id), Identifier=float(self.ocsid), Timestamp=ocs_mjd_to_iso(self.ocsid),
-                        CommandSent=cname, ReturnValue=long(SAL__CMD_INPROGRESS), priority=SAL__EVENT_INFO)
+                if self._instance_evh:
+                    self._ocsid = ocs_id(False)
+                    self._instance_evh.sendEvent('ocsCommandIssued', CommandSource=self._instance_name,
+                        SequenceNumber=long(self.__exitcontrol_id), Identifier=float(self._ocsid), Timestamp=ocs_mjd_to_iso(self._ocsid),
+                        CommandSent=cname, ReturnValue=long(SAL__CMD_ACK), priority=SAL__EVENT_INFO)
 
                 # wait for command (cf. retval = mgr.waitForCompletion_exitControl(id, timeout))
                 if self._timeout > 0:
-                    self.logger.debug("waiting for command {0:s} to complete".format(cname))
+                    self.logger.debug("waiting for: {0:s}".format(cname))
                     self.__exitcontrol_retval = self.__mgr.waitForCompletion_exitControl(self.__exitcontrol_id, self._timeout)
-                    self.logger.debug("waited for command {0:s} to complete, retval={1:d}".format(cname,self.__exitcontrol_retval))
-                    self._get_cmd_status(cname, self.__exitcontrol_retval)
+                    self.logger.debug("waited for: {0:s}, retval={1:d}".format(cname,self.__exitcontrol_retval))
+                    self._get_cmd_status(cname, self.__exitcontrol_id, self.__exitcontrol_retval)
         self.logger.debug("exitcontrol() exit")
 
     # +
@@ -499,10 +533,10 @@ class OcsGenericEntity(object):
         # send command
         else:
             if self.__mgr and self.__setvalueC:
-                cname = '{0:s}_command_setValue'.format(self._entity_lc)
+                cname = '{0:s}_command_setValue parameter={1:s} value={2:s} timeout={3:d}'.format(self._entity_lc, self._parameter, self._value, self._timeout)
 
                 # set up command (cf. mgr.salCommand("camera_command_setValue"))
-                self.logger.debug("setting up for command {0:s}".format(cname))
+                self.logger.debug("setting up: {0:s}".format(cname))
                 self.__mgr.salCommand(cname)
 
                 # set up payload (cf. data = camera_command_setValueC(); data.state = 'ok')
@@ -510,23 +544,23 @@ class OcsGenericEntity(object):
                 self.__setvalueC.value = self._value
 
                 # issue command (cf. id = mgr.issueCommand_setValue(data))
-                self.logger.debug("issuing command {0:s}".format(cname))
+                self.logger.debug("issuing: {0:s}".format(cname))
                 self.__setvalue_id = self.__mgr.issueCommand_setValue(self.__setvalueC)
-                self.logger.debug("issued command {0:s}, id={1:d}".format(cname,self.__setvalue_id))
+                self.logger.debug("issued: {0:s}, id={1:d}".format(cname,self.__setvalue_id))
 
                 # issue an event
-                if self.evh:
-                    self.ocsid = ocs_id(False)
-                    self.evh.sendEvent('ocsCommandIssued', CommandSource='{0:1}-{1:s}-{2:d}'.format(self._system, self._entity, id(self)), 
-                        SequenceNumber=long(self.__setvalue_id), Identifier=float(self.ocsid), Timestamp=ocs_mjd_to_iso(self.ocsid),
-                        CommandSent=cname, ReturnValue=long(SAL__CMD_INPROGRESS), priority=SAL__EVENT_INFO)
+                if self._instance_evh:
+                    self._ocsid = ocs_id(False)
+                    self._instance_evh.sendEvent('ocsCommandIssued', CommandSource=self._instance_name,
+                        SequenceNumber=long(self.__setvalue_id), Identifier=float(self._ocsid), Timestamp=ocs_mjd_to_iso(self._ocsid),
+                        CommandSent=cname, ReturnValue=long(SAL__CMD_ACK), priority=SAL__EVENT_INFO)
 
                 # wait for command (cf. retval = mgr.waitForCompletion_setValue(id, timeout))
                 if self._timeout > 0:
-                    self.logger.debug("waiting for command {0:s} to complete".format(cname))
+                    self.logger.debug("waiting for: {0:s}".format(cname))
                     self.__setvalue_retval = self.__mgr.waitForCompletion_setValue(self.__setvalue_id, self._timeout)
-                    self.logger.debug("waited for command {0:s} to complete, retval={1:d}".format(cname,self.__setvalue_retval))
-                    self._get_cmd_status(cname, self.__setvalue_retval)
+                    self.logger.debug("waited for: {0:s}, retval={1:d}".format(cname,self.__setvalue_retval))
+                    self._get_cmd_status(cname, self.__setvalue_id, self.__setvalue_retval)
         self.logger.debug("setvalue() exit")
 
     # +
@@ -549,33 +583,33 @@ class OcsGenericEntity(object):
         # send command
         else:
             if self.__mgr and self.__standbyC:
-                cname = '{0:s}_command_standby'.format(self._entity_lc)
+                cname = '{0:s}_command_standby timeout={1:d}'.format(self._entity_lc, self._timeout)
 
                 # set up command (cf. mgr.salCommand("camera_command_standby"))
-                self.logger.debug("setting up for command {0:s}".format(cname))
+                self.logger.debug("setting up: {0:s}".format(cname))
                 self.__mgr.salCommand(cname)
 
                 # set up payload (cf. data = camera_command_standbyC(); data.state = 'ok')
                 self.__standbyC.state = os.getenv('USER')
 
                 # issue command (cf. id = mgr.issueCommand_standby(data))
-                self.logger.debug("issuing command {0:s}".format(cname))
+                self.logger.debug("issuing: {0:s}".format(cname))
                 self.__standby_id = self.__mgr.issueCommand_standby(self.__standbyC)
-                self.logger.debug("issued command {0:s}, id={1:d}".format(cname,self.__standby_id))
+                self.logger.debug("issued: {0:s}, id={1:d}".format(cname,self.__standby_id))
 
                 # issue an event
-                if self.evh:
-                    self.ocsid = ocs_id(False)
-                    self.evh.sendEvent('ocsCommandIssued', CommandSource='{0:1}-{1:s}-{2:d}'.format(self._system, self._entity, id(self)), 
-                        SequenceNumber=long(self.__standby_id), Identifier=float(self.ocsid), Timestamp=ocs_mjd_to_iso(self.ocsid),
-                        CommandSent=cname, ReturnValue=long(SAL__CMD_INPROGRESS), priority=SAL__EVENT_INFO)
+                if self._instance_evh:
+                    self._ocsid = ocs_id(False)
+                    self._instance_evh.sendEvent('ocsCommandIssued', CommandSource=self._instance_name,
+                        SequenceNumber=long(self.__standby_id), Identifier=float(self._ocsid), Timestamp=ocs_mjd_to_iso(self._ocsid),
+                        CommandSent=cname, ReturnValue=long(SAL__CMD_ACK), priority=SAL__EVENT_INFO)
 
                 # wait for command (cf. retval = mgr.waitForCompletion_standby(id, timeout))
                 if self._timeout > 0:
-                    self.logger.debug("waiting for command {0:s} to complete".format(cname))
+                    self.logger.debug("waiting for: {0:s}".format(cname))
                     self.__standby_retval = self.__mgr.waitForCompletion_standby(self.__standby_id, self._timeout)
-                    self.logger.debug("waited for command {0:s} to complete, retval={1:d}".format(cname,self.__standby_retval))
-                    self._get_cmd_status(cname, self.__standby_retval)
+                    self.logger.debug("waited for: {0:s}, retval={1:d}".format(cname,self.__standby_retval))
+                    self._get_cmd_status(cname, self.__standby_id, self.__standby_retval)
         self.logger.debug("standby() exit")
 
     # +
@@ -602,33 +636,33 @@ class OcsGenericEntity(object):
         # send command
         else:
             if self.__mgr and self.__startC:
-                cname = '{0:s}_command_start'.format(self._entity_lc)
+                cname = '{0:s}_command_start startid={1:s} timeout={2:d}'.format(self._entity_lc, self._startid, self._timeout)
 
                 # set up command (cf. mgr.salCommand("camera_command_start"))
-                self.logger.debug("setting up for command {0:s}".format(cname))
+                self.logger.debug("setting up: {0:s}".format(cname))
                 self.__mgr.salCommand(cname)
 
                 # set up payload (cf. data = camera_command_startC(); data.configuration = 'ok')
                 self.__startC.configuration = self._startid
 
                 # issue command (cf. id = mgr.issueCommand_start(data))
-                self.logger.debug("issuing command {0:s}".format(cname))
+                self.logger.debug("issuing: {0:s}".format(cname))
                 self.__start_id = self.__mgr.issueCommand_start(self.__startC)
-                self.logger.debug("issued command {0:s}, id={1:d}".format(cname,self.__start_id))
+                self.logger.debug("issued: {0:s}, id={1:d}".format(cname,self.__start_id))
 
                 # issue an event
-                if self.evh:
-                    self.ocsid = ocs_id(False)
-                    self.evh.sendEvent('ocsCommandIssued', CommandSource='{0:1}-{1:s}-{2:d}'.format(self._system, self._entity, id(self)), 
-                        SequenceNumber=long(self.__start_id), Identifier=float(self.ocsid), Timestamp=ocs_mjd_to_iso(self.ocsid),
-                        CommandSent=cname, ReturnValue=long(SAL__CMD_INPROGRESS), priority=SAL__EVENT_INFO)
+                if self._instance_evh:
+                    self._ocsid = ocs_id(False)
+                    self._instance_evh.sendEvent('ocsCommandIssued', CommandSource=self._instance_name,
+                        SequenceNumber=long(self.__start_id), Identifier=float(self._ocsid), Timestamp=ocs_mjd_to_iso(self._ocsid),
+                        CommandSent=cname, ReturnValue=long(SAL__CMD_ACK), priority=SAL__EVENT_INFO)
 
                 # wait for command (cf. retval = mgr.waitForCompletion_start(id, timeout))
                 if self._timeout > 0:
-                    self.logger.debug("waiting for command {0:s} to complete".format(cname))
+                    self.logger.debug("waiting for: {0:s}".format(cname))
                     self.__start_retval = self.__mgr.waitForCompletion_start(self.__start_id, self._timeout)
-                    self.logger.debug("waited for command {0:s} to complete, retval={1:d}".format(cname,self.__start_retval))
-                    self._get_cmd_status(cname, self.__start_retval)
+                    self.logger.debug("waited for: {0:s}, retval={1:d}".format(cname,self.__start_retval))
+                    self._get_cmd_status(cname, self.__start_id, self.__start_retval)
         self.logger.debug("start() exit")
 
     # +
@@ -655,33 +689,33 @@ class OcsGenericEntity(object):
         # send command
         else:
             if self.__mgr and self.__stopC:
-                cname = '{0:s}_command_stop'.format(self._entity_lc)
+                cname = '{0:s}_command_stop device={1:s} timeout={2:d}'.format(self._entity_lc, self._device, self._timeout)
 
                 # set up command (cf. mgr.salCommand("camera_command_stop"))
-                self.logger.debug("setting up for command {0:s}".format(cname))
+                self.logger.debug("setting up: {0:s}".format(cname))
                 self.__mgr.salCommand(cname)
 
                 # set up payload (cf. data = camera_command_stopC(); data.state = 'ok')
                 self.__stopC.state = os.getenv('USER')
 
                 # issue command (cf. id = mgr.issueCommand_stop(data))
-                self.logger.debug("issuing command {0:s}".format(cname))
+                self.logger.debug("issuing: {0:s}".format(cname))
                 self.__stop_id = self.__mgr.issueCommand_stop(self.__stopC)
-                self.logger.debug("issued command {0:s}, id={1:d}".format(cname,self.__stop_id))
+                self.logger.debug("issued: {0:s}, id={1:d}".format(cname,self.__stop_id))
 
                 # issue an event
-                if self.evh:
-                    self.ocsid = ocs_id(False)
-                    self.evh.sendEvent('ocsCommandIssued', CommandSource='{0:1}-{1:s}-{2:d}'.format(self._system, self._entity, id(self)), 
-                        SequenceNumber=long(self.__stop_id), Identifier=float(self.ocsid), Timestamp=ocs_mjd_to_iso(self.ocsid),
-                        CommandSent=cname, ReturnValue=long(SAL__CMD_INPROGRESS), priority=SAL__EVENT_INFO)
+                if self._instance_evh:
+                    self._ocsid = ocs_id(False)
+                    self._instance_evh.sendEvent('ocsCommandIssued', CommandSource=self._instance_name,
+                        SequenceNumber=long(self.__stop_id), Identifier=float(self._ocsid), Timestamp=ocs_mjd_to_iso(self._ocsid),
+                        CommandSent=cname, ReturnValue=long(SAL__CMD_ACK), priority=SAL__EVENT_INFO)
 
                 # wait for command (cf. retval = mgr.waitForCompletion_stop(id, timeout))
                 if self._timeout > 0:
-                    self.logger.debug("waiting for command {0:s} to complete".format(cname))
+                    self.logger.debug("waiting for: {0:s}".format(cname))
                     self.__stop_retval = self.__mgr.waitForCompletion_stop(self.__stop_id, self._timeout)
-                    self.logger.debug("waited for command {0:s} to complete, retval={1:d}".format(cname,self.__stop_retval))
-                    self._get_cmd_status(cname, self.__stop_retval)
+                    self.logger.debug("waited for: {0:s}, retval={1:d}".format(cname,self.__stop_retval))
+                    self._get_cmd_status(cname, self.__stop_id, self.__stop_retval)
         self.logger.debug("stop() exit")
 
     # +
