@@ -75,14 +75,14 @@ class OcsGenericEntity(object):
         self.logger = OcsLogger(self._system, self._entity).logger
         self.logger.debug("Starting {0:s} {1:s} commandable entity".format(self._system, self._entity))
 
-        # send event with payload
+        # set up event publication
+        self._ocsid = ocs_id(False)
         self._instance_evh = OcsEvents(False)
-        self._instance_ocsid = ocs_id(False)
-        self._instance_name = '{0:1}-{1:s}-{2:d}'.format(self._system, self._entity, id(self)) 
+        self._instance_name = '{0:1}-{1:s}-{2:.17f}'.format(self._system, self._entity, float(self._ocsid))
         if self._instance_evh:
             self._instance_evh.sendEvent('ocsCommandableEntityStartup', Name=self._instance_name,
-                Identifier=float(self._instance_ocsid), Timestamp=ocs_mjd_to_iso(self._instance_ocsid), 
-                Address=id(self._instance_evh), priority=SAL__EVENT_INFO)
+                Identifier=float(self._ocsid), Timestamp=ocs_mjd_to_iso(self._ocsid), 
+                Address=id(self), priority=SAL__EVENT_INFO)
 
         # declare some variables and initialize them
         self.logger.debug("Initializing variables")
@@ -199,12 +199,10 @@ class OcsGenericEntity(object):
     # -
     def __del__(self):
         if self._instance_evh:
-            try:
-                self._instance_evh.sendEvent('ocsCommandableEntityShutdown', Name=self._instance_name,
-                    Identifier=float(self._instance_ocsid), Timestamp=ocs_mjd_to_iso(self._instance_ocsid), 
-                    Address=id(self._instance_evh), priority=SAL__EVENT_INFO)
-            except:
-                pass
+            self._ocsid = ocs_id(False)
+            self._instance_evh.sendEvent('ocsCommandableEntityStartup', Name=self._instance_name,
+                Identifier=float(self._ocsid), Timestamp=ocs_mjd_to_iso(self._ocsid), 
+                Address=id(self), priority=SAL__EVENT_INFO)
 
     # +
     # (hidden) method: _get_sal_cmdC()
@@ -257,7 +255,6 @@ class OcsGenericEntity(object):
             self._instance_evh.sendEvent('ocsCommandStatus', CommandSource=self._instance_name,
                 SequenceNumber=long(seqnum), Identifier=float(self._ocsid), Timestamp=ocs_mjd_to_iso(self._ocsid),
                 CommandSent=command, Status=self._status, StatusValue=long(retval), priority=SAL__EVENT_INFO)
-
 
     # +
     # method: abort()
