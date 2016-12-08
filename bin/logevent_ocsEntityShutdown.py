@@ -38,7 +38,7 @@ if __name__ == "__main__":
 
     # get a logger
     evlog = OcsLogger('Events', 'ocsEntityShutdown')
-    evlog.logger.info('{0:s} starting up'.format(sys.argv[0]))
+    evlog.logger.info('{0:s} starting up'.format(__file__))
 
     # connect to SAL
     mgr = SAL_ocs()
@@ -50,13 +50,13 @@ if __name__ == "__main__":
     event = ocs_logevent_ocsEntityShutdownC()
 
     # log message
-    evlog.logger.info('{0:s} ready'.format(sys.argv[0]))
+    evlog.logger.info('{0:s} ready'.format(__file__))
 
     # loop forever
     while True:
         retval = mgr.getEvent_ocsEntityShutdown(event)
         if retval == 0:
-            evlog.logger.info('{0:s} event received'.format(sys.argv[0]))
+            evlog.logger.info('{0:s} event received'.format(__file__))
             evlog.logger.info('\tevent.Name       = {0:s}'.format(event.Name))
             evlog.logger.info('\tevent.Identifier = {0:.17f}'.format(event.Identifier))
             evlog.logger.info('\tevent.Timestamp  = {0:s}'.format(event.Timestamp))
@@ -65,7 +65,7 @@ if __name__ == "__main__":
         time.sleep(1)
 
     # shutdown
-    evlog.logger.info('{0:s} shutting down'.format(sys.argv[0]))
+    evlog.logger.info('{0:s} shutting down'.format(__file__))
     mgr.salShutdown()
     exit()
 
