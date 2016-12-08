@@ -26,7 +26,7 @@ __copyright__ = u"\N{COPYRIGHT SIGN} AURA/LSST 2016. All rights reserved. Releas
 __date__ = "31 October 2016"
 __doc__ = """Event logger for specific event in the OCS"""
 __email__ = "pdaly@lsst.org"
-__file__ = "logevent_ocsCommandableEntityShutdown.py"
+__file__ = "logevent_ocsEntityStartup.py"
 __history__ = __date__ + ": " + "original version (" + __email__ + ")"
 __version__ = "0.1.0"
 
@@ -37,24 +37,24 @@ __version__ = "0.1.0"
 if __name__ == "__main__":
 
     # get a logger
-    evlog = OcsLogger('Events', 'ocsCommandableEntityShutdown')
+    evlog = OcsLogger('Events', 'ocsEntityStartup')
     evlog.logger.info('{0:s} starting up'.format(sys.argv[0]))
 
     # connect to SAL
     mgr = SAL_ocs()
 
     # set up for specific event
-    mgr.salEvent('ocs_logevent_ocsCommandableEntityShutdown')
+    mgr.salEvent('ocs_logevent_ocsEntityStartup')
 
     # create event container
-    event = ocs_logevent_ocsCommandableEntityShutdownC()
+    event = ocs_logevent_ocsEntityStartupC()
 
     # log message
     evlog.logger.info('{0:s} ready'.format(sys.argv[0]))
 
     # loop forever
     while True:
-        retval = mgr.getEvent_ocsCommandableEntityShutdown(event)
+        retval = mgr.getEvent_ocsEntityStartup(event)
         if retval == 0:
             evlog.logger.info('{0:s} event received'.format(sys.argv[0]))
             evlog.logger.info('\tevent.Name       = {0:s}'.format(event.Name))
