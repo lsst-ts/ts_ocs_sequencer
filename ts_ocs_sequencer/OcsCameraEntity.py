@@ -195,7 +195,7 @@ class OcsCameraEntity(OcsGenericEntity):
                     self.logger.debug("waiting for command {0:s} to complete".format(self._ename))
                     self.__initGuiders_retval = self.__mgr.waitForCompletion_initGuiders(self.__initGuiders_id, self._timeout)
                     self.logger.debug("waited for command {0:s} to complete, retval={1:d}".format(self._ename,self.__initGuiders_retval))
-                    self._get_cmd_status(self._ename, self.__initGuiders_retval)
+                    self._get_cmd_status(self._ename, self.__initGuiders_id, self.__initGuiders_retval)
         self.logger.debug("initGuiders() exit")
 
 
@@ -251,7 +251,7 @@ class OcsCameraEntity(OcsGenericEntity):
                     self.logger.debug("waiting for command {0:s} to complete".format(self._ename))
                     self.__initImage_retval = self.__mgr.waitForCompletion_initImage(self.__initImage_id, self._timeout)
                     self.logger.debug("waited for command {0:s} to complete, retval={1:d}".format(self._ename,self.__initImage_retval))
-                    self._get_cmd_status(self._ename, self.__initImage_retval)
+                    self._get_cmd_status(self._ename, self.__initImage_id, self.__initImage_retval)
         self.logger.debug("initImage() exit")
 
 
@@ -307,7 +307,7 @@ class OcsCameraEntity(OcsGenericEntity):
                     self.logger.debug("waiting for command {0:s} to complete".format(self._ename))
                     self.__setFilter_retval = self.__mgr.waitForCompletion_setFilter(self.__setFilter_id, self._timeout)
                     self.logger.debug("waited for command {0:s} to complete, retval={1:d}".format(self._ename,self.__setFilter_retval))
-                    self._get_cmd_status(self._ename, self.__setFilter_retval)
+                    self._get_cmd_status(self._ename, self.__setFilter_id, self.__setFilter_retval)
         self.logger.debug("setFilter() exit")
 
 
@@ -401,7 +401,7 @@ class OcsCameraEntity(OcsGenericEntity):
                     self.logger.debug("waiting for command {0:s} to complete".format(self._ename))
                     self.__takeImages_retval = self.__mgr.waitForCompletion_takeImages(self.__takeImages_id, self._timeout)
                     self.logger.debug("waited for command {0:s} to complete, retval={1:d}".format(self._ename,self.__takeImages_retval))
-                    self._get_cmd_status(self._ename, self.__takeImages_retval)
+                    self._get_cmd_status(self._ename, self.__takeImages_id, self.__takeImages_retval)
         self.logger.debug("takeImages() exit")
 
     # +
@@ -528,8 +528,8 @@ if __name__ == "__main__":
         camlog.debug("camera.filter('i-9', 60)")
         camera.setFilter('i-9', 60)
 
-        camlog.debug("camera.initImage(1.5)")
-        camera.initImage(1.5)
+        camlog.debug("camera.initImage(2.5)")
+        camera.initImage(2.5)
 
         camlog.debug("camera takeImages(2, 15.0, True, True, True, False, 'pndTest', 40)")
         camera.takeImages(2, 15.0, True, True, True, False, "pndTest", 40)
@@ -547,4 +547,8 @@ if __name__ == "__main__":
 
         camlog.info("camera.exitcontrol()")
         camera.exitcontrol()
+
+        # execute destructor
+        camlog.info("camera.__del__()")
+        camera.__del__()
 
