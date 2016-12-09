@@ -549,6 +549,6 @@ if __name__ == "__main__":
         camera.exitcontrol()
 
         # execute destructor
-        camlog.info("camera.__del__()")
-        camera.__del__()
+        camlog.info("del camera")
+        del camera
 

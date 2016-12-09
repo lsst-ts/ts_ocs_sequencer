@@ -101,6 +101,8 @@ class OcsGenericEntity(object):
         self.__startC = None
         self.__stopC = None
 
+        # ToBeEnabled: self.__ackcmdC = None
+
         # command id(s)
         self.__abort_id = None
         self.__disable_id = None
@@ -161,6 +163,9 @@ class OcsGenericEntity(object):
         self.__startC = self._get_sal_cmdC('start')
         self.__stopC = self._get_sal_cmdC('stop')
 
+        # get data structure(s) (cf. ack = camera_ackcmdC())
+        # ToBeEnabled: self.__ackcmdC = self._get_sal_ackC()
+
         # define generic command(s) help
         self.generic_help = (
             'abort        system={0:s} entity={1:s}'.format(self._system, self._entity),
@@ -197,6 +202,19 @@ class OcsGenericEntity(object):
     # -
     def _get_sal_cmdC(self, command=''):
         sname = '{0:s}_command_{1:s}C'.format(self._entity_lc,command)
+        self.logger.debug("Getting attribute {0:s}".format(sname))
+        so = ocs_sal_attribute(self.__sal, sname)
+        if so:
+            self.logger.debug("Got attribute {0:s} ok".format(sname))
+            return so()
+        else:
+            return None
+
+    # +
+    # (hidden) method: _get_sal_ackC()
+    # -
+    def _get_sal_ackC(self):
+        sname = '{0:s}_ackcmdC'.format(self._entity_lc)
         self.logger.debug("Getting attribute {0:s}".format(sname))
         so = ocs_sal_attribute(self.__sal, sname)
         if so:
@@ -860,6 +878,6 @@ if __name__ == "__main__":
         camera.exitcontrol()
 
         # execute destructor
-        camlog.info("camera.__del__()")
-        camera.__del__()
+        camlog.info("del camera")
+        del camera
 
