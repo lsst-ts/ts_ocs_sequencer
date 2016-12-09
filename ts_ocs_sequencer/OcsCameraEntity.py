@@ -108,18 +108,18 @@ class OcsCameraEntity(OcsGenericEntity):
 
         # import the SAL (cf. from SALPY_camera import *)
         self._mname = 'SALPY_{0:s}'.format(self._entity_lc)
-        self.logger.debug("Importing {0:s}".format(self._mname))
+        self.logger.debug('Importing {0:s}'.format(self._mname))
         self.__sal = ocs_sal_import(self._mname)
         if self.__sal:
-            self.logger.debug("Imported {0:s} ok".format(self._mname))
+            self.logger.debug('Imported {0:s} ok'.format(self._mname))
 
         # get mgr object (cf. mgr = SAL_camera())
         self._aname = 'SAL_{0:s}'.format(self._entity_lc)
-        self.logger.debug("Getting attribute {0:s}".format(self._aname))
+        self.logger.debug('Getting attribute {0:s}'.format(self._aname))
         mgr = ocs_sal_attribute(self.__sal, self._aname)
         if mgr:
             self.__mgr = mgr()
-            self.logger.debug("Got attribute {0:s} ok".format(self._aname))
+            self.logger.debug('Got attribute {0:s} ok'.format(self._aname))
 
         # data structure(s) (cf. data = camera_command_initGuidersC())
         self.__initGuidersC = self._get_sal_cmdC('initGuiders')
@@ -151,19 +151,19 @@ class OcsCameraEntity(OcsGenericEntity):
 
         # check input(s)
         if not isinstance(roiSpec, str) or roiSpec == '':
-            raise OcsCameraEntityException(OCS_CAMERA_ENTITY_ERROR_NOROI, "roiSpec={0:s}".format(roiSpec))
+            raise OcsCameraEntityException(OCS_CAMERA_ENTITY_ERROR_NOROI, 'roiSpec={0:s}'.format(roiSpec))
         else:
             self._roiSpec = roiSpec
 
         if not isinstance(timeout, int) or timeout < 0:
-            raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOTIM, "timeout={0:s}".format(str(timeout)))
+            raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOTIM, 'timeout={0:s}'.format(str(timeout)))
         else:
             self._timeout = timeout
 
         # in simulation, sleep for a random time
         if self._simulate:
             stime = time.sleep(random.uniform(0, 5))
-            self.logger.debug("initGuiders(), in simulation with sleep={0:s}".format(str(stime)))
+            self.logger.info('initGuiders(), in simulation with sleep={0:s}'.format(str(stime)))
 
         # send command
         else:
@@ -171,32 +171,32 @@ class OcsCameraEntity(OcsGenericEntity):
                 self._cname = '{0:s}_command_initGuiders'.format(self._entity_lc)
                 self._ename = '{0:s}_command_initGuiders roiSpec={1:s} timeout={2:d}'.format(self._entity_lc, self._roiSpec, self._timeout)
 
-                # set up command (cf. mgr.salCommand("camera_command_initGuiders"))
-                self.logger.debug("setting up for command {0:s}".format(self._ename))
+                # set up command (cf. mgr.salCommand('camera_command_initGuiders'))
+                self.logger.debug('setting up for command {0:s}'.format(self._ename))
                 self.__mgr.salCommand(self._cname)
 
                 # set up payload (cf. data = camera_command_initGuidersC(); data.roiSpec = 'roiData')
                 self.__initGuidersC.roiSpec = self._roiSpec
 
                 # issue command (cf. id = mgr.issueCommand_initGuiders(data))
-                self.logger.debug("issuing command {0:s}".format(self._ename))
+                self.logger.debug('issuing command {0:s}'.format(self._ename))
                 self.__initGuiders_id = self.__mgr.issueCommand_initGuiders(self.__initGuidersC)
-                self.logger.debug("issued command {0:s}, id={1:d}".format(self._ename,self.__initGuiders_id))
+                self.logger.debug('issued command {0:s}, id={1:d}'.format(self._ename,self.__initGuiders_id))
 
-                # issue an event
-                if self._instance_evh:
+                # issue an ocsCommandIssued event
+                if self._instance_evp:
                     self._ocsid = ocs_id(False)
-                    self._instance_evh.sendEvent('ocsCommandIssued', CommandSource=self._instance_name,
+                    self._instance_evp.sendEvent('ocsCommandIssued', CommandSource=self._instance_name,
                         SequenceNumber=long(self.__initGuiders_id), Identifier=float(self._ocsid), Timestamp=ocs_mjd_to_iso(self._ocsid),
                         CommandSent=self._ename, ReturnValue=long(SAL__CMD_ACK), priority=SAL__EVENT_INFO)
 
                 # wait for command (cf. retval = mgr.waitForCompletion_initGuiders(id, timeout))
                 if self._timeout > 0:
-                    self.logger.debug("waiting for command {0:s} to complete".format(self._ename))
+                    self.logger.debug('waiting for command {0:s} to complete'.format(self._ename))
                     self.__initGuiders_retval = self.__mgr.waitForCompletion_initGuiders(self.__initGuiders_id, self._timeout)
-                    self.logger.debug("waited for command {0:s} to complete, retval={1:d}".format(self._ename,self.__initGuiders_retval))
+                    self.logger.debug('waited for command {0:s} to complete, retval={1:d}'.format(self._ename,self.__initGuiders_retval))
                     self._get_cmd_status(self._ename, self.__initGuiders_id, self.__initGuiders_retval)
-        self.logger.debug("initGuiders() exit")
+        self.logger.debug('initGuiders() exit')
 
 
     # +
@@ -207,19 +207,19 @@ class OcsCameraEntity(OcsGenericEntity):
 
         # check input(s)
         if not isinstance(deltaT, float) or deltaT < 0.0:
-            raise OcsCameraEntityException(OCS_CAMERA_ENTITY_ERROR_NOTIM, "deltaT={0:s}".format(deltaT))
+            raise OcsCameraEntityException(OCS_CAMERA_ENTITY_ERROR_NOTIM, 'deltaT={0:s}'.format(deltaT))
         else:
             self._deltaT = deltaT
 
         if not isinstance(timeout, int) or timeout < 0:
-            raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOTIM, "timeout={0:s}".format(str(timeout)))
+            raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOTIM, 'timeout={0:s}'.format(str(timeout)))
         else:
             self._timeout = timeout
 
         # in simulation, sleep for a random time
         if self._simulate:
             stime = time.sleep(random.uniform(0, 5))
-            self.logger.debug("initImage(), in simulation with sleep={0:s}".format(str(stime)))
+            self.logger.info('initImage(), in simulation with sleep={0:s}'.format(str(stime)))
 
         # send command
         else:
@@ -227,32 +227,32 @@ class OcsCameraEntity(OcsGenericEntity):
                 self._cname = '{0:s}_command_initImage'.format(self._entity_lc)
                 self._ename = '{0:s}_command_initImage deltaT={1:f} timeout={2:d}'.format(self._entity_lc, self._deltaT, self._timeout)
 
-                # set up command (cf. mgr.salCommand("camera_command_initImage"))
-                self.logger.debug("setting up for command {0:s}".format(self._ename))
+                # set up command (cf. mgr.salCommand('camera_command_initImage'))
+                self.logger.debug('setting up for command {0:s}'.format(self._ename))
                 self.__mgr.salCommand(self._cname)
 
                 # set up payload (cf. data = camera_command_initImageC(); data.deltaT = 5.0)
                 self.__initImageC.deltaT = self._deltaT
 
                 # issue command (cf. id = mgr.issueCommand_initImage(data))
-                self.logger.debug("issuing command {0:s}".format(self._ename))
+                self.logger.debug('issuing command {0:s}'.format(self._ename))
                 self.__initImage_id = self.__mgr.issueCommand_initImage(self.__initImageC)
-                self.logger.debug("issued command {0:s}, id={1:d}".format(self._ename,self.__initImage_id))
+                self.logger.debug('issued command {0:s}, id={1:d}'.format(self._ename,self.__initImage_id))
 
-                # issue an event
-                if self._instance_evh:
+                # issue an ocsCommandIssued event
+                if self._instance_evp:
                     self._ocsid = ocs_id(False)
-                    self._instance_evh.sendEvent('ocsCommandIssued', CommandSource=self._instance_name,
+                    self._instance_evp.sendEvent('ocsCommandIssued', CommandSource=self._instance_name,
                         SequenceNumber=long(self.__initImage_id), Identifier=float(self._ocsid), Timestamp=ocs_mjd_to_iso(self._ocsid),
                         CommandSent=self._ename, ReturnValue=long(SAL__CMD_ACK), priority=SAL__EVENT_INFO)
 
                 # wait for command (cf. retval = mgr.waitForCompletion_initImage(id, timeout))
                 if self._timeout > 0:
-                    self.logger.debug("waiting for command {0:s} to complete".format(self._ename))
+                    self.logger.debug('waiting for command {0:s} to complete'.format(self._ename))
                     self.__initImage_retval = self.__mgr.waitForCompletion_initImage(self.__initImage_id, self._timeout)
-                    self.logger.debug("waited for command {0:s} to complete, retval={1:d}".format(self._ename,self.__initImage_retval))
+                    self.logger.debug('waited for command {0:s} to complete, retval={1:d}'.format(self._ename,self.__initImage_retval))
                     self._get_cmd_status(self._ename, self.__initImage_id, self.__initImage_retval)
-        self.logger.debug("initImage() exit")
+        self.logger.debug('initImage() exit')
 
 
     # +
@@ -263,19 +263,19 @@ class OcsCameraEntity(OcsGenericEntity):
 
         # check input(s)
         if not isinstance(name, str) or name == '':
-            raise OcsCameraEntityException(OCS_CAMERA_ENTITY_ERROR_NOFIL, "name={0:s}".format(name))
+            raise OcsCameraEntityException(OCS_CAMERA_ENTITY_ERROR_NOFIL, 'name={0:s}'.format(name))
         else:
             self._name = name
 
         if not isinstance(timeout, int) or timeout < 0:
-            raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOTIM, "timeout={0:s}".format(str(timeout)))
+            raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOTIM, 'timeout={0:s}'.format(str(timeout)))
         else:
             self._timeout = timeout
 
         # in simulation, sleep for a random time
         if self._simulate:
             stime = time.sleep(random.uniform(0, 5))
-            self.logger.debug("setFilter(), in simulation with sleep={0:s}".format(str(stime)))
+            self.logger.info('setFilter(), in simulation with sleep={0:s}'.format(str(stime)))
 
         # send command
         else:
@@ -283,32 +283,32 @@ class OcsCameraEntity(OcsGenericEntity):
                 self._cname = '{0:s}_command_setFilter'.format(self._entity_lc)
                 self._ename = '{0:s}_command_setFilter name={1:s} timeout={2:d}'.format(self._entity_lc, self._name, self._timeout)
 
-                # set up command (cf. mgr.salCommand("camera_command_setFilter"))
-                self.logger.debug("setting up for command {0:s}".format(self._ename))
+                # set up command (cf. mgr.salCommand('camera_command_setFilter'))
+                self.logger.debug('setting up for command {0:s}'.format(self._ename))
                 self.__mgr.salCommand(self._cname)
 
                 # set up payload (cf. data = camera_command_setFilterC(); data.name = 'u')
                 self.__setFilterC.name = self._name
 
                 # issue command (cf. id = mgr.issueCommand_setFilter(data))
-                self.logger.debug("issuing command {0:s}".format(self._ename))
+                self.logger.debug('issuing command {0:s}'.format(self._ename))
                 self.__setFilter_id = self.__mgr.issueCommand_setFilter(self.__setFilterC)
-                self.logger.debug("issued command {0:s}, id={1:d}".format(self._ename,self.__setFilter_id))
+                self.logger.debug('issued command {0:s}, id={1:d}'.format(self._ename,self.__setFilter_id))
 
-                # issue an event
-                if self._instance_evh:
+                # issue an ocsCommandIssued event
+                if self._instance_evp:
                     self._ocsid = ocs_id(False)
-                    self._instance_evh.sendEvent('ocsCommandIssued', CommandSource=self._instance_name,
+                    self._instance_evp.sendEvent('ocsCommandIssued', CommandSource=self._instance_name,
                         SequenceNumber=long(self.__setFilter_id), Identifier=float(self._ocsid), Timestamp=ocs_mjd_to_iso(self._ocsid),
                         CommandSent=self._ename, ReturnValue=long(SAL__CMD_ACK), priority=SAL__EVENT_INFO)
 
                 # wait for command (cf. retval = mgr.waitForCompletion_setFilter(id, timeout))
                 if self._timeout > 0:
-                    self.logger.debug("waiting for command {0:s} to complete".format(self._ename))
+                    self.logger.debug('waiting for command {0:s} to complete'.format(self._ename))
                     self.__setFilter_retval = self.__mgr.waitForCompletion_setFilter(self.__setFilter_id, self._timeout)
-                    self.logger.debug("waited for command {0:s} to complete, retval={1:d}".format(self._ename,self.__setFilter_retval))
+                    self.logger.debug('waited for command {0:s} to complete, retval={1:d}'.format(self._ename,self.__setFilter_retval))
                     self._get_cmd_status(self._ename, self.__setFilter_id, self.__setFilter_retval)
-        self.logger.debug("setFilter() exit")
+        self.logger.debug('setFilter() exit')
 
 
     # +
@@ -319,42 +319,42 @@ class OcsCameraEntity(OcsGenericEntity):
 
         # check input(s)
         if not isinstance(numImages, int) or numImages < 0:
-            raise OcsCameraEntityException(OCS_CAMERA_ENTITY_ERROR_NOIMG, "numImages={0:s}".format(str(numImages)))
+            raise OcsCameraEntityException(OCS_CAMERA_ENTITY_ERROR_NOIMG, 'numImages={0:s}'.format(str(numImages)))
         else:
             self._numImages = numImages
 
         if not isinstance(expTime, float) or expTime < 0.0:
-            raise OcsCameraEntityException(OCS_CAMERA_ENTITY_ERROR_NOEXP, "expTime={0:s}".format(str(expTime)))
+            raise OcsCameraEntityException(OCS_CAMERA_ENTITY_ERROR_NOEXP, 'expTime={0:s}'.format(str(expTime)))
         else:
             self._expTime = expTime
 
         if not isinstance(shutter, bool):
-            raise OcsCameraEntityException(OCS_CAMERA_ENTITY_ERROR_NOSHT, "shutter={0:s}".format(str(shutter)))
+            raise OcsCameraEntityException(OCS_CAMERA_ENTITY_ERROR_NOSHT, 'shutter={0:s}'.format(str(shutter)))
         else:
             self._shutter = shutter
 
         if not isinstance(science, bool):
-            raise OcsCameraEntityException(OCS_CAMERA_ENTITY_ERROR_NOSCI, "science={0:s}".format(str(science)))
+            raise OcsCameraEntityException(OCS_CAMERA_ENTITY_ERROR_NOSCI, 'science={0:s}'.format(str(science)))
         else:
             self._science = science
 
         if not isinstance(guide, bool):
-            raise OcsCameraEntityException(OCS_CAMERA_ENTITY_ERROR_NOGDR, "guide={0:s}".format(str(guide)))
+            raise OcsCameraEntityException(OCS_CAMERA_ENTITY_ERROR_NOGDR, 'guide={0:s}'.format(str(guide)))
         else:
             self._guide = guide
 
         if not isinstance(wfs, bool):
-            raise OcsCameraEntityException(OCS_CAMERA_ENTITY_ERROR_NOWFS, "wfs={0:s}".format(str(wfs)))
+            raise OcsCameraEntityException(OCS_CAMERA_ENTITY_ERROR_NOWFS, 'wfs={0:s}'.format(str(wfs)))
         else:
             self._wfs = wfs
 
         if not isinstance(imageSequenceName, str) or imageSequenceName == '':
-            raise OcsCameraEntityException(OCS_CAMERA_ENTITY_ERROR_NONAM, "imageSequenceName={0:s}".format(imageSequenceName))
+            raise OcsCameraEntityException(OCS_CAMERA_ENTITY_ERROR_NONAM, 'imageSequenceName={0:s}'.format(imageSequenceName))
         else:
             self._imageSequenceName = imageSequenceName
 
         if not isinstance(timeout, int) or timeout < 0:
-            raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOTIM, "timeout={0:s}".format(str(timeout)))
+            raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOTIM, 'timeout={0:s}'.format(str(timeout)))
         else:
             self._timeout = timeout
             if self._timeout <= self._expTime*2:
@@ -363,7 +363,7 @@ class OcsCameraEntity(OcsGenericEntity):
         # in simulation, sleep for a random time
         if self._simulate:
             stime = time.sleep(random.uniform(0, 5))
-            self.logger.debug("takeImages(), in simulation with sleep={0:s}".format(str(stime)))
+            self.logger.info('takeImages(), in simulation with sleep={0:s}'.format(str(stime)))
 
         # send command
         else:
@@ -371,8 +371,8 @@ class OcsCameraEntity(OcsGenericEntity):
                 self._cname = '{0:s}_command_takeImages'.format(self._entity_lc)
                 self._ename = '{0:s}_command_takeImages numImages={1:d}, expTime={2:f}, shutter={3:s}, science={4:s}, guide={5:s}, wfs={6:s}, imageSequenceName={7:s}, timeout={8:d}'.format(self._entity_lc, self._numImages, self._expTime, str(self._shutter), str(self._science), str(self._guide), str(self._wfs), self._imageSequenceName, self._timeout)
 
-                # set up command (cf. mgr.salCommand("camera_command_takeImages"))
-                self.logger.debug("setting up for command {0:s}".format(self._ename))
+                # set up command (cf. mgr.salCommand('camera_command_takeImages'))
+                self.logger.debug('setting up for command {0:s}'.format(self._ename))
                 self.__mgr.salCommand(self._cname)
 
                 # set up payload (cf. data = camera_command_takeImagesC(); data.numImages = 2 etc)
@@ -385,24 +385,24 @@ class OcsCameraEntity(OcsGenericEntity):
                 self.__takeImagesC.imageSequenceName = self._imageSequenceName
 
                 # issue command (cf. id = mgr.issueCommand_takeImages(data))
-                self.logger.debug("issuing command {0:s}".format(self._ename))
+                self.logger.debug('issuing command {0:s}'.format(self._ename))
                 self.__takeImages_id = self.__mgr.issueCommand_takeImages(self.__takeImagesC)
-                self.logger.debug("issued command {0:s}, id={1:d}".format(self._ename,self.__takeImages_id))
+                self.logger.debug('issued command {0:s}, id={1:d}'.format(self._ename,self.__takeImages_id))
 
-                # issue an event
-                if self._instance_evh:
+                # issue an ocsCommandIssued event
+                if self._instance_evp:
                     self._ocsid = ocs_id(False)
-                    self._instance_evh.sendEvent('ocsCommandIssued', CommandSource=self._instance_name,
+                    self._instance_evp.sendEvent('ocsCommandIssued', CommandSource=self._instance_name,
                         SequenceNumber=long(self.__takeImages_id), Identifier=float(self._ocsid), Timestamp=ocs_mjd_to_iso(self._ocsid),
                         CommandSent=self._ename, ReturnValue=long(SAL__CMD_ACK), priority=SAL__EVENT_INFO)
 
                 # wait for command (cf. retval = mgr.waitForCompletion_takeImages(id, timeout))
                 if self._timeout > 0:
-                    self.logger.debug("waiting for command {0:s} to complete".format(self._ename))
+                    self.logger.debug('waiting for command {0:s} to complete'.format(self._ename))
                     self.__takeImages_retval = self.__mgr.waitForCompletion_takeImages(self.__takeImages_id, self._timeout)
-                    self.logger.debug("waited for command {0:s} to complete, retval={1:d}".format(self._ename,self.__takeImages_retval))
+                    self.logger.debug('waited for command {0:s} to complete, retval={1:d}'.format(self._ename,self.__takeImages_retval))
                     self._get_cmd_status(self._ename, self.__takeImages_id, self.__takeImages_retval)
-        self.logger.debug("takeImages() exit")
+        self.logger.debug('takeImages() exit')
 
     # +
     # decorator(s)
@@ -413,8 +413,8 @@ class OcsCameraEntity(OcsGenericEntity):
 
     @name.setter
     def name(self, name=''):
-        self.logger.critical("name cannot be reset by this method!")
-        raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOOPS, "name={0:s} cannot be set".format(str(name)))
+        self.logger.critical('name cannot be reset by this method!')
+        raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOOPS, 'name={0:s} cannot be set'.format(str(name)))
 
     @property
     def roiSpec(self):
@@ -422,8 +422,8 @@ class OcsCameraEntity(OcsGenericEntity):
 
     @roiSpec.setter
     def roiSpec(self, roiSpec=''):
-        self.logger.critical("roiSpec cannot be reset by this method!")
-        raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOOPS, "roiSpec={0:s} cannot be set".format(str(roiSpec)))
+        self.logger.critical('roiSpec cannot be reset by this method!')
+        raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOOPS, 'roiSpec={0:s} cannot be set'.format(str(roiSpec)))
 
     @property
     def deltaT(self):
@@ -431,8 +431,8 @@ class OcsCameraEntity(OcsGenericEntity):
 
     @deltaT.setter
     def deltaT(self, deltaT=0.0):
-        self.logger.critical("deltaT cannot be reset by this method!")
-        raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOOPS, "deltaT={0:s} cannot be set".format(str(deltaT)))
+        self.logger.critical('deltaT cannot be reset by this method!')
+        raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOOPS, 'deltaT={0:s} cannot be set'.format(str(deltaT)))
 
     @property
     def numImages(self):
@@ -440,8 +440,8 @@ class OcsCameraEntity(OcsGenericEntity):
 
     @numImages.setter
     def numImages(self, numImages=0):
-        self.logger.critical("numImages cannot be reset by this method!")
-        raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOOPS, "numImages={0:s} cannot be set".format(str(numImages)))
+        self.logger.critical('numImages cannot be reset by this method!')
+        raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOOPS, 'numImages={0:s} cannot be set'.format(str(numImages)))
 
     @property
     def expTime(self):
@@ -449,8 +449,8 @@ class OcsCameraEntity(OcsGenericEntity):
 
     @expTime.setter
     def expTime(self, expTime=0.0):
-        self.logger.critical("expTime cannot be reset by this method!")
-        raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOOPS, "expTime={0:s} cannot be set".format(str(expTime)))
+        self.logger.critical('expTime cannot be reset by this method!')
+        raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOOPS, 'expTime={0:s} cannot be set'.format(str(expTime)))
 
     @property
     def shutter(self):
@@ -458,8 +458,8 @@ class OcsCameraEntity(OcsGenericEntity):
 
     @shutter.setter
     def shutter(self, shutter=False):
-        self.logger.critical("shutter cannot be reset by this method!")
-        raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOOPS, "shutter={0:s} cannot be set".format(str(shutter)))
+        self.logger.critical('shutter cannot be reset by this method!')
+        raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOOPS, 'shutter={0:s} cannot be set'.format(str(shutter)))
 
     @property
     def science(self):
@@ -467,8 +467,8 @@ class OcsCameraEntity(OcsGenericEntity):
 
     @science.setter
     def science(self, science=False):
-        self.logger.critical("science cannot be reset by this method!")
-        raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOOPS, "science={0:s} cannot be set".format(str(science)))
+        self.logger.critical('science cannot be reset by this method!')
+        raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOOPS, 'science={0:s} cannot be set'.format(str(science)))
 
     @property
     def guide(self):
@@ -476,8 +476,8 @@ class OcsCameraEntity(OcsGenericEntity):
 
     @guide.setter
     def guide(self, guide=False):
-        self.logger.critical("guide cannot be reset by this method!")
-        raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOOPS, "guide={0:s} cannot be set".format(str(guide)))
+        self.logger.critical('guide cannot be reset by this method!')
+        raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOOPS, 'guide={0:s} cannot be set'.format(str(guide)))
 
     @property
     def wfs(self):
@@ -485,8 +485,8 @@ class OcsCameraEntity(OcsGenericEntity):
 
     @wfs.setter
     def wfs(self, wfs=False):
-        self.logger.critical("wfs cannot be reset by this method!")
-        raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOOPS, "wfs={0:s} cannot be set".format(str(wfs)))
+        self.logger.critical('wfs cannot be reset by this method!')
+        raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOOPS, 'wfs={0:s} cannot be set'.format(str(wfs)))
 
     @property
     def imageSequenceName(self):
@@ -494,13 +494,13 @@ class OcsCameraEntity(OcsGenericEntity):
 
     @imageSequenceName.setter
     def imageSequenceName(self, imageSequenceName=''):
-        self.logger.critical("imageSequenceName cannot be reset by this method!")
-        raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOOPS, "imageSequenceName={0:s} cannot be set".format(str(imageSequenceName)))
+        self.logger.critical('imageSequenceName cannot be reset by this method!')
+        raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOOPS, 'imageSequenceName={0:s} cannot be set'.format(str(imageSequenceName)))
 
 # +
 # main()
 # -
-if __name__ == "__main__":
+if __name__ == '__main__':
 
     camera = None
     try:
@@ -512,43 +512,43 @@ if __name__ == "__main__":
 
         # get logger
         camlog = camera.logger
-        camlog.info("{0:s}".format(camera.__str__()))
+        camlog.info('{0:s}'.format(camera.__str__()))
 
         # start of night
-        camlog.info("camera.entercontrol()")
+        camlog.info('camera.entercontrol()')
         camera.entercontrol()
 
-        camlog.info("camera.start(Normal)")
+        camlog.info('camera.start(\'Normal\')')
         camera.start('Normal')
 
-        camlog.info("camera.enable()")
+        camlog.info('camera.enable()')
         camera.enable()
 
         # do some behavioural commands
-        camlog.debug("camera.filter('i-9', 60)")
+        camlog.info('camera.filter(\'i-9\', 60)')
         camera.setFilter('i-9', 60)
 
-        camlog.debug("camera.initImage(2.5)")
+        camlog.info('camera.initImage(2.5)')
         camera.initImage(2.5)
 
-        camlog.debug("camera takeImages(2, 15.0, True, True, True, False, 'pndTest', 40)")
-        camera.takeImages(2, 15.0, True, True, True, False, "pndTest", 40)
+        camlog.info('camera takeImages(2, 15.0, True, True, True, False, \'pndTest\', 40)')
+        camera.takeImages(2, 15.0, True, True, True, False, 'pndTest', 40)
 
         # this currently fails because of a lack of support in the ToyOCSBridge?
-        camlog.debug("camera.initGuiders('1,1,1,1 100,100,100,100 32,32,32,32', OCS_CAMERA_COMMAND_TIMEOUT)")
+        camlog.info('camera.initGuiders(\'1,1,1,1 100,100,100,100 32,32,32,32\', OCS_CAMERA_COMMAND_TIMEOUT)')
         camera.initGuiders('1,1,1,1 100,100,100,100 32,32,32,32', OCS_CAMERA_COMMAND_TIMEOUT)
 
         # end of night
-        camlog.info("camera.disable()")
+        camlog.info('camera.disable()')
         camera.disable()
 
-        camlog.info("camera.standby()")
+        camlog.info('camera.standby()')
         camera.standby()
 
-        camlog.info("camera.exitcontrol()")
+        camlog.info('camera.exitcontrol()')
         camera.exitcontrol()
 
         # execute destructor
-        camlog.info("del camera")
+        camlog.info('del camera')
         del camera
 
