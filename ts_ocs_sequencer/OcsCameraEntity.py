@@ -28,7 +28,7 @@ __version__ = "0.1.0"
 
 
 # +
-# class: OcsCameraEntity()
+# class: OcsCameraEntity() inherits from the OcsGenericEntity class
 # -
 class OcsCameraEntity(OcsGenericEntity):
 
@@ -528,8 +528,8 @@ if __name__ == '__main__':
         camlog.info('camera.filter(\'i-9\', 60)')
         camera.setFilter('i-9', 60)
 
-        camlog.info('camera.initImage(2.5)')
-        camera.initImage(2.5)
+        camlog.info('camera.initImage(4.0)')
+        camera.initImage(4.0)
 
         camlog.info('camera takeImages(2, 15.0, True, True, True, False, \'pndTest\', 40)')
         camera.takeImages(2, 15.0, True, True, True, False, 'pndTest', 40)

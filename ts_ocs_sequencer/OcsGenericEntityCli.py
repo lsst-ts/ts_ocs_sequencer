@@ -33,7 +33,7 @@ __version__ = "0.1.0"
 
 
 # +
-# class: OcsGenericEntityCli()
+# class: OcsGenericEntityCli() inherits from the object class
 # -
 class OcsGenericEntityCli(object):
 

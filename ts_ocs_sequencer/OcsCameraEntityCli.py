@@ -28,7 +28,7 @@ __version__ = "0.1.0"
 
 
 # +
-# class: OcsCameraCli(OcsGenericEntityCli)
+# class: OcsCameraCli() inherits from the OcsGenericEntityCli class
 # -
 class OcsCameraCli(OcsGenericEntityCli):
 
