@@ -3,12 +3,6 @@
 
 
 # +
-# Python 2.x -> 3.x compatability function(s)
-# -
-from __future__ import print_function
-
-
-# +
 # import(s)
 # -
 import sys
@@ -22,8 +16,8 @@ from SALPY_ocs import *
 # dunder string(s)
 # -
 __author__ = "Philip N. Daly"
-__copyright__ = u"\N{COPYRIGHT SIGN} AURA/LSST 2016. All rights reserved. Released under the GPL."
-__date__ = "31 October 2016"
+__copyright__ = u"\N{COPYRIGHT SIGN} AURA/LSST 2017. All rights reserved. Released under the GPL."
+__date__ = "17 January 2017"
 __doc__ = """Event logger for specific event in the OCS"""
 __email__ = "pdaly@lsst.org"
 __file__ = "logevent_ocsCommandStatus.py"

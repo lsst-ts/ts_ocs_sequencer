@@ -36,6 +36,14 @@ ts_ocs_sequencer.OcsGenericEntityCli module
     :undoc-members:
     :show-inheritance:
 
+ts_ocs_sequencer.OcsGenericEntityGui module
+-------------------------------------------
+
+.. automodule:: ts_ocs_sequencer.OcsGenericEntityGui
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

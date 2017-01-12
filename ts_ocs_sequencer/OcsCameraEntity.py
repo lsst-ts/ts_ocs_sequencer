@@ -3,12 +3,6 @@
 
 
 # +
-# Python 2.x -> 3.x compatability function(s)
-# -
-from __future__ import print_function
-
-
-# +
 # import(s)
 # -
 from OcsGenericEntity import *
@@ -525,8 +519,8 @@ if __name__ == '__main__':
         camera.enable()
 
         # do some behavioural commands
-        camlog.info('camera.filter(\'i-9\', 60)')
-        camera.setFilter('i-9', 60)
+        camlog.info('camera.filter(\'g-9\', 60)')
+        camera.setFilter('g-9', 60)
 
         camlog.info('camera.initImage(4.0)')
         camera.initImage(4.0)
