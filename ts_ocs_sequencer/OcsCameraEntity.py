@@ -156,8 +156,9 @@ class OcsCameraEntity(OcsGenericEntity):
 
         # in simulation, sleep for a random time
         if self._simulate:
-            stime = time.sleep(random.uniform(0, 5))
+            stime = random.uniform(0, 5)
             self.logger.info('initGuiders(), in simulation with sleep={0:s}'.format(str(stime)))
+            time.sleep(stime)
 
         # send command
         else:
@@ -212,8 +213,9 @@ class OcsCameraEntity(OcsGenericEntity):
 
         # in simulation, sleep for a random time
         if self._simulate:
-            stime = time.sleep(random.uniform(0, 5))
+            stime = random.uniform(0, 5)
             self.logger.info('initImage(), in simulation with sleep={0:s}'.format(str(stime)))
+            time.sleep(stime)
 
         # send command
         else:
@@ -268,8 +270,9 @@ class OcsCameraEntity(OcsGenericEntity):
 
         # in simulation, sleep for a random time
         if self._simulate:
-            stime = time.sleep(random.uniform(0, 5))
+            stime = random.uniform(0, 5)
             self.logger.info('setFilter(), in simulation with sleep={0:s}'.format(str(stime)))
+            time.sleep(stime)
 
         # send command
         else:
@@ -356,8 +359,9 @@ class OcsCameraEntity(OcsGenericEntity):
 
         # in simulation, sleep for a random time
         if self._simulate:
-            stime = time.sleep(random.uniform(0, 5))
+            stime = random.uniform(0, 5)
             self.logger.info('takeImages(), in simulation with sleep={0:s}'.format(str(stime)))
+            time.sleep(stime)
 
         # send command
         else:

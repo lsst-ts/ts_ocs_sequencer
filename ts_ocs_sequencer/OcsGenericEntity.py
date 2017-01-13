@@ -278,8 +278,9 @@ class OcsGenericEntity(object):
 
         # in simulation, sleep for a random time
         if self._simulate:
-            stime = time.sleep(random.uniform(0, 5))
+            stime = random.uniform(0, 5)
             self.logger.info('abort(), in simulation with sleep={0:s}'.format(str(stime)))
+            time.sleep(stime)
 
         # send command
         else:
@@ -328,8 +329,9 @@ class OcsGenericEntity(object):
 
         # in simulation, sleep for a random time
         if self._simulate:
-            stime = time.sleep(random.uniform(0, 5))
+            stime = random.uniform(0, 5)
             self.logger.info('disable(), in simulation with sleep={0:s}'.format(str(stime)))
+            time.sleep(stime)
 
         # send command
         else:
@@ -378,8 +380,9 @@ class OcsGenericEntity(object):
 
         # in simulation, sleep for a random time
         if self._simulate:
-            stime = time.sleep(random.uniform(0, 5))
+            stime = random.uniform(0, 5)
             self.logger.info('enable(), in simulation with sleep={0:s}'.format(str(stime)))
+            time.sleep(stime)
 
         # send command
         else:
@@ -428,8 +431,9 @@ class OcsGenericEntity(object):
 
         # in simulation, sleep for a random time
         if self._simulate:
-            stime = time.sleep(random.uniform(0, 5))
+            stime = random.uniform(0, 5)
             self.logger.info('entercontrol(), in simulation with sleep={0:s}'.format(str(stime)))
+            time.sleep(stime)
 
         # send command
         else:
@@ -479,8 +483,9 @@ class OcsGenericEntity(object):
 
         # in simulation, sleep for a random time
         if self._simulate:
-            stime = time.sleep(random.uniform(0, 5))
+            stime = random.uniform(0, 5)
             self.logger.info('exitcontrol(), in simulation with sleep={0:s}'.format(str(stime)))
+            time.sleep(stime)
 
         # send command
         else:
@@ -539,8 +544,9 @@ class OcsGenericEntity(object):
 
         # in simulation, sleep for a random time
         if self._simulate:
-            stime = time.sleep(random.uniform(0, 5))
+            stime = random.uniform(0, 5)
             self.logger.info('setvalue(), in simulation with sleep={0:s}'.format(str(stime)))
+            time.sleep(stime)
 
         # send command
         else:
@@ -590,8 +596,9 @@ class OcsGenericEntity(object):
 
         # in simulation, sleep for a random time
         if self._simulate:
-            stime = time.sleep(random.uniform(0, 5))
+            stime = random.uniform(0, 5)
             self.logger.info('standby(), in simulation with sleep={0:s}'.format(str(stime)))
+            time.sleep(stime)
 
         # send command
         else:
@@ -645,8 +652,9 @@ class OcsGenericEntity(object):
 
         # in simulation, sleep for a random time
         if self._simulate:
-            stime = time.sleep(random.uniform(0, 5))
+            stime = random.uniform(0, 5)
             self.logger.info('start(), in simulation with sleep={0:s}'.format(str(stime)))
+            time.sleep(stime)
 
         # send command
         else:
@@ -700,8 +708,9 @@ class OcsGenericEntity(object):
 
         # in simulation, sleep for a random time
         if self._simulate:
-            stime = time.sleep(random.uniform(0, 5))
+            stime = random.uniform(0, 5)
             self.logger.info('stop(), in simulation with sleep={0:s}'.format(str(stime)))
+            time.sleep(stime)
 
         # send command
         else:
