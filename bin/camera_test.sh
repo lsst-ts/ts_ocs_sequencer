@@ -10,51 +10,51 @@ camera () {
 tput setaf 2
 echo "Executing> camera entercontrol"
 tput setaf 4
-camera entercontrol
+camera entercontrol >> /dev/null 2>&1
 
 tput setaf 2
 echo "Executing> camera start --startid=Normal"
 tput setaf 4
-camera start --startid=Normal
+camera start --startid=Normal >> /dev/null 2>&1
 
 tput setaf 2
 echo "Executing> camera enable"
 tput setaf 4
-camera enable
+camera enable >> /dev/null 2>&1
 
 tput setaf 2
 echo "Executing> camera setfilter --name='g-9' --timeout=60"
 tput setaf 4
-camera setfilter --name='g-9' --timeout=60
+camera setfilter --name='g-9' --timeout=60 >> /dev/null 2>&1
 
 tput setaf 2
-echo "Executing> camera initimage --deltat=10.5 --timeout=5"
+echo "Executing> camera initimage --deltat=7.5 --timeout=5"
 tput setaf 4
-camera initimage --deltat=10.5 --timeout=5
+camera initimage --deltat=7.5 --timeout=5 >> /dev/null 2>&1
 
 tput setaf 2
-echo "Executing> camera takeimages --numimages=2 --exptime=15.0 --shutter=True --science=True --guide=False --wfs=False --imagesequencename=$$ --timeout=40"
+echo "Executing> camera takeimages --numimages=2 --exptime=15.0 --shutter=True --science=True --guide=False --wfs=False --imagesequencename=$$ --timeout=45"
 tput setaf 4
-camera takeimages --numimages=2 --exptime=15.0 --shutter=True --science=True --guide=False --wfs=False --imagesequencename=$$ --timeout=40
+camera takeimages --numimages=2 --exptime=15.0 --shutter=True --science=True --guide=False --wfs=False --imagesequencename=$$ --timeout=45 >> /dev/null 2>&1
 
 tput setaf 2
 echo "Executing> camera initguiders --roiSpec='1,1,1,1 100,100,100,100 32,32,32,32' --timeout=5"
 tput setaf 4
-camera initguiders --roispec='1,1,1,1 100,100,100,100 32,32,32,32' --timeout=5
+camera initguiders --roispec='1,1,1,1 100,100,100,100 32,32,32,32' --timeout=5 >> /dev/null 2>&1
 
 tput setaf 2
 echo "Executing> camera disable"
 tput setaf 4
-camera disable
+camera disable >> /dev/null 2>&1
 
 tput setaf 2
 echo "Executing> camera standby"
 tput setaf 4
-camera standby
+camera standby >> /dev/null 2>&1
 
 tput setaf 2
 echo "Executing> camera exitcontrol"
 tput setaf 4
-camera exitcontrol
+camera exitcontrol >> /dev/null 2>&1
 
 tput setaf sgr0
