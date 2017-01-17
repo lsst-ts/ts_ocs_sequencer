@@ -29,20 +29,24 @@ class OcsCameraEntityGui(OcsGenericEntityGui):
 
         # now add the GUI stuff
         Frame.__init__(self, self._parent, bd=1, relief=SUNKEN, bg=ocsGenericEntityBackgroundColour.get(self._system, OCS_GENERIC_ENTITY_BACKGROUND_COLOUR))
-        OcsGenericEntityGui(self._parent, self._system, self._entity, self._standalone)
+        self._generic = OcsGenericEntityGui(self._parent, self._system, self._entity, self._standalone)
         Label(self._parent, text=self._system, foreground='blue', bg=ocsGenericEntityBackgroundColour.get(self._system, OCS_GENERIC_ENTITY_BACKGROUND_COLOUR),
             font=('helvetica', 12, 'normal')).grid(row=0,sticky=NSEW)
         Label(self._parent, text=self._entity, foreground='blue', bg=ocsGenericEntityBackgroundColour.get(self._system, OCS_GENERIC_ENTITY_BACKGROUND_COLOUR),
             font=('helvetica', 12, 'bold')).grid(row=1,sticky=NSEW)
         self.createCameraButtons(self._parent,self._system)
 
+        self._generic._simFlag.trace('w',self.thisChange)
+
     #+
     # (override trace) method(s)
     #-
-    def simChange(self, *args):
-        self._camera.logger.debug("self._this._simulate = {0:d}".format(self._this._simulate))
-        self._camera._simulate = self._this._simulate = self._simFlag.get()
-        self._camera.logger.debug("self._this._simulate = {0:d}".format(self._this._simulate))
+    def thisChange(self, *args):
+        self._camera.logger.debug("self._camera._simulate = {0:d}".format(self._camera._simulate))
+        self._camera.logger.debug("self._generic._this._simulate = {0:d}".format(self._generic._this._simulate))
+        self._camera._simulate = self._generic._this._simulate = self._generic._simFlag.get()
+        self._camera.logger.debug("self._generic._this._simulate = {0:d}".format(self._generic._this._simulate))
+        self._camera.logger.debug("self._camera._simulate = {0:d}".format(self._camera._simulate))
 
     #+
     # methods()
@@ -101,8 +105,8 @@ class OcsCameraEntityGui(OcsGenericEntityGui):
                 self._guide = ocsGenericEntityLogicDictionary.get(self.result['guidersActive'].lower(), False)
                 self._wfs = ocsGenericEntityLogicDictionary.get(self.result['wfsActive'].lower(), False)
                 self._imageSequenceName = self.result['imageName']
-                self._camera.logger.debug("calling self._camera.takeImages({0:s},{1:s},{2:s},{3:s},{4:s},{5:s},'{6:s}')".format(str(self._numImages), 
-                    str(self._expTime), str(self._shutter), str(self._science), str(self._guide), str(self._wfs), str(self._imageSequenceName)))
+                self._camera.logger.debug("calling self._camera.takeImages({0:d},{1:.2f},{2:s},{3:s},{4:s},{5:s},'{6:s}')".format(int(self._numImages), 
+                    float(self._expTime), str(self._shutter), str(self._science), str(self._guide), str(self._wfs), self._imageSequenceName))
                 self._camera.takeImages(numImages=int(self._numImages), expTime=float(self._expTime), shutter=self._shutter, science=self._science, 
                     guide=self._guide, wfs=self._wfs, imageSequenceName=self._imageSequenceName)
             else:
@@ -113,8 +117,8 @@ class OcsCameraEntityGui(OcsGenericEntityGui):
                 self._guide = False
                 self._wfs = False
                 self._imageSequenceName = ''
-                self._camera.logger.debug("self._camera.takeImages({0:s},{1:s},{2:s},{3:s},{4:s},{5:s},'{6:s}') cancelled".format(str(self._numImages), 
-                    str(self._expTime), str(self._shutter), str(self._science), str(self._guide), str(self._wfs), str(self._imageSequenceName)))
+                self._camera.logger.debug("self._camera.takeImages({0:d},{1:.2f},{2:s},{3:s},{4:s},{5:s},'{6:s}') cancelled".format(int(self._numImages), 
+                    float(self._expTime), str(self._shutter), str(self._science), str(self._guide), str(self._wfs), self._imageSequenceName))
 
     def clear_handler(self):
         OcsEntryDialog(self, self.getCameraCommandDialogString('clear'), ['nClear'])

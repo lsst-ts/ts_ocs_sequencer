@@ -254,7 +254,7 @@ class OcsCameraEntity(OcsGenericEntity):
     # +
     # method: setFilter()
     # -
-    def setFilter(self, name='', timeout=OCS_CAMERA_COMMAND_TIMEOUT):
+    def setFilter(self, name='', timeout=OCS_CAMERA_FILTER_COMMAND_TIMEOUT):
         self.logger.debug('setFilter() enter, name={0:s}, timeout={1:s}'.format(str(name), str(timeout)))
 
         # check input(s)
@@ -311,7 +311,7 @@ class OcsCameraEntity(OcsGenericEntity):
     # +
     # method: takeImages()
     # -
-    def takeImages(self, numImages=-1, expTime=-1.0, shutter=False, science=False, guide=False, wfs=False, imageSequenceName='',  timeout=OCS_CAMERA_COMMAND_TIMEOUT):
+    def takeImages(self, numImages=-1, expTime=-1.0, shutter=False, science=False, guide=False, wfs=False, imageSequenceName='',  timeout=OCS_CAMERA_IMAGE_COMMAND_TIMEOUT):
         self.logger.debug('takeImages() enter, numImages={0:s}, expTime={1:s}, shutter={2:s}, science={3:s}, guide={4:s}, wfs={5:s}, imageSequenceName={6:s}, timeout={7:s}'.format(str(numImages), str(expTime), str(shutter), str(science), str(guide), str(wfs), str(imageSequenceName), str(timeout)))
 
         # check input(s)
@@ -367,7 +367,8 @@ class OcsCameraEntity(OcsGenericEntity):
         else:
             if self.__mgr and self.__takeImagesC:
                 self._cname = '{0:s}_command_takeImages'.format(self._entity_lc)
-                self._ename = '{0:s}_command_takeImages numImages={1:d}, expTime={2:f}, shutter={3:s}, science={4:s}, guide={5:s}, wfs={6:s}, imageSequenceName={7:s}, timeout={8:d}'.format(self._entity_lc, self._numImages, self._expTime, str(self._shutter), str(self._science), str(self._guide), str(self._wfs), self._imageSequenceName, self._timeout)
+                self._ename = '{0:s}_command_takeImages numImages={1:d}, expTime={2:f}, shutter={3:s}, science={4:s}, guide={5:s}, wfs={6:s}, imageSequenceName={7:s}, timeout={8:d}'.format(self._entity_lc, 
+                    self._numImages, self._expTime, str(self._shutter), str(self._science), str(self._guide), str(self._wfs), self._imageSequenceName, self._timeout)
 
                 # set up command (cf. mgr.salCommand('camera_command_takeImages'))
                 self.logger.debug('setting up for command {0:s}'.format(self._ename))
