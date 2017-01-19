@@ -31,7 +31,50 @@ __version__ = "0.1.0"
 # -
 def camera_payload(log=None, event='', payload=None):
     if log and (isinstance(event,str) and event!='') and payload:
-        pass
+        if event == 'ccsConfigured':
+            pass
+        elif event == 'endInitializeGuider':
+            pass
+        elif event == 'endInitializeImage':
+            pass
+        elif event == 'endLoadFilter':
+            pass
+        elif event == 'endReadout':
+            pass
+        elif event == 'endRotateCarousel':
+            pass
+        elif event == 'endSetFilter':
+            pass
+        elif event == 'endShutterClose':
+            pass
+        elif event == 'endShutterOpen':
+            pass
+        elif event == 'endTakeImage':
+            pass
+        elif event == 'endUnloadFilter':
+            pass
+        elif event == 'notReadyToTakeImage':
+            pass
+        elif event == 'prepareToTakeImage':
+            pass
+        elif event == 'readyToTakeImage':
+            pass
+        elif event == 'startIntegration':
+            log.logger.info('\tpayload.imageName = {0:s}'.format(payload.imageName))
+        elif event == 'startLoadFilter':
+            pass
+        elif event == 'startReadout':
+            pass
+        elif event == 'startRotateCarousel':
+            pass
+        elif event == 'startSetFilter':
+            pass
+        elif event == 'startShutterClose':
+            pass
+        elif event == 'startShutterOpen':
+            pass
+        elif event == 'startUnloadFilter':
+            pass
 
 # function: ocs_payload()
 # -
@@ -83,8 +126,7 @@ def thread_code(entity='', event=''):
     evlog = OcsLogger('Events', event)
     evlog.logger.info('{0:s} thread starting up'.format(event))
 
-
-    # import SAL
+    # import subsystem SAL module
     sal = ocs_sal_import('SALPY_{0:s}'.format(entity))
     if not sal:
         return
@@ -130,7 +172,7 @@ def thread_code(entity='', event=''):
 if __name__ == "__main__":
 
     # list of events
-    ccs_events = [ 'ccsConfigured', 'endInitializeGuider', 'endInitializeImage', 'endLoadFilter',
+    camera_events = [ 'ccsConfigured', 'endInitializeGuider', 'endInitializeImage', 'endLoadFilter',
         'endReadout', 'endRotateCarousel', 'endSetFilter', 'endShutterClose', 'endShutterOpen',
         'endTakeImage', 'endUnloadFilter', 'notReadyToTakeImage', 'prepareToTakeImage', 'readyToTakeImage',
         'startIntegration', 'startLoadFilter', 'startReadout', 'startRotateCarousel', 'startSetFilter',
@@ -138,16 +180,16 @@ if __name__ == "__main__":
 
     ocs_events = [ 'ocsCommandIssued', 'ocsCommandStatus', 'ocsEntityShutdown', 'ocsEntityStartup' ]
 
-    # create threads for ccs_events:
-    ccs_threads = []
-    for T in ccs_events:
-        c = threading.Thread(name=T, target=thread_code, args=('camera', T,))
-        ccs_threads.append(c)
+    # create threads for camera_events:
+    camera_threads = []
+    for C in camera_events:
+        c = threading.Thread(name=C, target=thread_code, args=('camera', C,))
+        camera_threads.append(c)
         c.start()
 
     # create threads for ocs_events:
     ocs_threads = []
-    for T in ocs_events:
-        o = threading.Thread(name=T, target=thread_code, args=('ocs', T,))
+    for O in ocs_events:
+        o = threading.Thread(name=O, target=thread_code, args=('ocs', O,))
         ocs_threads.append(o)
         o.start()
