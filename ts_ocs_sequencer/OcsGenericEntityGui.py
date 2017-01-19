@@ -41,16 +41,16 @@ class OcsGenericEntityGui(Frame):
         self._this._simulate = self._simFlag.get()
         self._this.logger.debug("self._this._simulate = {0:d}".format(self._this._simulate))
 
-        widget = Checkbutton(self._parent, text='Simulation', variable=self._simFlag)
-        widget.config(foreground='black', bg=ocsGenericEntityBackgroundColour.get(self._system,OCS_GENERIC_ENTITY_BACKGROUND_COLOUR), font=('helvetica', 10, 'roman'))
-        widget.grid(row=2,sticky=NSEW)
+        self.sim_widget = Checkbutton(self._parent, text='SIMULATION', variable=self._simFlag, height=2)
+        self.sim_widget.config(fg='black', bg=ocsGenericEntityBackgroundColour.get(self._system,OCS_GENERIC_ENTITY_BACKGROUND_COLOUR), font=('helvetica', 10, 'roman'))
+        self.sim_widget.grid(row=2,sticky=NSEW)
 
         self._simFlag.trace('w',self.simChange)
         self._simFlag.set(True)
 
         Label(self._parent, text='Generic Commands', foreground='blue', bg=ocsGenericEntityBackgroundColour.get(self._system, OCS_GENERIC_ENTITY_BACKGROUND_COLOUR),
             font=('helvetica', 10, 'italic')).grid(row=3,sticky=NSEW)
-        Label(self._parent, text='Business Logic Commands', foreground='blue', bg=ocsGenericEntityBackgroundColour.get(self._system, OCS_GENERIC_ENTITY_BACKGROUND_COLOUR),
+        Label(self._parent, text='Business Logic Commands  ', foreground='blue', bg=ocsGenericEntityBackgroundColour.get(self._system, OCS_GENERIC_ENTITY_BACKGROUND_COLOUR),
             font=('helvetica', 10, 'italic')).grid(row=11,sticky=NSEW)
         Label(self._parent, text='Behavioural Commands', foreground='blue', bg=ocsGenericEntityBackgroundColour.get(self._system, OCS_GENERIC_ENTITY_BACKGROUND_COLOUR),
             font=('helvetica', 10, 'italic')).grid(row=14,sticky=NSEW)
@@ -64,6 +64,10 @@ class OcsGenericEntityGui(Frame):
     def simChange(self, *args):
         self._this.logger.debug("self._this._simulate = {0:d}".format(self._this._simulate))
         self._this._simulate = self._simFlag.get()
+        if self._this._simulate:
+            self.sim_widget.config(bg='#ff4040', font=('helvetica', 12, 'bold'))
+        else:
+            self.sim_widget.config(bg="#00ee00", font=('helvetica', 12, 'roman'))
         self._this.logger.debug("self._this._simulate = {0:d}".format(self._this._simulate))
 
     #+
