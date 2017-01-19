@@ -27,6 +27,11 @@ echo "Executing> camera setfilter --name='g-9' --timeout=60"
 tput setaf 4
 camera setfilter --name='g-9' --timeout=60 >> /dev/null 2>&1
 
+#tput setaf 2
+#echo "Executing> camera initguiders --roiSpec='1,1,1,1 100,100,100,100 32,32,32,32' --timeout=5"
+#tput setaf 4
+#camera initguiders --roispec='1,1,1,1 100,100,100,100 32,32,32,32' --timeout=5 >> /dev/null 2>&1
+
 tput setaf 2
 echo "Executing> camera initimage --deltat=7.5 --timeout=5"
 tput setaf 4
@@ -36,11 +41,6 @@ tput setaf 2
 echo "Executing> camera takeimages --numimages=2 --exptime=15.0 --shutter=True --science=True --guide=False --wfs=False --imagesequencename=$$ --timeout=45"
 tput setaf 4
 camera takeimages --numimages=2 --exptime=15.0 --shutter=True --science=True --guide=False --wfs=False --imagesequencename=$$ --timeout=45 >> /dev/null 2>&1
-
-tput setaf 2
-echo "Executing> camera initguiders --roiSpec='1,1,1,1 100,100,100,100 32,32,32,32' --timeout=5"
-tput setaf 4
-camera initguiders --roispec='1,1,1,1 100,100,100,100 32,32,32,32' --timeout=5 >> /dev/null 2>&1
 
 tput setaf 2
 echo "Executing> camera disable"
