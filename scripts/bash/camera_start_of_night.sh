@@ -12,10 +12,11 @@ echo "Executing> camera entercontrol"
 tput setaf 4
 camera entercontrol >> /dev/null 2>&1
 
+startid="${1:-Normal}"
 tput setaf 2
-echo "Executing> camera start --startid=Normal"
+echo "Executing> camera start --startid=$startid"
 tput setaf 4
-camera start --startid=Normal >> /dev/null 2>&1
+camera start --startid=$startid >> /dev/null 2>&1
 
 tput setaf 2
 echo "Executing> camera enable"
