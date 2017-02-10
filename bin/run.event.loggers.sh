@@ -14,6 +14,9 @@ else
       ocs_logevent_ocsEntityStartup | logevent_ocsEntityStartup | ocsEntityStartup )
         xterm -xrm 'XTerm.vt100.allowTitleOps: false' -T logevent_ocsEntityStartup -e python $TS_OCS_SEQUENCER_BIN/logevent_ocsEntityStartup.py &
         ;;
+      ocs_logevent_ocsEntitySummaryState | logevent_ocsEntitySummaryState | ocsEntitySummaryState )
+        xterm -xrm 'XTerm.vt100.allowTitleOps: false' -T logevent_ocsEntitySummaryState -e python $TS_OCS_SEQUENCER_BIN/logevent_ocsEntitySummaryState.py &
+        ;;
       ocs_logevent_ocsCommandIssued | logevent_ocsCommandIssued | ocsCommandIssued )
         xterm -xrm 'XTerm.vt100.allowTitleOps: false' -T logevent_ocsCommandIssued -e python $TS_OCS_SEQUENCER_BIN/logevent_ocsCommandIssued.py &
         ;;
