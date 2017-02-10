@@ -90,7 +90,7 @@ class OcsCameraEntity(OcsGenericEntity):
         self._ename = None
         self._expTime = None
         self._guide = None
-        self._imafgeSequenceName = None
+        self._imageSequenceName = None
         self._mname = None
         self._name = None
         self._numImages = None

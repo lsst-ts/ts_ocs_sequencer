@@ -99,17 +99,28 @@ def ocs_payload(log=None, event='', payload=None):
             log.logger.info('\tpayload.StatusValue    = {0:d}'.format(payload.StatusValue))
             log.logger.info('\tpayload.Timestamp      = {0:s}'.format(payload.Timestamp))
         elif event == 'ocsEntityShutdown':
-            log.logger.info('\tpayload.Name       = {0:s}'.format(payload.Name))
-            log.logger.info('\tpayload.Identifier = {0:.17f}'.format(payload.Identifier))
-            log.logger.info('\tpayload.Timestamp  = {0:s}'.format(payload.Timestamp))
             log.logger.info('\tpayload.Address    = {0:d}'.format(payload.Address))
+            log.logger.info('\tpayload.Identifier = {0:.17f}'.format(payload.Identifier))
+            log.logger.info('\tpayload.Name       = {0:s}'.format(payload.Name))
             log.logger.info('\tpayload.priority   = {0:d}'.format(payload.priority))
+            log.logger.info('\tpayload.Timestamp  = {0:s}'.format(payload.Timestamp))
         elif event == 'ocsEntityStartup':
-            log.logger.info('\tpayload.Name       = {0:s}'.format(payload.Name))
-            log.logger.info('\tpayload.Identifier = {0:.17f}'.format(payload.Identifier))
-            log.logger.info('\tpayload.Timestamp  = {0:s}'.format(payload.Timestamp))
             log.logger.info('\tpayload.Address    = {0:d}'.format(payload.Address))
+            log.logger.info('\tpayload.Identifier = {0:.17f}'.format(payload.Identifier))
+            log.logger.info('\tpayload.Name       = {0:s}'.format(payload.Name))
             log.logger.info('\tpayload.priority   = {0:d}'.format(payload.priority))
+            log.logger.info('\tpayload.Timestamp  = {0:s}'.format(payload.Timestamp))
+        elif event == 'ocsEntitySummaryState':
+            log.logger.info('\tpayload.Address                 = {0:d}'.format(payload.Address))
+            log.logger.info('\tpayload.CommandsAvailable       = {0:s}'.format(payload.CommandsAvailable))
+            log.logger.info('\tpayload.ConfigurationsAvailable = {0:s}'.format(payload.ConfigurationsAvailable))
+            log.logger.info('\tpayload.Executing               = {0:s}'.format(payload.Executing))
+            log.logger.info('\tpayload.Identifier              = {0:.17f}'.format(payload.Identifier))
+            log.logger.info('\tpayload.Name                    = {0:s}'.format(payload.Name))
+            log.logger.info('\tpayload.NewState                = {0:s}'.format(payload.NewState))
+            log.logger.info('\tpayload.OldState                = {0:s}'.format(payload.OldState))
+            log.logger.info('\tpayload.priority                = {0:d}'.format(payload.priority))
+            log.logger.info('\tpayload.Timestamp               = {0:s}'.format(payload.Timestamp))
 
 
 # function: thread_code()
@@ -178,7 +189,7 @@ if __name__ == "__main__":
         'startIntegration', 'startLoadFilter', 'startReadout', 'startRotateCarousel', 'startSetFilter',
         'startShutterClose', 'startShutterOpen', 'startUnloadFilter' ]
 
-    ocs_events = [ 'ocsCommandIssued', 'ocsCommandStatus', 'ocsEntityShutdown', 'ocsEntityStartup' ]
+    ocs_events = [ 'ocsCommandIssued', 'ocsCommandStatus', 'ocsEntityShutdown', 'ocsEntityStartup', 'ocsEntitySummaryState' ]
 
     # create threads for camera_events:
     camera_threads = []

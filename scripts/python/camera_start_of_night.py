@@ -32,3 +32,7 @@ if __name__ == '__main__':
         # enable
         camera.logger.info('camera.enable()')
         camera.enable()
+
+        # execute destructor
+        camera.logger.info('del camera')
+        del camera

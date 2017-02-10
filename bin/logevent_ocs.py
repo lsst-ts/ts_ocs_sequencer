@@ -57,6 +57,8 @@ def thread_code():
         event = ocs_logevent_ocsEntityShutdownC()
     elif thread_name == 'ocsEntityStartup':
         event = ocs_logevent_ocsEntityStartupC()
+    elif thread_name == 'ocsEntitySummaryState':
+        event = ocs_logevent_ocsEntitySummaryStateC()
     else:
         return
     evlog.logger.info('{0:s} thread container created'.format(thread_name))
@@ -71,6 +73,8 @@ def thread_code():
             retval = mgr.getEvent_ocsEntityShutdown(event)
         elif thread_name == 'ocsEntityStartup':
             retval = mgr.getEvent_ocsEntityStartup(event)
+        elif thread_name == 'ocsEntitySummaryState':
+            retval = mgr.getEvent_ocsEntitySummaryState(event)
         else:
             return
 
@@ -94,17 +98,28 @@ def thread_code():
 		evlog.logger.info('\tevent.StatusValue    = {0:d}'.format(event.StatusValue))
 		evlog.logger.info('\tevent.Timestamp      = {0:s}'.format(event.Timestamp))
             elif thread_name == 'ocsEntityShutdown':
-                evlog.logger.info('\tevent.Name       = {0:s}'.format(event.Name))
-                evlog.logger.info('\tevent.Identifier = {0:.17f}'.format(event.Identifier))
-                evlog.logger.info('\tevent.Timestamp  = {0:s}'.format(event.Timestamp))
                 evlog.logger.info('\tevent.Address    = {0:d}'.format(event.Address))
+                evlog.logger.info('\tevent.Identifier = {0:.17f}'.format(event.Identifier))
                 evlog.logger.info('\tevent.priority   = {0:d}'.format(event.priority))
+                evlog.logger.info('\tevent.Name       = {0:s}'.format(event.Name))
+                evlog.logger.info('\tevent.Timestamp  = {0:s}'.format(event.Timestamp))
             elif thread_name == 'ocsEntityStartup':
+                evlog.logger.info('\tevent.Address    = {0:d}'.format(event.Address))
                 evlog.logger.info('\tevent.Name       = {0:s}'.format(event.Name))
+                evlog.logger.info('\tevent.priority   = {0:d}'.format(event.priority))
                 evlog.logger.info('\tevent.Identifier = {0:.17f}'.format(event.Identifier))
                 evlog.logger.info('\tevent.Timestamp  = {0:s}'.format(event.Timestamp))
-                evlog.logger.info('\tevent.Address    = {0:d}'.format(event.Address))
-                evlog.logger.info('\tevent.priority   = {0:d}'.format(event.priority))
+            elif thread_name == 'ocsEntitySummaryState':
+                evlog.logger.info('\tevent.Address                 = {0:d}'.format(event.Address))
+                evlog.logger.info('\tevent.CommandsAvailable       = {0:s}'.format(event.CommandsAvailable))
+                evlog.logger.info('\tevent.ConfigurationsAvailable = {0:s}'.format(event.ConfigurationsAvailable))
+                evlog.logger.info('\tevent.Executing               = {0:s}'.format(event.Executing))
+                evlog.logger.info('\tevent.Identifier              = {0:.17f}'.format(event.Identifier))
+                evlog.logger.info('\tevent.Name                    = {0:s}'.format(event.Name))
+                evlog.logger.info('\tevent.NewState                = {0:s}'.format(event.NewState))
+                evlog.logger.info('\tevent.OldState                = {0:s}'.format(event.OldState))
+                evlog.logger.info('\tevent.priority                = {0:d}'.format(event.priority))
+                evlog.logger.info('\tevent.Timestamp               = {0:s}'.format(event.Timestamp))
             else:
                 pass
         time.sleep(1)
@@ -119,7 +134,7 @@ if __name__ == "__main__":
 
     # create threads for each event:
     threads = []
-    for T in [ 'ocsCommandIssued', 'ocsCommandStatus', 'ocsEntityShutdown', 'ocsEntityStartup']:
+    for T in [ 'ocsCommandIssued', 'ocsCommandStatus', 'ocsEntityShutdown', 'ocsEntityStartup', 'ocsEntitySummaryState' ]:
         t = threading.Thread(name=T, target=thread_code)
         threads.append(t)
         t.start()
