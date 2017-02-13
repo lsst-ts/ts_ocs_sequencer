@@ -32,7 +32,6 @@ __version__ = "0.1.0"
 # +
 # function: parse_command()
 # -
-
 def parse_command(incmd=''):
 
     # default dictionary
@@ -45,30 +44,121 @@ def parse_command(incmd=''):
     # parse input command
     else:
         clist = [ 'abort', 'disable', 'enable', 'entercontrol', 'exitcontrol', 'setvalue', 'standby', 'start', 'stop' ]
+        tlist = [ 'timeout=' ]
         alist = [ 'device=', 'parameter=', 'startid=', 'value=' ]
         words = incmd.split()
 
         # loop around words
         for E in words:
             El = E.lower()
+
+            # get the command
             if El in clist:
                 retdic['cmd'] = El
+
+            # get the entity
             if El.find('entity=') >= 0:
                 retdic['entity'] = El.split('=')[1]
-            if El.find('timeout=') >= 0:
-                try:
-                    value = int(El.split('=')[1])
-                except ValueError:
-                    value = None
-                retdic['timeout'] = value
+
+            # get any timeout
+            for T in tlist:
+                if El.find(T) >= 0:
+                    try:
+                        value = int(El.split('=')[1])
+                    except ValueError:
+                        value = None
+                    retdic['timeout'] = value
+
+            # get other arguments
             for A in alist:
                 if El.find(A) >= 0:
                     if retdic['params'] == None:
                         retdic['params'] = E
                     else:
                         retdic['params'] = '{0:s} {1:s}'.format(retdic['params'], E)
+
     # return dictionary
     return retdic
+
+# +
+# function: camera_sequence()
+# -
+def camera_sequence(mgr=None, camera=None, evlog=None, cmdId=-1, name='', indict={}):
+
+    # check input(s)
+    if not mgr:
+        return mgr.ackCommand_sequence(cmdId, SAL__CMD_FAILED, 0, "Error : No Manager");
+
+    if not camera:
+        return mgr.ackCommand_sequence(cmdId, SAL__CMD_FAILED, 0, "Error : No Camera");
+
+    if not evlog:
+        return mgr.ackCommand_sequence(cmdId, SAL__CMD_FAILED, 0, "Error : No Event Logger");
+
+    if cmdId < 0:
+        return cmdId
+
+    if not isinstance(name, str) or name=='':
+        name = 'Unknown thread'
+
+    if not indict:
+        return mgr.ackCommand_sequence(cmdId, SAL__CMD_FAILED, 0, "Error : No Dictionary");
+
+    # make sure entity is set to camera
+    if 'entity' not in indict or indict['entity']!='camera':
+        return mgr.ackCommand_sequence(cmdId, SAL__CMD_FAILED, 0, "Error : No Entry");
+
+    else:
+        retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_INPROGRESS, 0, "Ack : OK");
+        if 'timeout' in indict and indict['timeout']!=None:
+            timeout = indict['timeout']
+        else:
+            timeout = OCS_CAMERA_COMMAND_TIMEOUT
+
+        evlog.logger.info('{0:s} thread timeout {1:d}'.format(name, timeout))
+        evlog.logger.info('{0:s} thread invoking {1:s}'.format(name, indict['cmd']))
+
+        if indict['cmd'] == 'abort':
+            camera.abort(timeout=timeout)
+            retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK");
+
+        elif indict['cmd'] == 'disable':
+            camera.disable(timeout=timeout)
+            retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK");
+
+        elif indict['cmd'] == 'enable':
+            camera.enable(timeout=timeout)
+            retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK");
+
+        elif indict['cmd'] == 'entercontrol':
+            camera.entercontrol(timeout=timeout)
+            retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK");
+
+        elif indict['cmd'] == 'exitcontrol':
+            camera.exitcontrol(timeout=timeout)
+            retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK");
+
+        elif indict['cmd'] == 'standby':
+            camera.standby(timeout=timeout)
+            retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK");
+
+        elif indict['cmd'] == 'start':
+            startid = indict['params'].split('=')[1]
+            evlog.logger.info('{0:s} thread startid {1:s}'.format(name, startid))
+            camera.start(startid=startid, timeout=timeout)
+            retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK");
+
+        elif indict['cmd'] == 'stop':
+            device = indict['params'].split('=')[1]
+            evlog.logger.info('{0:s} thread device {1:s}'.format(name, device))
+            camera.stop(device=device, timeout=timeout)
+            retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK");
+
+        else:
+            retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_FAILED, 0, "Error : No Command");
+
+        return retval
+
 
 # +
 # function: thread_code()
@@ -240,52 +330,7 @@ def thread_code(entity='', evp=None, camera=None):
                 evlog.logger.info('{0:s} thread received payload {1:s}'.format(thread_name, str(data.command)))
                 cmddict = parse_command(data.command)
                 evlog.logger.info('{0:s} thread cmddict {1:s}'.format(thread_name, str(cmddict)))
-                if camera:
-                    if cmddict:
-                        if cmddict['entity']=='camera':
-                            retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_INPROGRESS, 0, "Ack : OK");
-                            if 'timeout' in cmddict and cmddict['timeout']!=None:
-                                timeout = cmddict['timeout']
-                            else:
-                                timeout = OCS_CAMERA_COMMAND_TIMEOUT
-                            evlog.logger.info('{0:s} thread timeout {1:d}'.format(thread_name, timeout))
-                            evlog.logger.info('{0:s} thread invoking {1:s}'.format(thread_name, cmddict['cmd']))
-                            if cmddict['cmd'] == 'abort':
-                                camera.abort(timeout=timeout)
-        			retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK");
-                            elif cmddict['cmd'] == 'disable':
-                                camera.disable(timeout=timeout)
-        			retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK");
-                            elif cmddict['cmd'] == 'enable':
-                                camera.enable(timeout=timeout)
-        			retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK");
-                            elif cmddict['cmd'] == 'entercontrol':
-                                camera.entercontrol(timeout=timeout)
-        			retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK");
-                            elif cmddict['cmd'] == 'exitcontrol':
-                                camera.exitcontrol(timeout=timeout)
-        			retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK");
-                            elif cmddict['cmd'] == 'standby':
-                                camera.standby(timeout=timeout)
-        			retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK");
-                            elif cmddict['cmd'] == 'start':
-                                startid = cmddict['params'].split('=')[1]
-                                evlog.logger.info('{0:s} thread startid {1:s}'.format(thread_name, startid))
-                                camera.start(startid=startid, timeout=timeout)
-        			retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK");
-                            elif cmddict['cmd'] == 'stop':
-                                device = cmddict['params'].split('=')[1]
-                                evlog.logger.info('{0:s} thread device {1:s}'.format(thread_name, device))
-                                camera.stop(device=device, timeout=timeout)
-        			retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK");
-                            else:
-                                retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_FAILED, 0, "Error : No Command");
-                        else:
-                            retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_FAILED, 0, "Error : No Entry");
-                    else:
-                        retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_FAILED, 0, "Error : No Dictionary");
-                else:
-                    retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_FAILED, 0, "Error : No Camera");
+                retval = camera_sequence(mgr, camera, evlog, cmdId, thread_name, cmddict)
 
             elif thread_name == 'script':
                 evlog.logger.info('{0:s} thread received payload {1:s}'.format(thread_name, str(data.location)))

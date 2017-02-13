@@ -74,14 +74,14 @@ class OcsSequencerEntity(OcsGenericEntity):
         self._mname = None
         self._timeout = OCS_SEQUENCER_COMMAND_TIMEOUT
 
-        # import the SAL (cf. from SALPY_camera import *)
+        # import the SAL (cf. from SALPY_ocs import *)
         self._mname = 'SALPY_{0:s}'.format(self._entity_lc)
         self.logger.debug('Importing {0:s}'.format(self._mname))
         self.__sal = ocs_sal_import(self._mname)
         if self.__sal:
             self.logger.debug('Imported {0:s} ok'.format(self._mname))
 
-        # get mgr object (cf. mgr = SAL_camera())
+        # get mgr object (cf. mgr = SAL_ocs())
         self._aname = 'SAL_{0:s}'.format(self._entity_lc)
         self.logger.debug('Getting attribute {0:s}'.format(self._aname))
         mgr = ocs_sal_attribute(self.__sal, self._aname)
@@ -89,18 +89,15 @@ class OcsSequencerEntity(OcsGenericEntity):
             self.__mgr = mgr()
             self.logger.debug('Got attribute {0:s} ok'.format(self._aname))
 
-        # data structure(s) (cf. data = camera_command_sequenceC())
+        # data structure(s) (cf. data = ocs_command_sequenceC())
         self.__sequenceC = self._get_sal_cmdC('sequence')
         self.__scriptC = self._get_sal_cmdC('script')
 
-        # define camera command(s) help
-        self.camera_help = (
+        # define ocs command(s) help
+        self.sequencer_help = (
             'sequence system={0:s} entity={1:s} command=<string>'.format(self._system, self._entity),
             'script   system={0:s} entity={1:s} script=<string>'.format(self._system, self._entity)
             )
-
-        # get other commandable entity instances
-        self._camera = OcsCameraEntity('CCS', 'Camera', False)
 
     # +
     # method: sequence()
@@ -131,11 +128,11 @@ class OcsSequencerEntity(OcsGenericEntity):
                 self._cname = '{0:s}_command_sequence'.format(self._entity_lc)
                 self._ename = '{0:s}_command_sequence command={1:s} timeout={2:d}'.format(self._entity_lc, self._command, self._timeout)
 
-                # set up command (cf. mgr.salCommand('camera_command_sequence'))
+                # set up command (cf. mgr.salCommand('ocs_command_sequence'))
                 self.logger.debug('setting up for command {0:s}'.format(self._ename))
                 self.__mgr.salCommand(self._cname)
 
-                # set up payload (cf. data = camera_command_sequenceC(); data.roiSpec = 'roiData')
+                # set up payload (cf. data = ocs_command_sequenceC(); data.roiSpec = 'roiData')
                 self.__sequenceC.command = self._command
 
                 # issue command (cf. id = mgr.issueCommand_sequence(data))
@@ -202,21 +199,21 @@ if __name__ == '__main__':
         seqlog.info('sequencer.entercontrol()')
         sequencer.entercontrol()
 
-        seqlog.info('sequencer.start(\'Normal\')')
+        #seqlog.info('sequencer.start(\'Normal\')')
         sequencer.start('Normal')
 
-        seqlog.info('sequencer.enable()')
+        #seqlog.info('sequencer.enable()')
         sequencer.enable()
 
         # do some behavioural commands
-        seqlog.info('sequencer.sequence(\'enterControl entity=camera\')')
-        sequencer.sequence('enterControl entity=camera')
+        #seqlog.info('sequencer.sequence(\'enterControl entity=camera\')')
+        #sequencer.sequence('enterControl entity=ocs')
 
-        seqlog.info('sequencer.sequence(\'start entity=camera startid=\'Normal\'\')')
-        sequencer.sequence('start entity=camera')
+        #seqlog.info('sequencer.sequence(\'start entity=camera startid=\'Normal\'\')')
+        #sequencer.sequence('start entity=ocs')
 
-        seqlog.info('sequencer.sequence(\'enable entity=camera\')')
-        sequencer.sequence('enable entity=camera')
+        #seqlog.info('sequencer.sequence(\'enable entity=camera\')')
+        #sequencer.sequence('enable entity=ocs')
 
         # end of night
         seqlog.info('sequencer.disable()')
