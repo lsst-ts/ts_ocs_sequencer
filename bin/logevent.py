@@ -117,8 +117,8 @@ def ocs_payload(log=None, event='', payload=None):
             log.logger.info('\tpayload.Executing               = {0:s}'.format(payload.Executing))
             log.logger.info('\tpayload.Identifier              = {0:.17f}'.format(payload.Identifier))
             log.logger.info('\tpayload.Name                    = {0:s}'.format(payload.Name))
-            log.logger.info('\tpayload.NewState                = {0:s}'.format(payload.NewState))
-            log.logger.info('\tpayload.OldState                = {0:s}'.format(payload.OldState))
+            log.logger.info('\tpayload.CurrentState            = {0:s}'.format(payload.CurrentState))
+            log.logger.info('\tpayload.PreviousState           = {0:s}'.format(payload.PreviousState))
             log.logger.info('\tpayload.priority                = {0:d}'.format(payload.priority))
             log.logger.info('\tpayload.Timestamp               = {0:s}'.format(payload.Timestamp))
 

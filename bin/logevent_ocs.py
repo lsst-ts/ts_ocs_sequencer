@@ -116,8 +116,8 @@ def thread_code():
                 evlog.logger.info('\tevent.Executing               = {0:s}'.format(event.Executing))
                 evlog.logger.info('\tevent.Identifier              = {0:.17f}'.format(event.Identifier))
                 evlog.logger.info('\tevent.Name                    = {0:s}'.format(event.Name))
-                evlog.logger.info('\tevent.NewState                = {0:s}'.format(event.NewState))
-                evlog.logger.info('\tevent.OldState                = {0:s}'.format(event.OldState))
+                evlog.logger.info('\tevent.CurrentState            = {0:s}'.format(event.CurrentState))
+                evlog.logger.info('\tevent.PreviousState           = {0:s}'.format(event.PreviousState))
                 evlog.logger.info('\tevent.priority                = {0:d}'.format(event.priority))
                 evlog.logger.info('\tevent.Timestamp               = {0:s}'.format(event.Timestamp))
             else:
