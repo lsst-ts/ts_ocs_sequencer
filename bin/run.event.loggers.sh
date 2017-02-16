@@ -1,8 +1,10 @@
 #!/bin/sh
 
+arg1="${1:-_ocs}"
+
 # if no command line arguments, start the event logger for all events
 if [[ $# -eq 0 ]]; then
-  xterm -bg black -fg green -geometry 200x30+0+0 -xrm 'XTerm.vt100.allowTitleOps: false' -132 -T "Event Logger" -e python $TS_OCS_SEQUENCER_BIN/logevent.py &
+  xterm -bg black -fg green -geometry 200x30+0+0 -xrm 'XTerm.vt100.allowTitleOps: false' -132 -T "Event Logger" -e python $TS_OCS_SEQUENCER_BIN/logevent${arg1}.py &
 
 # start a specific event logger
 else
