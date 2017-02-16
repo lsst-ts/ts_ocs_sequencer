@@ -14,7 +14,7 @@ from OcsCameraEntity import *
 __author__ = "Philip N. Daly"
 __copyright__ = u"\N{COPYRIGHT SIGN} AURA/LSST 2016. All rights reserved. Released under the GPL."
 __date__ = "31 October 2016"
-__doc__ = """Class for manipulating command line argument(s) for the camea entity in the OCS"""
+__doc__ = """Class for manipulating command line argument(s) for the camera entity in the OCS"""
 __email__ = "pdaly@lsst.org"
 __file__ = "OcsCameraEntityCli.py"
 __history__ = __date__ + ": " + "original version (" + __email__ + ")"
