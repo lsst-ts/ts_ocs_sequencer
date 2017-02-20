@@ -5,6 +5,7 @@
 # imports
 #-
 from OcsCameraEntityGui import *
+from OcsSequencerEntityGui import *
 
 
 #+
@@ -118,7 +119,9 @@ class OcsFrameGroup(Frame):
                         cls = None
                     if cls != None:
                         self._guis[E] = cls(self._frames[E], self._systems[E], E, False)
-                self._guis[E].pack(in_=self._frames[E], side=LEFT, ipadx=0, ipady=0, padx=0, pady=0, fill=BOTH, expand=YES)
+                        self._guis[E].pack(in_=self._frames[E], side=LEFT, ipadx=0, ipady=0, padx=0, pady=0, fill=BOTH, expand=YES)
+                else:
+                    self._guis[E].pack(in_=self._frames[E], side=LEFT, ipadx=0, ipady=0, padx=0, pady=0, fill=BOTH, expand=YES)
             # hide
             else:
                 if self._guis[E] != None:

@@ -180,7 +180,7 @@ class OcsGenericEntity(object):
             self.__mgr.salCommand(self._cname)
 
         # log message on exit
-        self.logger.info('Started {0:s} {1:s} commandable entity ok'.format(self._system, self._entity))
+        self.logger.info('Started {0:s} {1:s} commandable entity at address {2:s}'.format(self._system, self._entity, str(hex(id(self)))))
 
     # +
     # method: __del__()
