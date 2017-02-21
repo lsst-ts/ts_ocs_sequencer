@@ -293,7 +293,7 @@ class OcsGenericEntity(object):
                 self.__mgr.salCommand(self._cname)
 
                 # set up payload (cf. data = camera_command_abortC(); data.state = 'ok')
-                self.__abortC.state = os.getenv('USER')
+                self.__abortC.state = '{}-{}'.format(os.getenv('USER'), os.getpid())
 
                 # issue command (cf. id = mgr.issueCommand_abort(data))
                 self.logger.debug('issuing: {0:s}'.format(self._ename))
@@ -344,7 +344,7 @@ class OcsGenericEntity(object):
                 self.__mgr.salCommand(self._cname)
 
                 # set up payload (cf. data = camera_command_disableC(); data.state = 'ok')
-                self.__disableC.state = os.getenv('USER')
+                self.__disableC.state = '{}-{}'.format(os.getenv('USER'), os.getpid())
 
                 # issue command (cf. id = mgr.issueCommand_disable(data))
                 self.logger.debug('issuing: {0:s}'.format(self._ename))
@@ -395,7 +395,7 @@ class OcsGenericEntity(object):
                 self.__mgr.salCommand(self._cname)
 
                 # set up payload (cf. data = camera_command_enableC(); data.state = 'ok')
-                self.__enableC.state = os.getenv('USER')
+                self.__enableC.state = '{}-{}'.format(os.getenv('USER'), os.getpid())
 
                 # issue command (cf. id = mgr.issueCommand_enable(data))
                 self.logger.debug('issuing: {0:s}'.format(self._ename))
@@ -446,7 +446,7 @@ class OcsGenericEntity(object):
                 self.__mgr.salCommand(self._cname)
 
                 # set up payload (cf. data = camera_command_enterControlC(); data.state = 'ok')
-                self.__entercontrolC.state = os.getenv('USER')
+                self.__entercontrolC.state = '{}-{}'.format(os.getenv('USER'), os.getpid())
 
                 # issue command (cf. id = mgr.issueCommand_enterControl(data))
                 self.logger.debug('issuing: {0:s}'.format(self._ename))
@@ -498,7 +498,7 @@ class OcsGenericEntity(object):
                 self.__mgr.salCommand(self._cname)
 
                 # set up payload (cf. data = camera_command_exitControlC(); data.state = 'ok')
-                self.__exitcontrolC.state = os.getenv('USER')
+                self.__exitcontrolC.state = '{}-{}'.format(os.getenv('USER'), os.getpid())
 
                 # issue command (cf. id = mgr.issueCommand_exitControl(data))
                 self.logger.debug('issuing: {0:s}'.format(self._ename))
@@ -558,7 +558,7 @@ class OcsGenericEntity(object):
                 self.logger.debug('setting up: {0:s}'.format(self._ename))
                 self.__mgr.salCommand(self._cname)
 
-                # set up payload (cf. data = camera_command_setValueC(); data.state = 'ok')
+                # set up payload (cf. data = camera_command_setValueC(); data.parameter = 'myParameter'; data.value = 'myValue' )
                 self.__setvalueC.parameter = self._parameter
                 self.__setvalueC.value = self._value
 
@@ -611,7 +611,7 @@ class OcsGenericEntity(object):
                 self.__mgr.salCommand(self._cname)
 
                 # set up payload (cf. data = camera_command_standbyC(); data.state = 'ok')
-                self.__standbyC.state = os.getenv('USER')
+                self.__standbyC.state = '{}-{}'.format(os.getenv('USER'), os.getpid())
 
                 # issue command (cf. id = mgr.issueCommand_standby(data))
                 self.logger.debug('issuing: {0:s}'.format(self._ename))
@@ -723,7 +723,7 @@ class OcsGenericEntity(object):
                 self.__mgr.salCommand(self._cname)
 
                 # set up payload (cf. data = camera_command_stopC(); data.state = 'ok')
-                self.__stopC.state = os.getenv('USER')
+                self.__stopC.state = '{}-{}'.format(os.getenv('USER'), os.getpid())
 
                 # issue command (cf. id = mgr.issueCommand_stop(data))
                 self.logger.debug('issuing: {0:s}'.format(self._ename))
@@ -853,7 +853,7 @@ if __name__ == '__main__':
 
     camera = None
     try:
-        camera = OcsGenericEntity('CCS', 'Camera', False)
+        camera = OcsGenericEntity('CCS', 'Camera', True)
     except OcsGenericEntityException as e:
         print(e.errstr)
 
