@@ -293,7 +293,8 @@ class OcsGenericEntity(object):
                 self.__mgr.salCommand(self._cname)
 
                 # set up payload (cf. data = camera_command_abortC(); data.state = 'ok')
-                self.__abortC.state = '{0:s}-{1:d}'.format(os.getenv('USER'), os.getpid())
+                # self.__abortC.state = '{0:s}-{1:d}'.format(os.getenv('USER'), os.getpid())
+                self.__abortC.state = os.getpid()
 
                 # issue command (cf. id = mgr.issueCommand_abort(data))
                 self.logger.debug('issuing: {0:s}'.format(self._ename))
@@ -344,7 +345,8 @@ class OcsGenericEntity(object):
                 self.__mgr.salCommand(self._cname)
 
                 # set up payload (cf. data = camera_command_disableC(); data.state = 'ok')
-                self.__disableC.state = '{0:s}-{1:d}'.format(os.getenv('USER'), os.getpid())
+                # self.__disableC.state = '{0:s}-{1:d}'.format(os.getenv('USER'), os.getpid())
+                self.__disableC.state = os.getpid()
 
                 # issue command (cf. id = mgr.issueCommand_disable(data))
                 self.logger.debug('issuing: {0:s}'.format(self._ename))
@@ -395,7 +397,8 @@ class OcsGenericEntity(object):
                 self.__mgr.salCommand(self._cname)
 
                 # set up payload (cf. data = camera_command_enableC(); data.state = 'ok')
-                self.__enableC.state = '{0:s}-{1:d}'.format(os.getenv('USER'), os.getpid())
+                # self.__enableC.state = '{0:s}-{1:d}'.format(os.getenv('USER'), os.getpid())
+                self.__enableC.state = os.getpid()
 
                 # issue command (cf. id = mgr.issueCommand_enable(data))
                 self.logger.debug('issuing: {0:s}'.format(self._ename))
@@ -446,7 +449,8 @@ class OcsGenericEntity(object):
                 self.__mgr.salCommand(self._cname)
 
                 # set up payload (cf. data = camera_command_enterControlC(); data.state = 'ok')
-                self.__entercontrolC.state = '{0:s}-{1:d}'.format(os.getenv('USER'), os.getpid())
+                # self.__entercontrolC.state = '{0:s}-{1:d}'.format(os.getenv('USER'), os.getpid())
+                self.__entercontrolC.state = os.getpid()
 
                 # issue command (cf. id = mgr.issueCommand_enterControl(data))
                 self.logger.debug('issuing: {0:s}'.format(self._ename))
@@ -498,7 +502,8 @@ class OcsGenericEntity(object):
                 self.__mgr.salCommand(self._cname)
 
                 # set up payload (cf. data = camera_command_exitControlC(); data.state = 'ok')
-                self.__exitcontrolC.state = '{0:s}-{1:d}'.format(os.getenv('USER'), os.getpid())
+                # self.__exitcontrolC.state = '{0:s}-{1:d}'.format(os.getenv('USER'), os.getpid())
+                self.__exitcontrolC.state = os.getpid()
 
                 # issue command (cf. id = mgr.issueCommand_exitControl(data))
                 self.logger.debug('issuing: {0:s}'.format(self._ename))
@@ -611,7 +616,8 @@ class OcsGenericEntity(object):
                 self.__mgr.salCommand(self._cname)
 
                 # set up payload (cf. data = camera_command_standbyC(); data.state = 'ok')
-                self.__standbyC.state = '{0:s}-{1:d}'.format(os.getenv('USER'), os.getpid())
+                # self.__standbyC.state = '{0:s}-{1:d}'.format(os.getenv('USER'), os.getpid())
+                self.__standbyC.state = os.getpid()
 
                 # issue command (cf. id = mgr.issueCommand_standby(data))
                 self.logger.debug('issuing: {0:s}'.format(self._ename))
@@ -723,7 +729,8 @@ class OcsGenericEntity(object):
                 self.__mgr.salCommand(self._cname)
 
                 # set up payload (cf. data = camera_command_stopC(); data.state = 'ok')
-                self.__stopC.state = '{0:d}-{1:d}'.format(os.getenv('USER'), os.getpid())
+                # self.__stopC.state = '{0:d}-{1:d}'.format(os.getenv('USER'), os.getpid())
+                self.__stopC.state = os.getpid()
 
                 # issue command (cf. id = mgr.issueCommand_stop(data))
                 self.logger.debug('issuing: {0:s}'.format(self._ename))
