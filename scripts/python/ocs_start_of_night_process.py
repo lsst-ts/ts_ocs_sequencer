@@ -53,7 +53,7 @@ if __name__ == "__main__":
 
     # create jobs for each entity:
     jobs = []
-    for E in [ camera, sequencer ]:
+    for E in ( camera, sequencer ):
         j = multiprocessing.Process(target=worker_code, args=(E._entity, E))
         jobs.append(j)
         j.start()
