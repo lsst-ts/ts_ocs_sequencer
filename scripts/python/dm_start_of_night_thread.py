@@ -5,16 +5,15 @@
 # +
 # import(s)
 # -
-from OcsCameraEntity import *
-from OcsSequencerEntity import *
+from OcsGenericEntity import *
 
 import threading
 import os
 
 # +
-# function: worker_code()
+# function: worker()
 # -
-def worker_code(entity='', entobj=None):
+def worker(entity='', entobj=None):
 
     # debug output
     print('name: {0:s}'.format(threading.currentThread().getName()))
@@ -32,8 +31,9 @@ def worker_code(entity='', entobj=None):
         entobj.entercontrol()
 
         # start
-        entobj.logger.info("{0:s}.start('Normal')".format(entity))
-        entobj.start('Normal')
+        cfg = '{0:s}-Normal'.format(entity.lower())
+        entobj.logger.info("{0:s}.start('{1:s}')".format(entity, cfg))
+        entobj.start(cfg)
 
         # enable
         entobj.logger.info('{0:s}.enable()'.format(entity))
@@ -48,13 +48,14 @@ def worker_code(entity='', entobj=None):
 if __name__ == "__main__":
 
     # created shared entities
-    camera    = OcsCameraEntity('CCS', 'Camera', False)
-    sequencer = OcsSequencerEntity('OCS', 'ocs', False)
+    archiver = OcsGenericEntity('DMCS', 'Archiver', False)
+    catchuparchiver = OcsGenericEntity('DMCS', 'CatchupArchiver', False)
+    processingcluster = OcsGenericEntity('DMCS', 'ProcessingCluster', False)
 
     # create jobs for each entity:
     jobs = []
-    for E in ( camera, sequencer ):
-        j = threading.Thread(target=worker_code, args=(E._entity, E))
+    for E in ( archiver, catchuparchiver, processingcluster ):
+        j = threading.Thread(target=worker, args=(E._entity, E))
         jobs.append(j)
         j.start()
 
