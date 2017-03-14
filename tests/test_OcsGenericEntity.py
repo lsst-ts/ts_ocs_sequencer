@@ -9,17 +9,25 @@ from OcsGenericEntity import *
 
 
 # +
+# +
+# __doc__ string
+# _
+__doc__ = """test of OcsGenericEntity"""
+
+
+# +
 # function: test_instantiate()
 # -
 def test_instantiate():
-    camera = None
+    cam = None
     try:
-        camera = OcsGenericEntity('CCS', 'camera')
+        cam = OcsGenericEntity('CCS', 'Camera')
     except OcsGenericEntityException as a:
         print(a.errstr)
-        assert False
-    if camera is not None:
+    if cam:
         assert True
+    else:
+        assert False
 
 
 # +
@@ -31,39 +39,35 @@ def test_noinstantiate():
         junk = OcsGenericEntity('JUNK', 'junk')
     except OcsGenericEntityException as b:
         print(b.errstr)
-        assert True
-    if junk is not None:
+    if junk:
         assert False
+    else:
+        assert True
 
 
 # +
 # function: test_nosystem()
 # -
 def test_nosystem():
-    camera = OcsGenericEntity('CCS', 'camera')
-    if camera is not None:
+    cam = OcsGenericEntity('CCS', 'Camera')
+    if not cam:
+        assert False
+    else:
         try:
-            camera.system = 'TCS'
-        except OcsGenericEntityException as c:
-            print(c.errstr)
-        if c:
+            cam.system = 'TCS'
+        except OcsGenericEntityException:
             assert True
-        else:
-            assert False
 
 
 # +
 # function: test_noentity()
 # -
 def test_noentity():
-    camera = OcsGenericEntity('CCS', 'camera')
-    if camera is not None:
+    cam = OcsGenericEntity('CCS', 'camera')
+    if not cam:
+        assert False
+    else:
         try:
-            camera.entity = 'telescope'
-        except OcsGenericEntityException as c:
-            print(c.errstr)
-        if c:
+            cam.entity = 'telescope'
+        except OcsGenericEntityException:
             assert True
-        else:
-            assert False
-

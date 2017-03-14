@@ -5,11 +5,15 @@
 # +
 # import(s)
 # -
-import sys
 import time
-from ocs_common import *
 from OcsLogger import *
 from SALPY_archiver import *
+
+
+# +
+# __doc__ string
+# -
+__doc__ = """Event logger for specific event in the DMCS Archiver"""
 
 
 # +
@@ -18,7 +22,6 @@ from SALPY_archiver import *
 __author__ = "Philip N. Daly"
 __copyright__ = u"\N{COPYRIGHT SIGN} AURA/LSST 2017. All rights reserved. Released under the GPL."
 __date__ = "17 January 2017"
-__doc__ = """Event logger for specific event in the OCS"""
 __email__ = "pdaly@lsst.org"
 __file__ = "logevent_archiverEntitySummaryState.py"
 __history__ = __date__ + ": " + "original version (" + __email__ + ")"
@@ -64,7 +67,6 @@ if __name__ == "__main__":
         time.sleep(1)
 
     # shutdown
-    evlog.logger.info('{0:s} shutting down'.format(__file__))
-    mgr.salShutdown()
-    exit()
-
+    # evlog.logger.info('{0:s} shutting down'.format(__file__))
+    # mgr.salShutdown()
+    # exit()

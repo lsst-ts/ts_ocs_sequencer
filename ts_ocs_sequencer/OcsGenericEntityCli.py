@@ -5,12 +5,17 @@
 # +
 # import(s)
 # -
-import argparse
-import sys
-from ocs_common import *
-from OcsExceptions import *
-from OcsLogger import *
 from OcsGenericEntity import *
+
+
+# +
+# __doc__ string
+# -
+__doc__ = """
+
+Functions for manipulating command line argument(s) for generic entitites in the OCS
+
+"""
 
 
 # +
@@ -19,7 +24,6 @@ from OcsGenericEntity import *
 __author__ = "Philip N. Daly"
 __copyright__ = u"\N{COPYRIGHT SIGN} AURA/LSST 2016. All rights reserved. Released under the GPL."
 __date__ = "31 October 2016"
-__doc__ = """Functions for manipulating command line argument(s) for generic entitites in the OCS"""
 __email__ = "pdaly@lsst.org"
 __file__ = "OcsGenericEntityCli.py"
 __history__ = __date__ + ": " + "original version (" + __email__ + ")"
@@ -49,15 +53,15 @@ class OcsGenericEntityCli(object):
         self.argd = None
 
         self.gcommands = {
-            'abort' : 'Abort any running command in the commandable entity',
-            'disable' : 'Disable the commandable entity',
-            'enable' : 'Enable the commandable entity',
-            'entercontrol' : 'Take control of the commandable entity',
-            'exitcontrol' : 'Relinquish control of the commandable entity',
-            'setvalue' : 'Set a parameter to a given value in the commandable entity',
-            'standby' : 'Unconfigure the commandable entity',
-            'start' : 'Configure the commandable entity',
-            'stop' : 'Stop any running command in the commandable entity'
+            'abort': 'Abort any running command in the commandable entity',
+            'disable': 'Disable the commandable entity',
+            'enable': 'Enable the commandable entity',
+            'entercontrol': 'Take control of the commandable entity',
+            'exitcontrol': 'Relinquish control of the commandable entity',
+            'setvalue': 'Set a parameter to a given value in the commandable entity',
+            'standby': 'Unconfigure the commandable entity',
+            'start': 'Configure the commandable entity',
+            'stop': 'Stop any running command in the commandable entity'
             }
 
         self.gDescription = 'Commands for commandable entity'
@@ -67,8 +71,7 @@ class OcsGenericEntityCli(object):
 
         self.description = self.gDescription
         self.help = self.gHelp
-        self.usage = '{0:s}\n{1:s}'.format(self.gUsage,self.gCommands)
-
+        self.usage = '{0:s}\n{1:s}'.format(self.gUsage, self.gCommands)
 
     # +
     # method: execute()
@@ -82,10 +85,10 @@ class OcsGenericEntityCli(object):
         self._parse_fp()
         # if the command does not exist, raise exception otherwise execute the command
         if not hasattr(self, '_'+self.args.command):
-            raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOCMD, "hasattr('{0:s}')".format(str(self.args.command)))
+            raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOCMD, "hasattr('{0:s}')".format(
+                str(self.args.command)))
         else:
             getattr(self, '_'+self.args.command)()
-
 
     # +
     # (hidden) method: _setup_fp()
@@ -97,7 +100,6 @@ class OcsGenericEntityCli(object):
         self.fp = argparse.ArgumentParser(description=self.description, usage=self.usage)
         self.fp.add_argument('command', help=self.help, type=str, default='')
 
-
     # +
     # (hidden) method: _parse_fp()
     # -
@@ -108,39 +110,40 @@ class OcsGenericEntityCli(object):
         self.args = self.fp.parse_args(sys.argv[1:2])
         self.logger.debug(str(self.args))
 
-
     # +
     # (hidden) method: _setup_sp()
     # -
-    def _setup_sp(self,command=''):
+    def _setup_sp(self, incmd=''):
         """
             create second parse object and add common arguments (these are required but they look optional!)
         """
         # set up parser and common command line options
-        self.sp = argparse.ArgumentParser(description=self.gcommands.get(command,''))
+        self.sp = argparse.ArgumentParser(description=self.gcommands.get(incmd, ''))
         self.sp.add_argument('-s', '--system', type=str, help='principal subsystem', default='')
         self.sp.add_argument('-e', '--entity', type=str, help='commandable entity', default='')
         self.sp.add_argument('-m', '--simulate', type=str, help='set entity to simulate mode', default='True')
-        self.sp.add_argument('-t', '--timeout', type=int, help='set entity to simulate mode', default=OCS_GENERIC_COMMAND_TIMEOUT)
+        self.sp.add_argument('-t', '--timeout', type=int, help='set entity to simulate mode',
+                             default=OCS_GENERIC_COMMAND_TIMEOUT)
         # add specific command line options
-        if command == 'abort':
+        incmd_lc = incmd.lower()
+        if incmd_lc == 'abort':
             pass
-        elif command == 'disable':
+        elif incmd_lc == 'disable':
             pass
-        elif command == 'entercontrol':
+        elif incmd_lc == 'entercontrol':
             pass
-        elif command == 'exitcontrol':
+        elif incmd_lc == 'exitcontrol':
             pass
-        elif command == 'enable':
+        elif incmd_lc == 'enable':
             pass
-        elif command == 'setvalue':
+        elif incmd_lc == 'setvalue':
             self.sp.add_argument('-p', '--parameter', type=str, help='parameter name', default='')
             self.sp.add_argument('-v', '--value', type=str, help='string-encoded value', default='')
-        elif command == 'standby':
+        elif incmd_lc == 'standby':
             pass
-        elif command == 'start':
+        elif incmd_lc == 'start':
             self.sp.add_argument('-i', '--startid', type=str, help='configuration identifier', default='')
-        elif command == 'stop':
+        elif incmd_lc == 'stop':
             self.sp.add_argument('-d', '--device', type=str, help='device identifier', default='')
 
     # +
@@ -157,37 +160,38 @@ class OcsGenericEntityCli(object):
     # +
     # (hidden) method: _set_argd()
     # -
-    def _set_argd(self,command):
+    def _set_argd(self, cmd):
         """
             set output dictionary, argd, from parse commands
         """
         # convert arguments namespace to dictionary
-        self.argd = {}
-        self.argd['command'] = command
-        self.argd['system'] = self.args.system
-        self.argd['entity'] = self.args.entity
-        self.argd['simulate'] = self.args.simulate
-        self.argd['timeout'] = self.args.timeout
+        self.argd = {
+            'command': cmd,
+            'system': self.args.system,
+            'entity': self.args.entity,
+            'simulate': self.args.simulate,
+            'timeout': self.args.timeout
+            }
         # add specific command line options
-        command_lc = command.lower()
-        if command_lc == 'abort':
+        cmd_lc = cmd.lower()
+        if cmd_lc == 'abort':
             pass
-        elif command_lc == 'disable':
+        elif cmd_lc == 'disable':
             pass
-        elif command_lc == 'entercontrol':
+        elif cmd_lc == 'entercontrol':
             pass
-        elif command_lc == 'exitControl':
+        elif cmd_lc == 'exitControl':
             pass
-        elif command_lc == 'enable':
+        elif cmd_lc == 'enable':
             pass
-        elif command_lc == 'setvalue':
+        elif cmd_lc == 'setvalue':
             self.argd['parameter'] = self.args.parameter
             self.argd['value'] = self.args.value
-        elif command_lc == 'standby':
+        elif cmd_lc == 'standby':
             pass
-        elif command_lc == 'start':
+        elif cmd_lc == 'start':
             self.argd['startid'] = self.args.startid
-        elif command_lc == 'stop':
+        elif cmd_lc == 'stop':
             self.argd['device'] = self.args.device
         self.logger.debug(str(self.argd))
 
@@ -222,8 +226,6 @@ class OcsGenericEntityCli(object):
         self._setup_sp('entercontrol')
         self._parse_sp()
         self._set_argd('entercontrol')
-    def _enterControl(self):
-        self.entercontrol()
 
     # +
     # (hidden) method: exitcontrol()
@@ -232,8 +234,6 @@ class OcsGenericEntityCli(object):
         self._setup_sp('exitcontrol')
         self._parse_sp()
         self._set_argd('exitcontrol')
-    def _exitControl(self):
-        self.exitcontrol()
 
     # +
     # (hidden) method: setvalue()
@@ -242,8 +242,6 @@ class OcsGenericEntityCli(object):
         self._setup_sp('setvalue')
         self._parse_sp()
         self._set_argd('setvalue')
-    def _setValue(self):
-        self.setvalue()
 
     # +
     # (hidden) method: standby()
@@ -285,81 +283,87 @@ if __name__ == '__main__':
     # execute the parser and set some defaults
     if gencli:
         gencli.execute()
-        system = gencli.argd.get('system','')
-        entity = gencli.argd.get('entity','').lower()
-        simulate = gencli.argd.get('simulate','')
-        if simulate.lower() == 'true':
-            simulate = True
+        _system = gencli.argd.get('system', '')
+        _entity = gencli.argd.get('entity', '').lower()
+        _simulate = gencli.argd.get('simulate', '')
+        if _simulate.lower() == 'true':
+            _simulate = True
         else:
-            simulate = False
-        command = gencli.argd.get('command','')
-        timeout = gencli.argd.get('timeout',OCS_GENERIC_COMMAND_TIMEOUT)
+            _simulate = False
+        _command = gencli.argd.get('command', '')
+        _timeout = gencli.argd.get('timeout', OCS_GENERIC_COMMAND_TIMEOUT)
+    else:
+        _system = ''
+        _entity = ''
+        _simulate = True
+        _command = ''
+        _timeout = OCS_GENERIC_COMMAND_TIMEOUT
 
     # get a generic entity object
     genobj = None
     try:
-        genobj = OcsGenericEntity(system, entity, simulate)
+        genobj = OcsGenericEntity(_system, _entity, _simulate)
     except OcsGenericEntityException as e:
         print(e.errstr)
 
     # execute the given command
     if genobj:
 
-        command_lc = command.lower()
+        command_lc = _command.lower()
         if command_lc == 'abort':
             try:
-                genobj.abort(timeout)
+                genobj.abort(_timeout)
             except OcsGenericEntityException as e:
                 print(e.errstr)
 
         elif command_lc == 'disable':
             try:
-                genobj.disable(timeout)
+                genobj.disable(_timeout)
             except OcsGenericEntityException as e:
                 print(e.errstr)
 
         elif command_lc == 'enable':
             try:
-                genobj.enable(timeout)
+                genobj.enable(_timeout)
             except OcsGenericEntityException as e:
                 print(e.errstr)
 
         elif command_lc == 'entercontrol':
             try:
-                genobj.entercontrol(timeout)
+                genobj.entercontrol(_timeout)
             except OcsGenericEntityException as e:
                 print(e.errstr)
 
         elif command_lc == 'exitcontrol':
             try:
-                genobj.exitcontrol(timeout)
+                genobj.exitcontrol(_timeout)
             except OcsGenericEntityException as e:
                 print(e.errstr)
 
         elif command_lc == 'setvalue':
-            parameter = gencli.argd.get('parameter','')
-            value = gencli.argd.get('value','')
+            parameter = gencli.argd.get('parameter', '')
+            value = gencli.argd.get('value', '')
             try:
-                genobj.setvalue(parameter, value, timeout)
+                genobj.setvalue(parameter, value, _timeout)
             except OcsGenericEntityException as e:
                 print(e.errstr)
 
         elif command_lc == 'standby':
             try:
-                genobj.standby(timeout)
+                genobj.standby(_timeout)
             except OcsGenericEntityException as e:
                 print(e.errstr)
 
         elif command_lc == 'start':
-            startid = gencli.argd.get('startid','')
+            startid = gencli.argd.get('startid', '')
             try:
-                genobj.start(startid, timeout)
+                genobj.start(startid, _timeout)
             except OcsGenericEntityException as e:
                 print(e.errstr)
 
         elif command_lc == 'stop':
-            device = gencli.argd.get('device','')
+            device = gencli.argd.get('device', '')
             try:
-                genobj.stop(device, timeout)
+                genobj.stop(device, _timeout)
             except OcsGenericEntityException as e:
                 print(e.errstr)

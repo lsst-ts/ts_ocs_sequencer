@@ -9,14 +9,20 @@ from OcsCameraEntityCli import *
 
 
 # +
+# +
+# __doc__ string
+# _
+__doc__ = """test of OcsCameraEntityCli"""
+
+
 # function: test_cli()
 # -
 def test_cli():
     cli = None
     try:
         cli = OcsCameraCli()
-    except:
-        pass
+    except OcsGenericEntityException as x:
+        print(x.errstr)
     if cli:
         assert True
     else:
@@ -31,12 +37,11 @@ def test_parse_cli():
     try:
         cli = OcsCameraCli()
         cli.execute()
-    except OcsGenericEntityException as e:
-        print(e.errstr)
-    except OcsCameraEntityException as e:
-        print(e.errstr)
+    except OcsCameraEntityException as c:
+        print(c.errstr)
+    except OcsGenericEntityException as x:
+        print(x.errstr)
     if cli:
         assert True
     else:
         assert False
-

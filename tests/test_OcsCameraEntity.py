@@ -9,19 +9,21 @@ from OcsCameraEntity import *
 
 
 # +
+# __doc__ string
+# _
+__doc__ = """test of OcsCameraEntity"""
+
+
+# +
 # function: test_instantiate()
 # -
 def test_instantiate():
-    camera = None
     try:
-        camera = OcsCameraEntity('CCS', 'camera')
+        cam = OcsCameraEntity('CCS', 'camera')
     except OcsGenericEntityException as a:
         print(a.errstr)
         assert False
-    except OcsCameraEntityException as b:
-        print(b.errstr)
-        assert False
-    if camera:
+    if cam:
         assert True
 
 
@@ -29,15 +31,14 @@ def test_instantiate():
 # function: test_nosystem()
 # -
 def test_nosystem():
-    camera = OcsCameraEntity('CCS', 'camera')
-    if camera:
+    cam = OcsCameraEntity('CCS', 'camera')
+    if cam:
         try:
-            camera.system = 'TCS'
-        except OcsGenericEntityException as e:
-            print(e.errstr)
-            assert True
-        except OcsCameraEntityException as f:
-            print(f.errstr)
+            cam.system = 'TCS'
+        except OcsCameraEntityException as c:
+            print(c.errstr)
+        except OcsGenericEntityException as g:
+            print(g.errstr)
             assert True
         else:
             assert False
@@ -47,15 +48,14 @@ def test_nosystem():
 # function: test_noentity()
 # -
 def test_noentity():
-    camera = OcsCameraEntity('CCS', 'camera')
-    if camera:
+    cam = OcsCameraEntity('CCS', 'camera')
+    if cam:
         try:
-            camera.entity = 'telescope'
+            cam.entity = 'telescope'
+        except OcsCameraEntityException as c:
+            print(c.errstr)
         except OcsGenericEntityException as g:
             print(g.errstr)
-            assert True
-        except OcsCameraEntityException as h:
-            print(h.errstr)
             assert True
         else:
             assert False

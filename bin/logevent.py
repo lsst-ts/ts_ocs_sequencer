@@ -5,12 +5,16 @@
 # +
 # import(s)
 # -
-import sys
 import threading
 import time
-from ocs_common import *
 from ocs_sal import *
 from OcsLogger import *
+
+
+# +
+# __doc__ string
+# -
+__doc__ = """Event logger for any events"""
 
 
 # +
@@ -19,7 +23,6 @@ from OcsLogger import *
 __author__ = "Philip N. Daly"
 __copyright__ = u"\N{COPYRIGHT SIGN} AURA/LSST 2017. All rights reserved. Released under the GPL."
 __date__ = "17 January 2017"
-__doc__ = """Event logger for any events"""
 __email__ = "pdaly@lsst.org"
 __file__ = "logevent.py"
 __history__ = __date__ + ": " + "original version (" + __email__ + ")"
@@ -30,7 +33,7 @@ __version__ = "0.1.0"
 # function: camera_payload()
 # -
 def camera_payload(log=None, event='', payload=None):
-    if log and (isinstance(event,str) and event!='') and payload:
+    if log and (isinstance(event, str) and event != '') and payload:
         if event == 'ccsConfigured':
             pass
         elif event == 'endInitializeGuider':
@@ -76,11 +79,12 @@ def camera_payload(log=None, event='', payload=None):
         elif event == 'startUnloadFilter':
             pass
 
+
 # function: ocs_payload()
 # -
 # +
 def ocs_payload(log=None, event='', payload=None):
-    if log and (isinstance(event,str) and event!='') and payload:
+    if log and (isinstance(event, str) and event != '') and payload:
         if event == 'ocsCommandIssued':
             log.logger.info('\tpayload.CommandSent    = {0:s}'.format(payload.CommandSent))
             log.logger.info('\tpayload.CommandSource  = {0:s}'.format(payload.CommandSource))
@@ -128,9 +132,9 @@ def ocs_payload(log=None, event='', payload=None):
 def thread_code(entity='', event=''):
 
     # check input(s)
-    if not isinstance(entity,str) or entity=='':
+    if not isinstance(entity, str) or entity == '':
         return
-    if not isinstance(event,str) or event=='':
+    if not isinstance(event, str) or event == '':
         return
 
     # get logger
@@ -174,8 +178,10 @@ def thread_code(entity='', event=''):
                 pass
         time.sleep(1)
 
-    evlog.logger.info('thread {0:s} shutting down'.format(event))
-    return True
+    # enable this code if we can evaluate the infinite loop above
+    # evlog.logger.info('thread {0:s} shutting down'.format(event))
+    # return True
+
 
 # +
 # main()
@@ -183,13 +189,15 @@ def thread_code(entity='', event=''):
 if __name__ == "__main__":
 
     # list of events
-    camera_events = [ 'ccsConfigured', 'endInitializeGuider', 'endInitializeImage', 'endLoadFilter',
-        'endReadout', 'endRotateCarousel', 'endSetFilter', 'endShutterClose', 'endShutterOpen',
-        'endTakeImage', 'endUnloadFilter', 'notReadyToTakeImage', 'prepareToTakeImage', 'readyToTakeImage',
-        'startIntegration', 'startLoadFilter', 'startReadout', 'startRotateCarousel', 'startSetFilter',
-        'startShutterClose', 'startShutterOpen', 'startUnloadFilter' ]
+    camera_events = ['ccsConfigured', 'endInitializeGuider', 'endInitializeImage', 'endLoadFilter',
+                     'endReadout', 'endRotateCarousel', 'endSetFilter', 'endShutterClose', 'endShutterOpen',
+                     'endTakeImage', 'endUnloadFilter', 'notReadyToTakeImage', 'prepareToTakeImage',
+                     'readyToTakeImage', 'startIntegration', 'startLoadFilter', 'startReadout',
+                     'startRotateCarousel', 'startSetFilter', 'startShutterClose', 'startShutterOpen',
+                     'startUnloadFilter']
 
-    ocs_events = [ 'ocsCommandIssued', 'ocsCommandStatus', 'ocsEntityShutdown', 'ocsEntityStartup', 'ocsEntitySummaryState' ]
+    ocs_events = ['ocsCommandIssued', 'ocsCommandStatus', 'ocsEntityShutdown',
+                  'ocsEntityStartup', 'ocsEntitySummaryState']
 
     # create threads for camera_events:
     camera_threads = []

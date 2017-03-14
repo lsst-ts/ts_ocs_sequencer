@@ -5,12 +5,15 @@
 # +
 # import(s)
 # -
-import sys
 import threading
 import time
-from ocs_common import *
 from OcsLogger import *
 from SALPY_ocs import *
+
+# +
+# __doc__ string
+# -
+__doc__ = """Event logger for events in the OCS"""
 
 
 # +
@@ -19,7 +22,6 @@ from SALPY_ocs import *
 __author__ = "Philip N. Daly"
 __copyright__ = u"\N{COPYRIGHT SIGN} AURA/LSST 2017. All rights reserved. Released under the GPL."
 __date__ = "17 January 2017"
-__doc__ = """Event logger for all events in the OCS"""
 __email__ = "pdaly@lsst.org"
 __file__ = "logevent_ocs.py"
 __history__ = __date__ + ": " + "original version (" + __email__ + ")"
@@ -32,7 +34,7 @@ __version__ = "0.1.0"
 def thread_code():
 
     # get thread name
-    thread_name = threading.currentThread().getName();
+    thread_name = threading.currentThread().getName()
 
     # get logger
     evlog = OcsLogger('Events', thread_name)
@@ -60,7 +62,7 @@ def thread_code():
     elif thread_name == 'ocsEntitySummaryState':
         event = ocs_logevent_ocsEntitySummaryStateC()
     else:
-        return
+        return False
     evlog.logger.info('{0:s} thread container created'.format(thread_name))
 
     # loop forever
@@ -76,7 +78,7 @@ def thread_code():
         elif thread_name == 'ocsEntitySummaryState':
             retval = mgr.getEvent_ocsEntitySummaryState(event)
         else:
-            return
+            return False
 
         if retval == 0:
             evlog.logger.info('{0:s} thread event received'.format(thread_name))
@@ -89,14 +91,14 @@ def thread_code():
                 evlog.logger.info('\tevent.SequenceNumber = {0:d}'.format(event.SequenceNumber))
                 evlog.logger.info('\tevent.Timestamp      = {0:s}'.format(event.Timestamp))
             elif thread_name == 'ocsCommandStatus':
-		evlog.logger.info('\tevent.CommandSource  = {0:s}'.format(event.CommandSource))
-		evlog.logger.info('\tevent.CommandSent    = {0:s}'.format(event.CommandSent))
-		evlog.logger.info('\tevent.Identifier     = {0:.17f}'.format(event.Identifier))
-		evlog.logger.info('\tevent.priority       = {0:d}'.format(event.priority))
-		evlog.logger.info('\tevent.SequenceNumber = {0:d}'.format(event.SequenceNumber))
-		evlog.logger.info('\tevent.Status         = {0:s}'.format(event.Status))
-		evlog.logger.info('\tevent.StatusValue    = {0:d}'.format(event.StatusValue))
-		evlog.logger.info('\tevent.Timestamp      = {0:s}'.format(event.Timestamp))
+                evlog.logger.info('\tevent.CommandSource  = {0:s}'.format(event.CommandSource))
+                evlog.logger.info('\tevent.CommandSent    = {0:s}'.format(event.CommandSent))
+                evlog.logger.info('\tevent.Identifier     = {0:.17f}'.format(event.Identifier))
+                evlog.logger.info('\tevent.priority       = {0:d}'.format(event.priority))
+                evlog.logger.info('\tevent.SequenceNumber = {0:d}'.format(event.SequenceNumber))
+                evlog.logger.info('\tevent.Status         = {0:s}'.format(event.Status))
+                evlog.logger.info('\tevent.StatusValue    = {0:d}'.format(event.StatusValue))
+                evlog.logger.info('\tevent.Timestamp      = {0:s}'.format(event.Timestamp))
             elif thread_name == 'ocsEntityShutdown':
                 evlog.logger.info('\tevent.Address    = {0:d}'.format(event.Address))
                 evlog.logger.info('\tevent.Identifier = {0:.17f}'.format(event.Identifier))
@@ -124,8 +126,10 @@ def thread_code():
                 pass
         time.sleep(1)
 
-    evlog.logger.info('thread {0:s} shutting down'.format(thread_name))
-    return True
+    # enable this code if we can terminate the infinite loop above
+    # evlog.logger.info('thread {0:s} shutting down'.format(thread_name))
+    # return True
+
 
 # +
 # main()
@@ -134,7 +138,7 @@ if __name__ == "__main__":
 
     # create threads for each event:
     threads = []
-    for T in [ 'ocsCommandIssued', 'ocsCommandStatus', 'ocsEntityShutdown', 'ocsEntityStartup', 'ocsEntitySummaryState' ]:
+    for T in ['ocsCommandIssued', 'ocsCommandStatus', 'ocsEntityShutdown', 'ocsEntityStartup', 'ocsEntitySummaryState']:
         t = threading.Thread(name=T, target=thread_code)
         threads.append(t)
         t.start()

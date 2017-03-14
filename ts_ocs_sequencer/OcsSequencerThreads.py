@@ -6,16 +6,20 @@
 # import(s)
 # -
 from __future__ import print_function
-import argparse
-import sys
-import threading
-import time
-from ocs_common import *
-from OcsLogger import *
 from OcsStates import *
 from SALPY_ocs import *
-
 from OcsCameraEntity import *
+
+
+# +
+# __doc__ string
+# -
+__doc__ = """
+
+Commander for the OCS Sequencer using Python Threading (WORK IN PROGRESS)
+
+"""
+
 
 # +
 # dunder string(s)
@@ -23,7 +27,6 @@ from OcsCameraEntity import *
 __author__ = "Philip N. Daly"
 __copyright__ = u"\N{COPYRIGHT SIGN} AURA/LSST 2017. All rights reserved. Released under the GPL."
 __date__ = "1 February 2017"
-__doc__ = """Commander for the OCS Sequencer using Python Threading"""
 __email__ = "pdaly@lsst.org"
 __file__ = "OcsSequencerThreads.py"
 __history__ = __date__ + ": " + "original version (" + __email__ + ")"
@@ -36,7 +39,7 @@ __version__ = "0.1.0"
 def lts237(incmd=''):
 
     # default dictionary
-    retdic  = {
+    retdic = {
         'cmd': None,
         'entity': None,
         'params': None,
@@ -44,73 +47,74 @@ def lts237(incmd=''):
         }
 
     # check input parameters
-    if not isinstance(incmd, str) or incmd=='':
+    if not isinstance(incmd, str) or incmd == '':
         pass
 
     # parse input command
     else:
-        clist = [ 'abort', 'disable', 'enable', 'entercontrol', 'exitcontrol', 'setvalue', 'standby', 'start', 'stop' ]
-        tlist = [ 'timeout=' ]
-        alist = [ 'device=', 'parameter=', 'startid=', 'value=' ]
+        clist = ['abort', 'disable', 'enable', 'entercontrol', 'exitcontrol', 'setvalue', 'standby', 'start', 'stop']
+        tlist = ['timeout=']
+        alist = ['device=', 'parameter=', 'startid=', 'value=']
         words = incmd.split()
 
         # loop around words
-        for E in words:
-            El = E.lower()
+        for v in words:
+            vl = v.lower()
 
             # get the command
-            if El in clist:
-                retdic['cmd'] = El
+            if vl in clist:
+                retdic['cmd'] = vl
 
             # get the entity
-            if El.find('entity=') >= 0:
-                retdic['entity'] = El.split('=')[1]
+            if vl.find('entity=') >= 0:
+                retdic['entity'] = vl.split('=')[1]
 
             # get any timeout
-            for T in tlist:
-                if El.find(T) >= 0:
+            for T1 in tlist:
+                if vl.find(T1) >= 0:
                     try:
-                        value = int(El.split('=')[1])
+                        value = int(vl.split('=')[1])
                     except ValueError:
                         value = None
                     retdic['timeout'] = value
 
             # get other arguments
             for A in alist:
-                if El.find(A) >= 0:
-                    if retdic['params'] == None:
-                        retdic['params'] = E
+                if vl.find(A) >= 0:
+                    if not retdic['params']:
+                        retdic['params'] = v
                     else:
-                        retdic['params'] = '{0:s} {1:s}'.format(retdic['params'], E)
+                        retdic['params'] = '{0:s} {1:s}'.format(retdic['params'], v)
 
     # return dictionary
     return retdic
 
+
 # +
 # function: camera_sequence()
 # -
-def camera_sequence(indict={}):
+def camera_sequence(indict=None):
 
     # check input(s)
-    if not indict:
+    if not isinstance(indict, dict) or not indict:
         return -1
 
     # get some objects
     mgr = indict['mgr']
-    camera = indict['camera']
-    smachine = indict['smachine']
-    cmdId = indict['cmdId']
+    cam2 = indict['camera']
+    mac2 = indict['smachine']
+    cmd_id = indict['cmdid']
     name = indict['name']
     evlog = indict['evlog']
 
     # make sure entity is set to camera
     if indict['entity'].lower() != 'camera':
-        return mgr.ackCommand_sequence(cmdId, SAL__CMD_FAILED, 0, "Error : No Entity")
+        return mgr.ackCommand_sequence(cmd_id, SAL__CMD_FAILED, 0, "Error : No Entity")
 
     else:
-        smachine.setBusy = True
-        retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_INPROGRESS, 0, "Ack : OK")
-        if 'timeout' in indict and indict['timeout']!=None:
+        mac2.setBusy = True
+        mgr.ackCommand_sequence(cmd_id, SAL__CMD_INPROGRESS, 0, "Ack : OK")
+        if 'timeout' in indict and not indict['timeout']:
             timeout = indict['timeout']
         else:
             timeout = OCS_CAMERA_COMMAND_TIMEOUT
@@ -119,46 +123,46 @@ def camera_sequence(indict={}):
         evlog.logger.info('{0:s} thread invoking {1:s}'.format(name, indict['cmd']))
 
         if indict['cmd'].lower() == 'abort':
-            camera.abort(timeout=timeout)
-            retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
+            cam2.abort(timeout=timeout)
+            mgr.ackCommand_sequence(cmd_id, SAL__CMD_COMPLETE, 0, "Done : OK")
 
         elif indict['cmd'].lower() == 'disable':
-            camera.disable(timeout=timeout)
-            retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
+            cam2.disable(timeout=timeout)
+            mgr.ackCommand_sequence(cmd_id, SAL__CMD_COMPLETE, 0, "Done : OK")
 
         elif indict['cmd'].lower() == 'enable':
-            camera.enable(timeout=timeout)
-            retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
+            cam2.enable(timeout=timeout)
+            mgr.ackCommand_sequence(cmd_id, SAL__CMD_COMPLETE, 0, "Done : OK")
 
         elif indict['cmd'].lower() == 'entercontrol':
-            camera.entercontrol(timeout=timeout)
-            retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
+            cam2.entercontrol(timeout=timeout)
+            mgr.ackCommand_sequence(cmd_id, SAL__CMD_COMPLETE, 0, "Done : OK")
 
         elif indict['cmd'].lower() == 'exitcontrol':
-            camera.exitcontrol(timeout=timeout)
-            retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
+            cam2.exitcontrol(timeout=timeout)
+            mgr.ackCommand_sequence(cmd_id, SAL__CMD_COMPLETE, 0, "Done : OK")
 
         elif indict['cmd'].lower() == 'standby':
-            camera.standby(timeout=timeout)
-            retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
+            cam2.standby(timeout=timeout)
+            mgr.ackCommand_sequence(cmd_id, SAL__CMD_COMPLETE, 0, "Done : OK")
 
         elif indict['cmd'].lower() == 'start':
             startid = indict['params'].split('=')[1]
             evlog.logger.info('{0:s} thread startid {1:s}'.format(name, startid))
-            camera.start(startid=startid, timeout=timeout)
-            retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
+            cam2.start(startid=startid, timeout=timeout)
+            mgr.ackCommand_sequence(cmd_id, SAL__CMD_COMPLETE, 0, "Done : OK")
 
         elif indict['cmd'].lower() == 'stop':
             device = indict['params'].split('=')[1]
             evlog.logger.info('{0:s} thread device {1:s}'.format(name, device))
-            camera.stop(device=device, timeout=timeout)
-            retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
+            cam2.stop(device=device, timeout=timeout)
+            mgr.ackCommand_sequence(cmd_id, SAL__CMD_COMPLETE, 0, "Done : OK")
 
         else:
-            retval = mgr.ackCommand_sequence(cmdId, SAL__CMD_FAILED, 0, "Error : No Command")
+            mgr.ackCommand_sequence(cmd_id, SAL__CMD_FAILED, 0, "Error : No Command")
 
-        smachine.setBusy = False
-        return retval
+        mac2.setBusy = False
+        return
 
 
 # +
@@ -173,11 +177,14 @@ def thread_code(entity='', evp=None, camera=None, smachine=None):
 
     # did we get input objects?
     if evp:
-        evp.logger.info('{0:s} thread received event handler at address {1:s}'.format(thread_name, hex(id(evp))))
+        evp.logger.info('{0:s} thread received event handler at address {1:s}'.format(
+            thread_name, hex(id(evp))))
     if camera:
-        camera.logger.info('{0:s} thread received camera entity at address {1:s}'.format(thread_name, hex(id(camera))))
+        camera.logger.info('{0:s} thread received camera entity at address {1:s}'.format(
+            thread_name, hex(id(camera))))
     if smachine:
-        smachine.logger.info('{0:s} thread received smachine entity at address {1:s}'.format(thread_name, hex(id(smachine))))
+        smachine.logger.info('{0:s} thread received smachine entity at address {1:s}'.format(
+            thread_name, hex(id(smachine))))
 
     # get logger
     evlog = OcsLogger('Sequencer', thread_name)
@@ -206,10 +213,10 @@ def thread_code(entity='', evp=None, camera=None, smachine=None):
     elif thread_name == 'script':
         mgr.salProcessor('ocs_command_script')
     elif thread_name == 'setValue':
-        #mgr.salProcessor('ocs_command_setValue')
+        # mgr.salProcessor('ocs_command_setValue')
         pass
     elif thread_name == 'shutdown':
-        #mgr.salProcessor('ocs_command_shutdown')
+        # mgr.salProcessor('ocs_command_shutdown')
         pass
     elif thread_name == 'standby':
         mgr.salProcessor('ocs_command_standby')
@@ -283,35 +290,35 @@ def thread_code(entity='', evp=None, camera=None, smachine=None):
 
         # accept command
         if thread_name == 'abort':
-            cmdId = mgr.acceptCommand_abort(data)
+            cmdid = mgr.acceptCommand_abort(data)
         elif thread_name == 'disable':
-            cmdId = mgr.acceptCommand_disable(data)
+            cmdid = mgr.acceptCommand_disable(data)
         elif thread_name == 'enable':
-            cmdId = mgr.acceptCommand_enable(data)
+            cmdid = mgr.acceptCommand_enable(data)
         elif thread_name == 'enterControl':
-            cmdId = mgr.acceptCommand_enterControl(data)
+            cmdid = mgr.acceptCommand_enterControl(data)
         elif thread_name == 'exitControl':
-            cmdId = mgr.acceptCommand_exitControl(data)
+            cmdid = mgr.acceptCommand_exitControl(data)
         elif thread_name == 'sequence':
-            cmdId = mgr.acceptCommand_sequence(data)
+            cmdid = mgr.acceptCommand_sequence(data)
         elif thread_name == 'script':
-            cmdId = mgr.acceptCommand_script(data)
+            cmdid = mgr.acceptCommand_script(data)
         elif thread_name == 'standby':
-            cmdId = mgr.acceptCommand_standby(data)
+            cmdid = mgr.acceptCommand_standby(data)
         elif thread_name == 'start':
-            cmdId = mgr.acceptCommand_start(data)
+            cmdid = mgr.acceptCommand_start(data)
         elif thread_name == 'stop':
-            cmdId = mgr.acceptCommand_stop(data)
+            cmdid = mgr.acceptCommand_stop(data)
 
         # process command
-        if cmdId > 0:
-            evlog.logger.info('{0:s} thread command identifier {1:d}'.format(thread_name, cmdId))
-            objd['cmdId'] = cmdId
+        if cmdid > 0:
+            evlog.logger.info('{0:s} thread command identifier {1:d}'.format(thread_name, cmdid))
+            objd['cmdId'] = cmdid
 
             if thread_name == 'abort':
                 evlog.logger.info('{0:s} thread received payload {1:s}'.format(thread_name, str(data.state)))
                 smachine.setBusy = True
-                retval = mgr.ackCommand_abort(cmdId, SAL__CMD_INPROGRESS, 0, "Ack : OK")
+                retval = mgr.ackCommand_abort(cmdid, SAL__CMD_INPROGRESS, 0, "Ack : OK")
                 if smachine:
                     smachine.change_state(smachine._current_state, OCS_SUMMARY_STATE_FAULT)
                     if evp:
@@ -320,20 +327,29 @@ def thread_code(entity='', evp=None, camera=None, smachine=None):
                         osta = ocsEntitySummaryState.get(smachine._previous_state, '')
                         cmds = ocsEntitySummaryStateCommands.get(smachine._current_state, [])
                         cfgs = ocsEntitySummaryStateConfigurations.get(smachine._current_state, [])
-                        evp.sendEvent('ocsEntitySummaryState', Name=thread_entity, CurrentState=str(nsta), PreviousState=str(osta),
-                            Identifier=thread_ocsid, Timestamp=ocs_mjd_to_iso(thread_ocsid), Executing=thread_name,
-                            Address=id(thread_id), CommandsAvailable=str(cmds), ConfigurationsAvailable=str(cfgs), priority=SAL__EVENT_INFO)
-                retval = mgr.ackCommand_abort(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
+                        evp.send_event(
+                            'ocsEntitySummaryState',
+                            Name=thread_entity,
+                            CurrentState=str(nsta),
+                            PreviousState=str(osta),
+                            Identifier=thread_ocsid,
+                            Timestamp=ocs_mjd_to_iso(thread_ocsid),
+                            Executing=thread_name,
+                            Address=id(thread_id),
+                            CommandsAvailable=str(cmds),
+                            ConfigurationsAvailable=str(cfgs),
+                            priority=SAL__EVENT_INFO)
+                retval = mgr.ackCommand_abort(cmdid, SAL__CMD_COMPLETE, 0, "Done : OK")
                 smachine.setBusy = False
 
             elif thread_name == 'disable':
                 evlog.logger.info('{0:s} thread received payload {1:s}'.format(thread_name, str(data.state)))
                 smachine.setBusy = True
-                retval = mgr.ackCommand_disable(cmdId, SAL__CMD_INPROGRESS, 0, "Ack : OK")
+                retval = mgr.ackCommand_disable(cmdid, SAL__CMD_INPROGRESS, 0, "Ack : OK")
                 current_cmds = ocsEntitySummaryStateCommands.get(smachine._current_state, [])
                 if thread_name.lower() not in current_cmds:
                     msg = 'Error : Command disallowed in {0:s} state'.format(ocsEntitySummaryState.get(smachine._current_state, ''))
-                    retval = mgr.ackCommand_disable(cmdId, SAL__CMD_FAILED, 0, msg)
+                    retval = mgr.ackCommand_disable(cmdid, SAL__CMD_FAILED, 0, msg)
                 else:
                     if smachine:
                         smachine.change_state(smachine._current_state, OCS_SUMMARY_STATE_DISABLED)
@@ -343,20 +359,29 @@ def thread_code(entity='', evp=None, camera=None, smachine=None):
                             osta = ocsEntitySummaryState.get(smachine._previous_state, '')
                             cmds = ocsEntitySummaryStateCommands.get(smachine._current_state, [])
                             cfgs = ocsEntitySummaryStateConfigurations.get(smachine._current_state, [])
-                            evp.sendEvent('ocsEntitySummaryState', Name=thread_entity, CurrentState=str(nsta), PreviousState=str(osta),
-                                Identifier=thread_ocsid, Timestamp=ocs_mjd_to_iso(thread_ocsid), Executing=thread_name,
-                                Address=id(thread_id), CommandsAvailable=str(cmds), ConfigurationsAvailable=str(cfgs), priority=SAL__EVENT_INFO)
-                    retval = mgr.ackCommand_disable(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
+                            evp.send_event(
+                                'ocsEntitySummaryState',
+                                Name=thread_entity,
+                                CurrentState=str(nsta),
+                                PreviousState=str(osta),
+                                Identifier=thread_ocsid,
+                                Timestamp=ocs_mjd_to_iso(thread_ocsid),
+                                Executing=thread_name,
+                                Address=id(thread_id),
+                                CommandsAvailable=str(cmds),
+                                ConfigurationsAvailable=str(cfgs),
+                                priority=SAL__EVENT_INFO)
+                    retval = mgr.ackCommand_disable(cmdid, SAL__CMD_COMPLETE, 0, "Done : OK")
                 smachine.setBusy = False
 
             elif thread_name == 'enable':
                 evlog.logger.info('{0:s} thread received payload {1:s}'.format(thread_name, str(data.state)))
                 smachine.setBusy = True
-                retval = mgr.ackCommand_enable(cmdId, SAL__CMD_INPROGRESS, 0, "Ack : OK")
+                retval = mgr.ackCommand_enable(cmdid, SAL__CMD_INPROGRESS, 0, "Ack : OK")
                 current_cmds = ocsEntitySummaryStateCommands.get(smachine._current_state, [])
                 if thread_name.lower() not in current_cmds:
                     msg = 'Error : Command disallowed in {0:s} state'.format(ocsEntitySummaryState.get(smachine._current_state, ''))
-                    retval = mgr.ackCommand_enable(cmdId, SAL__CMD_FAILED, 0, msg)
+                    retval = mgr.ackCommand_enable(cmdid, SAL__CMD_FAILED, 0, msg)
                 else:
                     if smachine:
                         smachine.change_state(smachine._current_state, OCS_SUMMARY_STATE_ENABLED)
@@ -366,20 +391,29 @@ def thread_code(entity='', evp=None, camera=None, smachine=None):
                             osta = ocsEntitySummaryState.get(smachine._previous_state, '')
                             cmds = ocsEntitySummaryStateCommands.get(smachine._current_state, [])
                             cfgs = ocsEntitySummaryStateConfigurations.get(smachine._current_state, [])
-                            evp.sendEvent('ocsEntitySummaryState', Name=thread_entity, CurrentState=str(nsta), PreviousState=str(osta),
-                                Identifier=thread_ocsid, Timestamp=ocs_mjd_to_iso(thread_ocsid), Executing=thread_name,
-                                Address=id(thread_id), CommandsAvailable=str(cmds), ConfigurationsAvailable=str(cfgs), priority=SAL__EVENT_INFO)
-                    retval = mgr.ackCommand_enable(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
+                            evp.send_event(
+                                'ocsEntitySummaryState',
+                                Name=thread_entity,
+                                CurrentState=str(nsta),
+                                PreviousState=str(osta),
+                                Identifier=thread_ocsid,
+                                Timestamp=ocs_mjd_to_iso(thread_ocsid),
+                                Executing=thread_name,
+                                Address=id(thread_id),
+                                CommandsAvailable=str(cmds),
+                                ConfigurationsAvailable=str(cfgs),
+                                priority=SAL__EVENT_INFO)
+                    retval = mgr.ackCommand_enable(cmdid, SAL__CMD_COMPLETE, 0, "Done : OK")
                 smachine.setBusy = False
 
             elif thread_name == 'enterControl':
                 evlog.logger.info('{0:s} thread received payload {1:s}'.format(thread_name, str(data.state)))
                 smachine.setBusy = True
-                retval = mgr.ackCommand_enterControl(cmdId, SAL__CMD_INPROGRESS, 0, "Ack : OK")
+                retval = mgr.ackCommand_enterControl(cmdid, SAL__CMD_INPROGRESS, 0, "Ack : OK")
                 current_cmds = ocsEntitySummaryStateCommands.get(smachine._current_state, [])
                 if thread_name.lower() not in current_cmds:
                     msg = 'Error : Command disallowed in {0:s} state'.format(ocsEntitySummaryState.get(smachine._current_state, ''))
-                    retval = mgr.ackCommand_enterControl(cmdId, SAL__CMD_FAILED, 0, msg)
+                    retval = mgr.ackCommand_enterControl(cmdid, SAL__CMD_FAILED, 0, msg)
                 else:
                     if smachine:
                         smachine.change_state(smachine._current_state, OCS_SUMMARY_STATE_STANDBY)
@@ -389,20 +423,29 @@ def thread_code(entity='', evp=None, camera=None, smachine=None):
                             osta = ocsEntitySummaryState.get(smachine._previous_state, '')
                             cmds = ocsEntitySummaryStateCommands.get(smachine._current_state, [])
                             cfgs = ocsEntitySummaryStateConfigurations.get(smachine._current_state, [])
-                            evp.sendEvent('ocsEntitySummaryState', Name=thread_entity, CurrentState=str(nsta), PreviousState=str(osta),
-                                Identifier=thread_ocsid, Timestamp=ocs_mjd_to_iso(thread_ocsid), Executing=thread_name,
-                                Address=id(thread_id), CommandsAvailable=str(cmds), ConfigurationsAvailable=str(cfgs), priority=SAL__EVENT_INFO)
-                    retval = mgr.ackCommand_enterControl(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
+                            evp.send_event(
+                                'ocsEntitySummaryState',
+                                Name=thread_entity,
+                                CurrentState=str(nsta),
+                                PreviousState=str(osta),
+                                Identifier=thread_ocsid,
+                                Timestamp=ocs_mjd_to_iso(thread_ocsid),
+                                Executing=thread_name,
+                                Address=id(thread_id),
+                                CommandsAvailable=str(cmds),
+                                ConfigurationsAvailable=str(cfgs),
+                                priority=SAL__EVENT_INFO)
+                    retval = mgr.ackCommand_enterControl(cmdid, SAL__CMD_COMPLETE, 0, "Done : OK")
                 smachine.setBusy = False
 
             elif thread_name == 'exitControl':
                 evlog.logger.info('{0:s} thread received payload {1:s}'.format(thread_name, str(data.state)))
                 smachine.setBusy = True
-                retval = mgr.ackCommand_exitControl(cmdId, SAL__CMD_INPROGRESS, 0, "Ack : OK")
+                retval = mgr.ackCommand_exitControl(cmdid, SAL__CMD_INPROGRESS, 0, "Ack : OK")
                 current_cmds = ocsEntitySummaryStateCommands.get(smachine._current_state, [])
                 if thread_name.lower() not in current_cmds:
                     msg = 'Error : Command disallowed in {0:s} state'.format(ocsEntitySummaryState.get(smachine._current_state, ''))
-                    retval = mgr.ackCommand_exitControl(cmdId, SAL__CMD_FAILED, 0, msg)
+                    retval = mgr.ackCommand_exitControl(cmdid, SAL__CMD_FAILED, 0, msg)
                 else:
                     if smachine:
                         smachine.change_state(smachine._current_state, OCS_SUMMARY_STATE_OFFLINE)
@@ -412,10 +455,19 @@ def thread_code(entity='', evp=None, camera=None, smachine=None):
                             osta = ocsEntitySummaryState.get(smachine._previous_state, '')
                             cmds = ocsEntitySummaryStateCommands.get(smachine._current_state, [])
                             cfgs = ocsEntitySummaryStateConfigurations.get(smachine._current_state, [])
-                            evp.sendEvent('ocsEntitySummaryState', Name=thread_entity, CurrentState=str(nsta), PreviousState=str(osta),
-                                Identifier=thread_ocsid, Timestamp=ocs_mjd_to_iso(thread_ocsid), Executing=thread_name,
-                                Address=id(thread_id), CommandsAvailable=str(cmds), ConfigurationsAvailable=str(cfgs), priority=SAL__EVENT_INFO)
-                    retval = mgr.ackCommand_exitControl(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
+                            evp.send_event(
+                                'ocsEntitySummaryState',
+                                Name=thread_entity,
+                                CurrentState=str(nsta),
+                                PreviousState=str(osta),
+                                Identifier=thread_ocsid,
+                                Timestamp=ocs_mjd_to_iso(thread_ocsid),
+                                Executing=thread_name,
+                                Address=id(thread_id),
+                                CommandsAvailable=str(cmds),
+                                ConfigurationsAvailable=str(cfgs),
+                                priority=SAL__EVENT_INFO)
+                    retval = mgr.ackCommand_exitControl(cmdid, SAL__CMD_COMPLETE, 0, "Done : OK")
                 smachine.setBusy = False
 
             elif thread_name == 'sequence':
@@ -428,18 +480,18 @@ def thread_code(entity='', evp=None, camera=None, smachine=None):
 
             elif thread_name == 'script':
                 evlog.logger.info('{0:s} thread received payload {1:s}'.format(thread_name, str(data.location)))
-                retval = mgr.ackCommand_script(cmdId, SAL__CMD_INPROGRESS, 0, "Ack : OK")
+                retval = mgr.ackCommand_script(cmdid, SAL__CMD_INPROGRESS, 0, "Ack : OK")
                 time.sleep(1) # really want to do something here
-                retval = mgr.ackCommand_script(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
+                retval = mgr.ackCommand_script(cmdid, SAL__CMD_COMPLETE, 0, "Done : OK")
 
             elif thread_name == 'standby':
                 evlog.logger.info('{0:s} thread received payload {1:s}'.format(thread_name, str(data.state)))
                 smachine.setBusy = True
-                retval = mgr.ackCommand_standby(cmdId, SAL__CMD_INPROGRESS, 0, "Ack : OK")
+                retval = mgr.ackCommand_standby(cmdid, SAL__CMD_INPROGRESS, 0, "Ack : OK")
                 current_cmds = ocsEntitySummaryStateCommands.get(smachine._current_state, [])
                 if thread_name.lower() not in current_cmds:
                     msg = 'Error : Command disallowed in {0:s} state'.format(ocsEntitySummaryState.get(smachine._current_state, ''))
-                    retval = mgr.ackCommand_standby(cmdId, SAL__CMD_FAILED, 0, msg)
+                    retval = mgr.ackCommand_standby(cmdid, SAL__CMD_FAILED, 0, msg)
                 else:
                     if smachine:
                         smachine.change_state(smachine._current_state, OCS_SUMMARY_STATE_STANDBY)
@@ -449,20 +501,29 @@ def thread_code(entity='', evp=None, camera=None, smachine=None):
                             osta = ocsEntitySummaryState.get(smachine._previous_state, '')
                             cmds = ocsEntitySummaryStateCommands.get(smachine._current_state, [])
                             cfgs = ocsEntitySummaryStateConfigurations.get(smachine._current_state, [])
-                            evp.sendEvent('ocsEntitySummaryState', Name=thread_entity, CurrentState=str(nsta), PreviousState=str(osta),
-                                Identifier=thread_ocsid, Timestamp=ocs_mjd_to_iso(thread_ocsid), Executing=thread_name,
-                                Address=id(thread_id), CommandsAvailable=str(cmds), ConfigurationsAvailable=str(cfgs), priority=SAL__EVENT_INFO)
-                    retval = mgr.ackCommand_standby(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
+                            evp.send_event(
+                                'ocsEntitySummaryState',
+                                Name=thread_entity,
+                                CurrentState=str(nsta),
+                                PreviousState=str(osta),
+                                Identifier=thread_ocsid,
+                                Timestamp=ocs_mjd_to_iso(thread_ocsid),
+                                Executing=thread_name,
+                                Address=id(thread_id),
+                                CommandsAvailable=str(cmds),
+                                ConfigurationsAvailable=str(cfgs),
+                                priority=SAL__EVENT_INFO)
+                    retval = mgr.ackCommand_standby(cmdid, SAL__CMD_COMPLETE, 0, "Done : OK")
                 smachine.setBusy = False
 
             elif thread_name == 'start':
                 evlog.logger.info('{0:s} thread received payload {1:s}'.format(thread_name, str(data.configuration)))
                 smachine.setBusy = True
-                retval = mgr.ackCommand_start(cmdId, SAL__CMD_INPROGRESS, 0, "Ack : OK")
+                retval = mgr.ackCommand_start(cmdid, SAL__CMD_INPROGRESS, 0, "Ack : OK")
                 current_cmds = ocsEntitySummaryStateCommands.get(smachine._current_state, [])
                 if thread_name.lower() not in current_cmds:
                     msg = 'Error : Command disallowed in {0:s} state'.format(ocsEntitySummaryState.get(smachine._current_state, ''))
-                    retval = mgr.ackCommand_start(cmdId, SAL__CMD_FAILED, 0, msg)
+                    retval = mgr.ackCommand_start(cmdid, SAL__CMD_FAILED, 0, msg)
                 else:
                     if smachine:
                         smachine.change_state(smachine._current_state, OCS_SUMMARY_STATE_DISABLED)
@@ -472,18 +533,27 @@ def thread_code(entity='', evp=None, camera=None, smachine=None):
                             osta = ocsEntitySummaryState.get(smachine._previous_state, '')
                             cmds = ocsEntitySummaryStateCommands.get(smachine._current_state, [])
                             cfgs = ocsEntitySummaryStateConfigurations.get(smachine._current_state, [])
-                            evp.sendEvent('ocsEntitySummaryState', Name=thread_entity, CurrentState=str(nsta), PreviousState=str(osta),
-                                Identifier=thread_ocsid, Timestamp=ocs_mjd_to_iso(thread_ocsid), Executing=thread_name,
-                                Address=id(thread_id), CommandsAvailable=str(cmds), ConfigurationsAvailable=str(cfgs), priority=SAL__EVENT_INFO)
-                    retval = mgr.ackCommand_start(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
+                            evp.send_event(
+                                'ocsEntitySummaryState',
+                                Name=thread_entity,
+                                CurrentState=str(nsta),
+                                PreviousState=str(osta),
+                                Identifier=thread_ocsid,
+                                Timestamp=ocs_mjd_to_iso(thread_ocsid),
+                                Executing=thread_name,
+                                Address=id(thread_id),
+                                CommandsAvailable=str(cmds),
+                                ConfigurationsAvailable=str(cfgs),
+                                priority=SAL__EVENT_INFO)
+                    retval = mgr.ackCommand_start(cmdid, SAL__CMD_COMPLETE, 0, "Done : OK")
                 smachine.setBusy = False
 
             elif thread_name == 'stop':
                 evlog.logger.info('{0:s} thread received payload {1:s}'.format(thread_name, str(data.state)))
                 smachine.setBusy = True
-                retval = mgr.ackCommand_stop(cmdId, SAL__CMD_INPROGRESS, 0, "Ack : OK")
+                retval = mgr.ackCommand_stop(cmdid, SAL__CMD_INPROGRESS, 0, "Ack : OK")
                 time.sleep(1) # really want to do something here
-                retval = mgr.ackCommand_stop(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
+                retval = mgr.ackCommand_stop(cmdid, SAL__CMD_COMPLETE, 0, "Done : OK")
                 smachine.setBusy = False
 
             evlog.logger.info('{0:s} thread command return value {1:d}'.format(thread_name, retval))
@@ -491,9 +561,11 @@ def thread_code(entity='', evp=None, camera=None, smachine=None):
         # I think this sleep means it's really polling?!
         time.sleep(1)
 
-    evlog.logger.info('{0:s} thread {1:s} shutting down'.format(thread_entity, thread_name))
-    mgr.salShutdown()
-    return True
+    # placeholder for shutdown
+    # evlog.logger.info('{0:s} thread {1:s} shutting down'.format(thread_entity, thread_name))
+    # mgr.salShutdown()
+    # return True
+
 
 # +
 # main()
@@ -512,7 +584,8 @@ if __name__ == "__main__":
 
     # create threads for each command:
     threads = []
-    for T in [ 'abort', 'disable', 'enable', 'enterControl', 'exitControl', 'sequence', 'script', 'standby', 'start', 'stop']:
+    for T in ['abort', 'disable', 'enable', 'enterControl', 'exitControl', 'sequence', 'script',
+              'standby', 'start', 'stop']:
         t = threading.Thread(name=T, target=thread_code, args=('Sequencer', evp, camera, smachine))
         threads.append(t)
         t.start()

@@ -9,13 +9,20 @@ from OcsGenericEntityCli import *
 
 
 # +
+# +
+# __doc__ string
+# _
+__doc__ = """test of OcsGenericEntityCli"""
+
+
+# +
 # function: test_cli()
 # -
 def test_cli():
     cli = None
     try:
         cli = OcsGenericEntityCli()
-    except:
+    except OcsGenericEntityException:
         pass
     if cli:
         assert True
@@ -31,10 +38,9 @@ def test_parse_cli():
     try:
         cli = OcsGenericEntityCli()
         cli.execute()
-    except OcsGenericEntityException as e:
-        print(e.errstr)
+    except OcsGenericEntityException as f:
+        print(f.errstr)
     if cli:
         assert True
     else:
         assert False
-

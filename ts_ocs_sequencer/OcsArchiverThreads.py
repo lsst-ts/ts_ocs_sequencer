@@ -31,6 +31,19 @@ __version__ = "0.1.0"
 
 
 # +
+# function: get_state()
+# -
+def get_state(sm=None):
+   if sm:
+       nsta = state_dict.get(sm._current_state, '')
+       osta = state_dict.get(sm._previous_state, '')
+       cmds = cmd_dict.get(sm._current_state, [])
+       cfgs = cfg_dict.get(sm._current_state, [])
+       return (nsta, osta, cmds, cfgs)
+   else:
+       return ('', '', [], [])
+
+# +
 # function: thread_code()
 # -
 def thread_code(entity='', evp=None, smachine=None):
@@ -47,7 +60,7 @@ def thread_code(entity='', evp=None, smachine=None):
         smachine.logger.info('{0:s} thread received smachine entity at address {1:s}'.format(thread_name, hex(id(smachine))))
 
     # get logger
-    evlog = OcsLogger('Archiver', thread_name)
+    evlog = OcsLogger(entity, thread_name)
     evlog.logger.info('{0:s} thread starting up'.format(thread_name))
 
     # get and reset dictionaries
@@ -154,9 +167,17 @@ def thread_code(entity='', evp=None, smachine=None):
                         osta = state_dict.get(smachine._previous_state, '')
                         cmds = cmd_dict.get(smachine._current_state, [])
                         cfgs = cfg_dict.get(smachine._current_state, [])
-                        evp.sendEvent('archiverEntitySummaryState', Name=thread_entity, CurrentState=str(nsta), PreviousState=str(osta),
-                            Identifier=thread_ocsid, Timestamp=ocs_mjd_to_iso(thread_ocsid), Executing=thread_name,
-                            Address=id(thread_id), CommandsAvailable=str(cmds), ConfigurationsAvailable=str(cfgs), priority=SAL__EVENT_INFO)
+                        evp.send_event('archiverEntitySummaryState', 
+                            Name=thread_entity,
+                            CurrentState=str(nsta),
+                            PreviousState=str(osta),
+                            Identifier=thread_ocsid,
+                            Timestamp=ocs_mjd_to_iso(thread_ocsid),
+                            Executing=thread_name,
+                            Address=id(thread_id),
+                            CommandsAvailable=str(cmds),
+                            ConfigurationsAvailable=str(cfgs),
+                            priority=SAL__EVENT_INFO)
                 retval = mgr.ackCommand_abort(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
                 smachine.setBusy = False
 
@@ -177,9 +198,17 @@ def thread_code(entity='', evp=None, smachine=None):
                             osta = state_dict.get(smachine._previous_state, '')
                             cmds = cmd_dict.get(smachine._current_state, [])
                             cfgs = cfg_dict.get(smachine._current_state, [])
-                            evp.sendEvent('archiverEntitySummaryState', Name=thread_entity, CurrentState=str(nsta), PreviousState=str(osta),
-                                Identifier=thread_ocsid, Timestamp=ocs_mjd_to_iso(thread_ocsid), Executing=thread_name,
-                                Address=id(thread_id), CommandsAvailable=str(cmds), ConfigurationsAvailable=str(cfgs), priority=SAL__EVENT_INFO)
+                            evp.send_event('archiverEntitySummaryState', 
+                                Name=thread_entity,
+                                CurrentState=str(nsta),
+                                PreviousState=str(osta),
+                                Identifier=thread_ocsid,
+                                Timestamp=ocs_mjd_to_iso(thread_ocsid),
+                                Executing=thread_name,
+                                Address=id(thread_id),
+                                CommandsAvailable=str(cmds),
+                                ConfigurationsAvailable=str(cfgs),
+                                priority=SAL__EVENT_INFO)
                     retval = mgr.ackCommand_disable(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
                 smachine.setBusy = False
 
@@ -200,9 +229,17 @@ def thread_code(entity='', evp=None, smachine=None):
                             osta = state_dict.get(smachine._previous_state, '')
                             cmds = cmd_dict.get(smachine._current_state, [])
                             cfgs = cfg_dict.get(smachine._current_state, [])
-                            evp.sendEvent('archiverEntitySummaryState', Name=thread_entity, CurrentState=str(nsta), PreviousState=str(osta),
-                                Identifier=thread_ocsid, Timestamp=ocs_mjd_to_iso(thread_ocsid), Executing=thread_name,
-                                Address=id(thread_id), CommandsAvailable=str(cmds), ConfigurationsAvailable=str(cfgs), priority=SAL__EVENT_INFO)
+                            evp.send_event('archiverEntitySummaryState', 
+                                Name=thread_entity,
+                                CurrentState=str(nsta),
+                                PreviousState=str(osta),
+                                Identifier=thread_ocsid,
+                                Timestamp=ocs_mjd_to_iso(thread_ocsid),
+                                Executing=thread_name,
+                                Address=id(thread_id),
+                                CommandsAvailable=str(cmds),
+                                ConfigurationsAvailable=str(cfgs),
+                                priority=SAL__EVENT_INFO)
                     retval = mgr.ackCommand_enable(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
                 smachine.setBusy = False
 
@@ -219,13 +256,18 @@ def thread_code(entity='', evp=None, smachine=None):
                         smachine.change_state(smachine._current_state, OCS_SUMMARY_STATE_STANDBY)
                         if evp:
                             thread_ocsid = ocs_id(False)
-                            nsta = state_dict.get(smachine._current_state, '')
-                            osta = state_dict.get(smachine._previous_state, '')
-                            cmds = cmd_dict.get(smachine._current_state, [])
-                            cfgs = cfg_dict.get(smachine._current_state, [])
-                            evp.sendEvent('archiverEntitySummaryState', Name=thread_entity, CurrentState=str(nsta), PreviousState=str(osta),
-                                Identifier=thread_ocsid, Timestamp=ocs_mjd_to_iso(thread_ocsid), Executing=thread_name,
-                                Address=id(thread_id), CommandsAvailable=str(cmds), ConfigurationsAvailable=str(cfgs), priority=SAL__EVENT_INFO)
+                            (nsta, osta, cmds, cfgs) = get_state(smachine)
+                            evp.send_event('archiverEntitySummaryState', 
+                                Name=thread_entity,
+                                CurrentState=str(nsta),
+                                PreviousState=str(osta),
+                                Identifier=thread_ocsid,
+                                Timestamp=ocs_mjd_to_iso(thread_ocsid),
+                                Executing=thread_name,
+                                Address=id(thread_id),
+                                CommandsAvailable=str(cmds),
+                                ConfigurationsAvailable=str(cfgs),
+                                priority=SAL__EVENT_INFO)
                     retval = mgr.ackCommand_enterControl(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
                 smachine.setBusy = False
 
@@ -246,9 +288,17 @@ def thread_code(entity='', evp=None, smachine=None):
                             osta = state_dict.get(smachine._previous_state, '')
                             cmds = cmd_dict.get(smachine._current_state, [])
                             cfgs = cfg_dict.get(smachine._current_state, [])
-                            evp.sendEvent('archiverEntitySummaryState', Name=thread_entity, CurrentState=str(nsta), PreviousState=str(osta),
-                                Identifier=thread_ocsid, Timestamp=ocs_mjd_to_iso(thread_ocsid), Executing=thread_name,
-                                Address=id(thread_id), CommandsAvailable=str(cmds), ConfigurationsAvailable=str(cfgs), priority=SAL__EVENT_INFO)
+                            evp.send_event('archiverEntitySummaryState', 
+                                Name=thread_entity,
+                                CurrentState=str(nsta),
+                                PreviousState=str(osta),
+                                Identifier=thread_ocsid,
+                                Timestamp=ocs_mjd_to_iso(thread_ocsid),
+                                Executing=thread_name,
+                                Address=id(thread_id),
+                                CommandsAvailable=str(cmds),
+                                ConfigurationsAvailable=str(cfgs),
+                                priority=SAL__EVENT_INFO)
                     retval = mgr.ackCommand_exitControl(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
                 smachine.setBusy = False
 
@@ -269,9 +319,17 @@ def thread_code(entity='', evp=None, smachine=None):
                             osta = state_dict.get(smachine._previous_state, '')
                             cmds = cmd_dict.get(smachine._current_state, [])
                             cfgs = cfg_dict.get(smachine._current_state, [])
-                            evp.sendEvent('archiverEntitySummaryState', Name=thread_entity, CurrentState=str(nsta), PreviousState=str(osta),
-                                Identifier=thread_ocsid, Timestamp=ocs_mjd_to_iso(thread_ocsid), Executing=thread_name,
-                                Address=id(thread_id), CommandsAvailable=str(cmds), ConfigurationsAvailable=str(cfgs), priority=SAL__EVENT_INFO)
+                            evp.send_event('archiverEntitySummaryState', 
+                                Name=thread_entity,
+                                CurrentState=str(nsta),
+                                PreviousState=str(osta),
+                                Identifier=thread_ocsid,
+                                Timestamp=ocs_mjd_to_iso(thread_ocsid),
+                                Executing=thread_name,
+                                Address=id(thread_id),
+                                CommandsAvailable=str(cmds),
+                                ConfigurationsAvailable=str(cfgs),
+                                priority=SAL__EVENT_INFO)
                     retval = mgr.ackCommand_standby(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
                 smachine.setBusy = False
 
@@ -292,9 +350,17 @@ def thread_code(entity='', evp=None, smachine=None):
                             osta = state_dict.get(smachine._previous_state, '')
                             cmds = cmd_dict.get(smachine._current_state, [])
                             cfgs = cfg_dict.get(smachine._current_state, [])
-                            evp.sendEvent('archiverEntitySummaryState', Name=thread_entity, CurrentState=str(nsta), PreviousState=str(osta),
-                                Identifier=thread_ocsid, Timestamp=ocs_mjd_to_iso(thread_ocsid), Executing=thread_name,
-                                Address=id(thread_id), CommandsAvailable=str(cmds), ConfigurationsAvailable=str(cfgs), priority=SAL__EVENT_INFO)
+                            evp.send_event('archiverEntitySummaryState', 
+                                Name=thread_entity,
+                                CurrentState=str(nsta),
+                                PreviousState=str(osta),
+                                Identifier=thread_ocsid,
+                                Timestamp=ocs_mjd_to_iso(thread_ocsid),
+                                Executing=thread_name,
+                                Address=id(thread_id),
+                                CommandsAvailable=str(cmds),
+                                ConfigurationsAvailable=str(cfgs),
+                                priority=SAL__EVENT_INFO)
                     retval = mgr.ackCommand_start(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
                 smachine.setBusy = False
 
@@ -331,7 +397,7 @@ if __name__ == "__main__":
 
     # create threads for each command:
     threads = []
-    for T in [ 'abort', 'disable', 'enable', 'enterControl', 'exitControl', 'standby', 'start', 'stop']:
+    for T in ['abort', 'disable', 'enable', 'enterControl', 'exitControl', 'standby', 'start', 'stop']:
         t = threading.Thread(name=T, target=thread_code, args=('Archiver', evp, smachine))
         threads.append(t)
         t.start()
