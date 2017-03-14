@@ -4,7 +4,7 @@
 # +
 # set the default path below
 # -
-export TS_OCS_SEQUENCER_PATH=/usr/local/ts_ocs_seqnuecer
+export TS_OCS_SEQUENCER_PATH=/usr/local/ts_ocs_sequencer
 
 
 # +
