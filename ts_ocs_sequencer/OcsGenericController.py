@@ -175,7 +175,7 @@ class Worker(threading.Thread):
     def _accept_command(self):
 
         # entry message
-        self._log.logger.info('{0:s} {1:s} thread _accept_command()={2:s} entry'.format(self._entity, self._name, str(self._cmdid)))
+        # self._log.logger.info('{0:s} {1:s} thread _accept_command()={2:s} entry'.format(self._entity, self._name, str(self._cmdid)))
     
         # accept command
         if self._name == 'abort':
@@ -200,7 +200,7 @@ class Worker(threading.Thread):
             self._cmdid = -1
 
         # exit message
-        self._log.logger.info('{0:s} {1:s} thread _accept_command()={2:s} exit'.format(self._entity, self._name, str(self._cmdid)))
+        # self._log.logger.info('{0:s} {1:s} thread _accept_command()={2:s} exit'.format(self._entity, self._name, str(self._cmdid)))
 
     # +
     # (hidden) method: _ack_command()
@@ -262,7 +262,7 @@ class Worker(threading.Thread):
         else:
 
             # generate a state change event
-            self._evh.sendEvent('archiverEntitySummaryState',
+            self._evh.send_event('archiverEntitySummaryState',
                 Name=self._entity,
                 CurrentState=str(self._cstate),
                 PreviousState=str(self._pstate),
