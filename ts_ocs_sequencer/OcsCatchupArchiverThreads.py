@@ -23,11 +23,39 @@ from SALPY_catchuparchiver import *
 __author__ = "Philip N. Daly"
 __copyright__ = u"\N{COPYRIGHT SIGN} AURA/LSST 2017. All rights reserved. Released under the GPL."
 __date__ = "1 February 2017"
-__doc__ = """Commander for the OCS Archiver using Python Threading"""
+__doc__ = """Commander for the OCS CatchupArchiver using Python Threading"""
 __email__ = "pdaly@lsst.org"
-__file__ = "OcsArchiverThreads.py"
+__file__ = "OcsCatchupArchiverThreads.py"
 __history__ = __date__ + ": " + "original version (" + __email__ + ")"
 __version__ = "0.1.0"
+
+
+# +
+# function: get_state()
+# -
+def get_state(sm=None, sd=None, cd=None, xd=None):
+    if sm and sd and cd and xd:
+        current_state = sm.current_state
+        previous_state = sm.current_state
+        nsta = sd.get(current_state, '')
+        osta = sd.get(previous_state, '')
+        cmds = cd.get(current_state, [])
+        cfgs = xd.get(current_state, [])
+        return (nsta, osta, cmds, cfgs)
+    else:
+        return ('', '', [], [])
+
+
+# +
+# function: setup_processor()
+# -
+def setup_processor(mgr=None, ent='', cmd=''):
+    if mgr and isinstance(ent, str) and ent != '' and isinstance(cmd, str) and cmd != '':
+        arg = '{0:s}_command_{1:s}'.format(ent, cmd)
+        mgr.salProcessor(arg)
+        return True
+    else:
+        return False
 
 
 # +
@@ -54,7 +82,7 @@ def thread_code(entity='', evp=None, smachine=None):
     state_dict = ocsEntitySummaryState
     cmd_dict = ocsEntitySummaryStateCommands
     cfg_dict = ocsEntitySummaryStateConfigurations
-    cfg_dict[OCS_SUMMARY_STATE_STANDBY] = ['{0:s}-Normal'.format(entity.lower())]
+    cfg_dict[OCS_SUMMARY_STATE_STANDBY] = ['{0:s}-Normal'.format(entity)]
     evlog.logger.info('{0:s} thread configs'.format(str(cfg_dict)))
 
     # connect to SAL
@@ -65,27 +93,7 @@ def thread_code(entity='', evp=None, smachine=None):
     evlog.logger.info('{0:s} thread connected to SAL'.format(thread_name))
 
     # get processor
-    if thread_name == 'abort':
-        mgr.salProcessor('catchuparchiver_command_abort')
-    elif thread_name == 'disable':
-        mgr.salProcessor('catchuparchiver_command_disable')
-    elif thread_name == 'enable':
-        mgr.salProcessor('catchuparchiver_command_enable')
-    elif thread_name == 'enterControl':
-        mgr.salProcessor('catchuparchiver_command_enterControl')
-    elif thread_name == 'exitControl':
-        mgr.salProcessor('catchuparchiver_command_exitControl')
-    elif thread_name == 'setValue':
-       #mgr.salProcessor('catchuparchiver_command_setValue')
-        pass
-    elif thread_name == 'standby':
-        mgr.salProcessor('catchuparchiver_command_standby')
-    elif thread_name == 'start':
-        mgr.salProcessor('catchuparchiver_command_start')
-    elif thread_name == 'stop':
-        mgr.salProcessor('catchuparchiver_command_stop')
-    else:
-        evlog.logger.error('{0:s} thread processor error'.format(thread_name))
+    if not setup_processor(mgr, entity.lower(), command):
         return
     evlog.logger.info('{0:s} thread processor created'.format(thread_name))
 
@@ -145,17 +153,22 @@ def thread_code(entity='', evp=None, smachine=None):
                 evlog.logger.info('{0:s} thread received payload {1:s}'.format(thread_name, str(data.state)))
                 smachine.setBusy = True
                 retval = mgr.ackCommand_abort(cmdId, SAL__CMD_INPROGRESS, 0, "Ack : OK")
+                (nsta, osta, cmds, cfgs) = get_state(smachine, state_dict, cmd_dict, cfg_dict)
                 if smachine:
                     smachine.change_state(smachine._current_state, OCS_SUMMARY_STATE_FAULT)
                     if evp:
                         thread_ocsid = ocs_id(False)
-                        nsta = state_dict.get(smachine._current_state, '')
-                        osta = state_dict.get(smachine._previous_state, '')
-                        cmds = cmd_dict.get(smachine._current_state, [])
-                        cfgs = cfg_dict.get(smachine._current_state, [])
-                        evp.send_event('catchuparchiverEntitySummaryState', Name=thread_entity, CurrentState=str(nsta), PreviousState=str(osta),
-                            Identifier=thread_ocsid, Timestamp=ocs_mjd_to_iso(thread_ocsid), Executing=thread_name,
-                            Address=id(thread_id), CommandsAvailable=str(cmds), ConfigurationsAvailable=str(cfgs), priority=SAL__EVENT_INFO)
+                        evp.send_event('catchuparchiverEntitySummaryState', 
+                            Name=thread_entity,
+                            CurrentState=str(nsta),
+                            PreviousState=str(osta),
+                            Identifier=thread_ocsid,
+                            Timestamp=ocs_mjd_to_iso(thread_ocsid),
+                            Executing=thread_name,
+                            Address=id(thread_id),
+                            CommandsAvailable=str(cmds),
+                            ConfigurationsAvailable=str(cfgs),
+                            priority=SAL__EVENT_INFO)
                 retval = mgr.ackCommand_abort(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
                 smachine.setBusy = False
 
@@ -163,8 +176,8 @@ def thread_code(entity='', evp=None, smachine=None):
                 evlog.logger.info('{0:s} thread received payload {1:s}'.format(thread_name, str(data.state)))
                 smachine.setBusy = True
                 retval = mgr.ackCommand_disable(cmdId, SAL__CMD_INPROGRESS, 0, "Ack : OK")
-                current_cmds = cmd_dict.get(smachine._current_state, [])
-                if thread_name.lower() not in current_cmds:
+                (nsta, osta, cmds, cfgs) = get_state(smachine, state_dict, cmd_dict, cfg_dict)
+                if thread_name not in cmds:
                     msg = 'Error : Command disallowed in {0:s} state'.format(state_dict.get(smachine._current_state, ''))
                     retval = mgr.ackCommand_disable(cmdId, SAL__CMD_FAILED, 0, msg)
                 else:
@@ -172,13 +185,17 @@ def thread_code(entity='', evp=None, smachine=None):
                         smachine.change_state(smachine._current_state, OCS_SUMMARY_STATE_DISABLED)
                         if evp:
                             thread_ocsid = ocs_id(False)
-                            nsta = state_dict.get(smachine._current_state, '')
-                            osta = state_dict.get(smachine._previous_state, '')
-                            cmds = cmd_dict.get(smachine._current_state, [])
-                            cfgs = cfg_dict.get(smachine._current_state, [])
-                            evp.send_event('catchuparchiverEntitySummaryState', Name=thread_entity, CurrentState=str(nsta), PreviousState=str(osta),
-                                Identifier=thread_ocsid, Timestamp=ocs_mjd_to_iso(thread_ocsid), Executing=thread_name,
-                                Address=id(thread_id), CommandsAvailable=str(cmds), ConfigurationsAvailable=str(cfgs), priority=SAL__EVENT_INFO)
+                            evp.send_event('catchuparchiverEntitySummaryState', 
+                                Name=thread_entity,
+                                CurrentState=str(nsta),
+                                PreviousState=str(osta),
+                                Identifier=thread_ocsid,
+                                Timestamp=ocs_mjd_to_iso(thread_ocsid),
+                                Executing=thread_name,
+                                Address=id(thread_id),
+                                CommandsAvailable=str(cmds),
+                                ConfigurationsAvailable=str(cfgs),
+                                priority=SAL__EVENT_INFO)
                     retval = mgr.ackCommand_disable(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
                 smachine.setBusy = False
 
@@ -186,8 +203,8 @@ def thread_code(entity='', evp=None, smachine=None):
                 evlog.logger.info('{0:s} thread received payload {1:s}'.format(thread_name, str(data.state)))
                 smachine.setBusy = True
                 retval = mgr.ackCommand_enable(cmdId, SAL__CMD_INPROGRESS, 0, "Ack : OK")
-                current_cmds = cmd_dict.get(smachine._current_state, [])
-                if thread_name.lower() not in current_cmds:
+                (nsta, osta, cmds, cfgs) = get_state(smachine, state_dict, cmd_dict, cfg_dict)
+                if thread_name not in cmds:
                     msg = 'Error : Command disallowed in {0:s} state'.format(state_dict.get(smachine._current_state, ''))
                     retval = mgr.ackCommand_enable(cmdId, SAL__CMD_FAILED, 0, msg)
                 else:
@@ -195,13 +212,17 @@ def thread_code(entity='', evp=None, smachine=None):
                         smachine.change_state(smachine._current_state, OCS_SUMMARY_STATE_ENABLED)
                         if evp:
                             thread_ocsid = ocs_id(False)
-                            nsta = state_dict.get(smachine._current_state, '')
-                            osta = state_dict.get(smachine._previous_state, '')
-                            cmds = cmd_dict.get(smachine._current_state, [])
-                            cfgs = cfg_dict.get(smachine._current_state, [])
-                            evp.send_event('catchuparchiverEntitySummaryState', Name=thread_entity, CurrentState=str(nsta), PreviousState=str(osta),
-                                Identifier=thread_ocsid, Timestamp=ocs_mjd_to_iso(thread_ocsid), Executing=thread_name,
-                                Address=id(thread_id), CommandsAvailable=str(cmds), ConfigurationsAvailable=str(cfgs), priority=SAL__EVENT_INFO)
+                            evp.send_event('catchuparchiverEntitySummaryState', 
+                                Name=thread_entity,
+                                CurrentState=str(nsta),
+                                PreviousState=str(osta),
+                                Identifier=thread_ocsid,
+                                Timestamp=ocs_mjd_to_iso(thread_ocsid),
+                                Executing=thread_name,
+                                Address=id(thread_id),
+                                CommandsAvailable=str(cmds),
+                                ConfigurationsAvailable=str(cfgs),
+                                priority=SAL__EVENT_INFO)
                     retval = mgr.ackCommand_enable(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
                 smachine.setBusy = False
 
@@ -209,8 +230,8 @@ def thread_code(entity='', evp=None, smachine=None):
                 evlog.logger.info('{0:s} thread received payload {1:s}'.format(thread_name, str(data.state)))
                 smachine.setBusy = True
                 retval = mgr.ackCommand_enterControl(cmdId, SAL__CMD_INPROGRESS, 0, "Ack : OK")
-                current_cmds = cmd_dict.get(smachine._current_state, [])
-                if thread_name.lower() not in current_cmds:
+                (nsta, osta, cmds, cfgs) = get_state(smachine, state_dict, cmd_dict, cfg_dict)
+                if thread_name not in cmds:
                     msg = 'Error : Command disallowed in {0:s} state'.format(state_dict.get(smachine._current_state, ''))
                     retval = mgr.ackCommand_enterControl(cmdId, SAL__CMD_FAILED, 0, msg)
                 else:
@@ -218,13 +239,17 @@ def thread_code(entity='', evp=None, smachine=None):
                         smachine.change_state(smachine._current_state, OCS_SUMMARY_STATE_STANDBY)
                         if evp:
                             thread_ocsid = ocs_id(False)
-                            nsta = state_dict.get(smachine._current_state, '')
-                            osta = state_dict.get(smachine._previous_state, '')
-                            cmds = cmd_dict.get(smachine._current_state, [])
-                            cfgs = cfg_dict.get(smachine._current_state, [])
-                            evp.send_event('catchuparchiverEntitySummaryState', Name=thread_entity, CurrentState=str(nsta), PreviousState=str(osta),
-                                Identifier=thread_ocsid, Timestamp=ocs_mjd_to_iso(thread_ocsid), Executing=thread_name,
-                                Address=id(thread_id), CommandsAvailable=str(cmds), ConfigurationsAvailable=str(cfgs), priority=SAL__EVENT_INFO)
+                            evp.send_event('catchuparchiverEntitySummaryState', 
+                                Name=thread_entity,
+                                CurrentState=str(nsta),
+                                PreviousState=str(osta),
+                                Identifier=thread_ocsid,
+                                Timestamp=ocs_mjd_to_iso(thread_ocsid),
+                                Executing=thread_name,
+                                Address=id(thread_id),
+                                CommandsAvailable=str(cmds),
+                                ConfigurationsAvailable=str(cfgs),
+                                priority=SAL__EVENT_INFO)
                     retval = mgr.ackCommand_enterControl(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
                 smachine.setBusy = False
 
@@ -232,8 +257,8 @@ def thread_code(entity='', evp=None, smachine=None):
                 evlog.logger.info('{0:s} thread received payload {1:s}'.format(thread_name, str(data.state)))
                 smachine.setBusy = True
                 retval = mgr.ackCommand_exitControl(cmdId, SAL__CMD_INPROGRESS, 0, "Ack : OK")
-                current_cmds = cmd_dict.get(smachine._current_state, [])
-                if thread_name.lower() not in current_cmds:
+                (nsta, osta, cmds, cfgs) = get_state(smachine, state_dict, cmd_dict, cfg_dict)
+                if thread_name not in cmds:
                     msg = 'Error : Command disallowed in {0:s} state'.format(state_dict.get(smachine._current_state, ''))
                     retval = mgr.ackCommand_exitControl(cmdId, SAL__CMD_FAILED, 0, msg)
                 else:
@@ -241,13 +266,17 @@ def thread_code(entity='', evp=None, smachine=None):
                         smachine.change_state(smachine._current_state, OCS_SUMMARY_STATE_OFFLINE)
                         if evp:
                             thread_ocsid = ocs_id(False)
-                            nsta = state_dict.get(smachine._current_state, '')
-                            osta = state_dict.get(smachine._previous_state, '')
-                            cmds = cmd_dict.get(smachine._current_state, [])
-                            cfgs = cfg_dict.get(smachine._current_state, [])
-                            evp.send_event('catchuparchiverEntitySummaryState', Name=thread_entity, CurrentState=str(nsta), PreviousState=str(osta),
-                                Identifier=thread_ocsid, Timestamp=ocs_mjd_to_iso(thread_ocsid), Executing=thread_name,
-                                Address=id(thread_id), CommandsAvailable=str(cmds), ConfigurationsAvailable=str(cfgs), priority=SAL__EVENT_INFO)
+                            evp.send_event('catchuparchiverEntitySummaryState', 
+                                Name=thread_entity,
+                                CurrentState=str(nsta),
+                                PreviousState=str(osta),
+                                Identifier=thread_ocsid,
+                                Timestamp=ocs_mjd_to_iso(thread_ocsid),
+                                Executing=thread_name,
+                                Address=id(thread_id),
+                                CommandsAvailable=str(cmds),
+                                ConfigurationsAvailable=str(cfgs),
+                                priority=SAL__EVENT_INFO)
                     retval = mgr.ackCommand_exitControl(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
                 smachine.setBusy = False
 
@@ -255,8 +284,8 @@ def thread_code(entity='', evp=None, smachine=None):
                 evlog.logger.info('{0:s} thread received payload {1:s}'.format(thread_name, str(data.state)))
                 smachine.setBusy = True
                 retval = mgr.ackCommand_standby(cmdId, SAL__CMD_INPROGRESS, 0, "Ack : OK")
-                current_cmds = cmd_dict.get(smachine._current_state, [])
-                if thread_name.lower() not in current_cmds:
+                (nsta, osta, cmds, cfgs) = get_state(smachine, state_dict, cmd_dict, cfg_dict)
+                if thread_name not in cmds:
                     msg = 'Error : Command disallowed in {0:s} state'.format(state_dict.get(smachine._current_state, ''))
                     retval = mgr.ackCommand_standby(cmdId, SAL__CMD_FAILED, 0, msg)
                 else:
@@ -264,13 +293,17 @@ def thread_code(entity='', evp=None, smachine=None):
                         smachine.change_state(smachine._current_state, OCS_SUMMARY_STATE_STANDBY)
                         if evp:
                             thread_ocsid = ocs_id(False)
-                            nsta = state_dict.get(smachine._current_state, '')
-                            osta = state_dict.get(smachine._previous_state, '')
-                            cmds = cmd_dict.get(smachine._current_state, [])
-                            cfgs = cfg_dict.get(smachine._current_state, [])
-                            evp.send_event('catchuparchiverEntitySummaryState', Name=thread_entity, CurrentState=str(nsta), PreviousState=str(osta),
-                                Identifier=thread_ocsid, Timestamp=ocs_mjd_to_iso(thread_ocsid), Executing=thread_name,
-                                Address=id(thread_id), CommandsAvailable=str(cmds), ConfigurationsAvailable=str(cfgs), priority=SAL__EVENT_INFO)
+                            evp.send_event('catchuparchiverEntitySummaryState', 
+                                Name=thread_entity,
+                                CurrentState=str(nsta),
+                                PreviousState=str(osta),
+                                Identifier=thread_ocsid,
+                                Timestamp=ocs_mjd_to_iso(thread_ocsid),
+                                Executing=thread_name,
+                                Address=id(thread_id),
+                                CommandsAvailable=str(cmds),
+                                ConfigurationsAvailable=str(cfgs),
+                                priority=SAL__EVENT_INFO)
                     retval = mgr.ackCommand_standby(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
                 smachine.setBusy = False
 
@@ -278,8 +311,8 @@ def thread_code(entity='', evp=None, smachine=None):
                 evlog.logger.info('{0:s} thread received payload {1:s}'.format(thread_name, str(data.configuration)))
                 smachine.setBusy = True
                 retval = mgr.ackCommand_start(cmdId, SAL__CMD_INPROGRESS, 0, "Ack : OK")
-                current_cmds = cmd_dict.get(smachine._current_state, [])
-                if thread_name.lower() not in current_cmds:
+                (nsta, osta, cmds, cfgs) = get_state(smachine, state_dict, cmd_dict, cfg_dict)
+                if thread_name not in cmds:
                     msg = 'Error : Command disallowed in {0:s} state'.format(state_dict.get(smachine._current_state, ''))
                     retval = mgr.ackCommand_start(cmdId, SAL__CMD_FAILED, 0, msg)
                 else:
@@ -287,13 +320,17 @@ def thread_code(entity='', evp=None, smachine=None):
                         smachine.change_state(smachine._current_state, OCS_SUMMARY_STATE_DISABLED)
                         if evp:
                             thread_ocsid = ocs_id(False)
-                            nsta = state_dict.get(smachine._current_state, '')
-                            osta = state_dict.get(smachine._previous_state, '')
-                            cmds = cmd_dict.get(smachine._current_state, [])
-                            cfgs = cfg_dict.get(smachine._current_state, [])
-                            evp.send_event('catchuparchiverEntitySummaryState', Name=thread_entity, CurrentState=str(nsta), PreviousState=str(osta),
-                                Identifier=thread_ocsid, Timestamp=ocs_mjd_to_iso(thread_ocsid), Executing=thread_name,
-                                Address=id(thread_id), CommandsAvailable=str(cmds), ConfigurationsAvailable=str(cfgs), priority=SAL__EVENT_INFO)
+                            evp.send_event('catchuparchiverEntitySummaryState', 
+                                Name=thread_entity,
+                                CurrentState=str(nsta),
+                                PreviousState=str(osta),
+                                Identifier=thread_ocsid,
+                                Timestamp=ocs_mjd_to_iso(thread_ocsid),
+                                Executing=thread_name,
+                                Address=id(thread_id),
+                                CommandsAvailable=str(cmds),
+                                ConfigurationsAvailable=str(cfgs),
+                                priority=SAL__EVENT_INFO)
                     retval = mgr.ackCommand_start(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
                 smachine.setBusy = False
 
@@ -301,7 +338,8 @@ def thread_code(entity='', evp=None, smachine=None):
                 evlog.logger.info('{0:s} thread received payload {1:s}'.format(thread_name, str(data.state)))
                 smachine.setBusy = True
                 retval = mgr.ackCommand_stop(cmdId, SAL__CMD_INPROGRESS, 0, "Ack : OK")
-                time.sleep(1) # really want to do something here
+                (nsta, osta, cmds, cfgs) = get_state(smachine, state_dict, cmd_dict, cfg_dict)
+                time.sleep(1)
                 retval = mgr.ackCommand_stop(cmdId, SAL__CMD_COMPLETE, 0, "Done : OK")
                 smachine.setBusy = False
 
