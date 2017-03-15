@@ -33,8 +33,6 @@ __version__ = "0.1.0"
 # function: service_shutdown()
 # -
 def service_shutdown(signum=0, frame=None):
-    print('signum={0:s}'.format(str(signum)))
-    print('frame={0:s}'.format(str(frame)))
     raise ServiceExit
 
 
@@ -112,12 +110,12 @@ class Worker(threading.Thread):
             self._entity, self._name, str(self._processor)))
 
         # get processor according to command
-        sal_command = '{0:s}_command_{1:s}'.format(self._entity_lc, self._name)
-        sobj = ocs_sal_attribute(self.__mgr, 'salProcessor')
-        if sobj:
-            self._processor = sobj(sal_command)
-        else:
-            self._processor = None
+        try:
+            sobj = ocs_sal_attribute(self.__mgr, 'salProcessor')
+            self._processor = sobj('{0:s}_command_{1:s}'.format(self._entity_lc, self._name))
+        except OcsGenericEntityException as e:
+            self._log.logger.critical(e.errstr)
+            self.shutdown_flag.set()
 
         # exit message
         self._log.logger.info('{0:s} {1:s} thread _setup_processor()={2:s} exit'.format(
@@ -133,12 +131,12 @@ class Worker(threading.Thread):
             self._entity, self._name, str(self._container)))
 
         # get payload container
-        sal_container = '{0:s}_command_{1:s}C'.format(self._entity_lc, self._name)
-        sobj = ocs_sal_attribute(self.__sal, sal_container)
-        if sobj:
+        try:
+            sobj = ocs_sal_attribute(self.__sal, '{0:s}_command_{1:s}C'.format(self._entity_lc, self._name))
             self._container = sobj()
-        else:
-            self._container = None
+        except OcsGenericEntityException as e:
+            self._log.logger.critical(e.errstr)
+            self.shutdown_flag.set()
 
         # exit message
         self._log.logger.info('{0:s} {1:s} thread _get_container()={2:s} exit'.format(
@@ -154,11 +152,11 @@ class Worker(threading.Thread):
         #     self._entity, self._name, str(self._cmdid)))
 
         # accept command
-        sal_command = 'acceptCommand_{0:s}'.format(self._name)
-        sobj = ocs_sal_attribute(self.__mgr, sal_command)
-        if sobj:
+        try:
+            sobj = ocs_sal_attribute(self.__mgr, 'acceptCommand_{0:s}'.format(self._name))
             self._cmdid = sobj(self._container)
-        else:
+        except OcsGenericEntityException as e:
+            self._log.logger.critical(e.errstr)
             self._cmdid = -1
 
         # exit message
@@ -175,11 +173,11 @@ class Worker(threading.Thread):
             self._entity, self._name, str(self._retval)))
 
         # acknowledge command
-        sal_command = 'ackCommand_{0:s}'.format(self._name)
-        sobj = ocs_sal_attribute(self.__mgr, sal_command)
-        if sobj:
+        try:
+            sobj = ocs_sal_attribute(self.__mgr, 'ackCommand_{0:s}'.format(self._name))
             self._retval = sobj(self._cmdid, code, 0, msg)
-        else:
+        except OcsGenericEntityException as e:
+            self._log.logger.critical(e.errstr)
             self._retval = -1
 
         # exit message
@@ -229,6 +227,7 @@ class Worker(threading.Thread):
                                  ConfigurationsAvailable=str(self._configs),
                                  priority=SAL__EVENT_INFO)
 
+            # change state
             if self._name == 'abort':
                 self._smc.change_state(current_state, OCS_SUMMARY_STATE_FAULT)
             elif self._name == 'disable':
@@ -248,6 +247,7 @@ class Worker(threading.Thread):
             elif self._name == 'stop':
                 self._smc.change_state(current_state, OCS_SUMMARY_STATE_ENABLED)
 
+            # done
             self._ack_command(SAL__CMD_COMPLETE, 'Done : OK')
 
         # set state machine to not busy
@@ -300,27 +300,27 @@ class Worker(threading.Thread):
         self._log.logger.info('{0:s} {1:s} thread starting up'.format(self._entity, self._name))
 
         # get self.__sal object (cf. from SALPY_archiver import *)
-        self._log.logger.info('{0:s} {1:s} thread importing SALPY_{2:s}'.format(
-            self._entity, self._name, self._entity_lc))
         try:
+            self._log.logger.info('{0:s} {1:s} thread importing SALPY_{2:s}'.format(
+                self._entity, self._name, self._entity_lc))
             self.__sal = ocs_sal_import('SALPY_{0:s}'.format(self._entity_lc))
+            self._log.logger.info('{0:s} {1:s} thread imported SALPY_{2:s} OK'.format(
+                self._entity, self._name, self._entity_lc))
         except OcsGenericEntityException as e:
             self._log.logger.critical(e.errstr)
-            return
-        self._log.logger.info('{0:s} {1:s} thread imported SALPY_{2:s} OK'.format(
-            self._entity, self._name, self._entity_lc))
+            self.shutdown_flag.set()
 
         # get self.__mgr object (cf. mgr = SAL_archiver())
-        self._log.logger.info('{0:s} {1:s} thread get attribute SAL_{2:s}'.format(
-            self._entity, self._name, self._entity_lc))
         try:
-            self.__mgr = ocs_sal_attribute(self.__sal, 'SAL_{0:s}'.format(self._entity_lc))
-            self.__mgr = self.__mgr()
+            self._log.logger.info('{0:s} {1:s} thread get attribute SAL_{2:s}'.format(
+                self._entity, self._name, self._entity_lc))
+            sobj = ocs_sal_attribute(self.__sal, 'SAL_{0:s}'.format(self._entity_lc))
+            self.__mgr = sobj()
+            self._log.logger.info('{0:s} {1:s} thread got attribute SAL_{2:s} OK'.format(
+                self._entity, self._name, self._entity_lc))
         except OcsGenericEntityException as e:
             self._log.logger.critical(e.errstr)
-            return
-        self._log.logger.info('{0:s} {1:s} thread got attribute SAL_{2:s} OK'.format(
-            self._entity, self._name, self._entity_lc))
+            self.shutdown_flag.set()
 
         # set up command processor
         self._setup_processor()
@@ -379,7 +379,7 @@ if __name__ == "__main__":
     threads = []
     try:
         # create threads for each command:
-        for T in ['abort', 'disable', 'enable', 'enterControl', 'exitControl', 'setValue', 'standby', 'start', 'stop']:
+        for T in ['abort', 'disable', 'enable', 'enterControl', 'exitControl', 'standby', 'start', 'stop']:
             t = Worker(T, entity, event_processor, state_machine)
             threads.append(t)
             t.start()
