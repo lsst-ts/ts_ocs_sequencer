@@ -14,7 +14,7 @@ if __name__ == '__main__':
 
     sequencer = None
     try:
-        sequencer = OcsSequencerEntity('OCS', 'ocs', False)
+        sequencer = OcsSequencerEntity('OCS', 'Sequencer', False)
     except OcsGenericEntityException as e:
         print(e.errstr)
 
@@ -25,7 +25,7 @@ if __name__ == '__main__':
         sequencer.entercontrol()
 
         # start
-        startid = [sys.argv[1] if len(sys.argv)>1 else 'Normal']
+        startid = [sys.argv[1] if len(sys.argv)>1 else 'Sequencer-Normal']
         sequencer.logger.info("sequencer.start('{0:s}')".format(startid[0]))
         sequencer.start(startid[0])
 

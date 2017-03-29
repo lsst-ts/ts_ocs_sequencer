@@ -134,26 +134,26 @@ class OcsSequencerEntity(OcsGenericEntity):
         self._mname = None
         self._timeout = OCS_SEQUENCER_COMMAND_TIMEOUT
 
-        # import the SAL (cf. from SALPY_ocs import *)
-        self._mname = 'SALPY_{0:s}'.format(self._entity)
+        # import the SAL (cf. from SALPY_sequencer import *)
+        self._mname = 'SALPY_{0:s}'.format(self._entity.lower())
         self.logger.debug('Importing {0:s}'.format(self._mname))
         self.__sal = ocs_sal_import(self._mname)
         if self.__sal:
             self.logger.debug('Imported {0:s} ok'.format(self._mname))
 
-        # get mgr object (cf. mgr = SAL_ocs())
-        self._aname = 'SAL_{0:s}'.format(self._entity)
+        # get mgr object (cf. mgr = SAL_sequencer())
+        self._aname = 'SAL_{0:s}'.format(self._entity.lower())
         self.logger.debug('Getting attribute {0:s}'.format(self._aname))
         mgr = ocs_sal_attribute(self.__sal, self._aname)
         if mgr:
             self.__mgr = mgr()
             self.logger.debug('Got attribute {0:s} ok'.format(self._aname))
 
-        # data structure(s) (cf. data = ocs_command_sequenceC())
+        # data structure(s) (cf. data = sequencer_command_sequenceC())
         self.__sequenceC = self._get_sal_cmd_container('sequence')
         self.__scriptC = self._get_sal_cmd_container('script')
 
-        # define ocs command(s) help
+        # define sequencer command(s) help
         self.sequencer_help = (
             'sequence system={0:s} entity={1:s} command=<string>'.format(self._system, self._entity),
             'script   system={0:s} entity={1:s} script=<string>'.format(self._system, self._entity)
@@ -192,11 +192,11 @@ class OcsSequencerEntity(OcsGenericEntity):
                 self._ename = '{0:s}_command_sequence command={1:s} timeout={2:d}'.format(
                     self._entity, self._command, self._timeout)
 
-                # set up command (cf. mgr.salCommand('ocs_command_sequence'))
+                # set up command (cf. mgr.salCommand('sequencer_command_sequence'))
                 self.logger.debug('setting up for command {0:s}'.format(self._ename))
                 self.__mgr.salCommand(self._cname)
 
-                # set up payload (cf. data = ocs_command_sequenceC(); data.roiSpec = 'roiData')
+                # set up payload (cf. data = sequencer_command_sequenceC(); data.sequencer = 'enterControl entity=camera')
                 self.__sequenceC.command = self._command
 
                 # issue command (cf. id = mgr.issueCommand_sequence(data))
@@ -204,11 +204,11 @@ class OcsSequencerEntity(OcsGenericEntity):
                 self.__sequence_id = self.__mgr.issueCommand_sequence(self.__sequenceC)
                 self.logger.debug('issued command {0:s}, id={1:d}'.format(self._ename, self.__sequence_id))
 
-                # issue an ocsCommandIssued event
+                # issue an sequencerCommandIssued event
                 if self._instance_evp:
                     self._ocsid = ocs_id(False)
                     self._instance_evp.send_event(
-                        'ocsCommandIssued',
+                        'sequencerCommandIssued',
                         CommandSource=self._instance_name,
                         SequenceNumber=int(self.__sequence_id),
                         Identifier=float(self._ocsid),
@@ -261,11 +261,11 @@ class OcsSequencerEntity(OcsGenericEntity):
                 self._ename = '{0:s}_command_script location={1:s} timeout={2:d}'.format(
                     self._entity, self._location, self._timeout)
 
-                # set up command (cf. mgr.salCommand('ocs_command_script'))
+                # set up command (cf. mgr.salCommand('sequencer_command_script'))
                 self.logger.debug('setting up for command {0:s}'.format(self._ename))
                 self.__mgr.salCommand(self._cname)
 
-                # set up payload (cf. data = ocs_command_scriptC(); data.roiSpec = 'roiData')
+                # set up payload (cf. data = sequencer_command_scriptC(); data.loction = 'datapath')
                 self.__scriptC.location = self._location
 
                 # issue command (cf. id = mgr.issueCommand_script(data))
@@ -273,11 +273,11 @@ class OcsSequencerEntity(OcsGenericEntity):
                 self.__script_id = self.__mgr.issueCommand_script(self.__scriptC)
                 self.logger.debug('issued command {0:s}, id={1:d}'.format(self._ename, self.__script_id))
 
-                # issue an ocsCommandIssued event
+                # issue an sequencerCommandIssued event
                 if self._instance_evp:
                     self._ocsid = ocs_id(False)
                     self._instance_evp.send_event(
-                        'ocsCommandIssued',
+                        'sequencerCommandIssued',
                         CommandSource=self._instance_name,
                         SequenceNumber=int(self.__script_id),
                         Identifier=float(self._ocsid),
@@ -342,8 +342,8 @@ if __name__ == '__main__':
         seqlog.info('sequencer.entercontrol()')
         sequencer.entercontrol()
 
-        seqlog.info('sequencer.start(\'Normal\')')
-        sequencer.start('Normal')
+        seqlog.info('sequencer.start(\'Sequencer-Normal\')')
+        sequencer.start('Sequencer-Normal')
 
         seqlog.info('sequencer.enable()')
         sequencer.enable()

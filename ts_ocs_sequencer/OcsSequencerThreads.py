@@ -7,7 +7,6 @@
 # -
 from __future__ import print_function
 from OcsStates import *
-from SALPY_ocs import *
 from OcsCameraEntity import *
 
 
@@ -16,7 +15,7 @@ from OcsCameraEntity import *
 # -
 __doc__ = """
 
-Commander for the OCS Sequencer using Python Threading (WORK IN PROGRESS)
+Commander for the OCS Sequencer using Python Threading
 
 """
 
@@ -34,9 +33,10 @@ __version__ = "0.1.0"
 
 
 # +
-# function: lts237()
+# function: ocs_sal_lts237()
 # -
-def lts237(incmd=''):
+def ocs_sal_lts237(incmd=''):
+    """ ocs_sal_lts237: accept a command string and returns a dictionary of parsed objects """
 
     # default dictionary
     retdic = {
@@ -472,7 +472,7 @@ def thread_code(entity='', evp=None, camera=None, smachine=None):
 
             elif thread_name == 'sequence':
                 evlog.logger.info('{0:s} thread received payload {1:s}'.format(thread_name, str(data.command)))
-                ltsd = lts237(data.command)
+                ltsd = ocs_sal_lts237(data.command)
                 cmdd = dict(objd, **ltsd)
                 #cmdd = {k: v for d in [ltsd, objd] for k, v in ltsd.items()}
                 evlog.logger.info('{0:s} thread cmdd {1:s}'.format(thread_name, str(cmdd)))

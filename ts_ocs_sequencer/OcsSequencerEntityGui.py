@@ -67,7 +67,7 @@ class OcsSequencerEntityGui(OcsGenericEntityGui):
     # +
     # __init__ method
     # -
-    def __init__(self, parent=None, system='OCS', entity='ocs', standalone=True):
+    def __init__(self, parent=None, system='OCS', entity='Sequencer', standalone=True):
 
         # get arguments
         self._parent = parent

@@ -14,7 +14,7 @@ if __name__ == '__main__':
 
     sequencer = None
     try:
-        sequencer = OcsSequencerEntity('OCS', 'ocs', False)
+        sequencer = OcsSequencerEntity('OCS', 'Sequencer', False)
     except OcsGenericEntityException as e:
         print(e.errstr)
 

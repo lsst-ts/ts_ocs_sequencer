@@ -58,18 +58,16 @@ class Worker(threading.Thread):
         threading.Thread.__init__(self)
  
         # get input(s)
-        self.name = name
-        self.entity = entity
-        if not isinstance(self.name, str) or self.name == '':
-            self.shutdown_flag.set()
+        self._name = name
+        self._entity = entity
 
         # shutdown_flag is a threading.Event object that indicates whether the thread should be terminated
         self.shutdown_flag = threading.Event()
  
         # check input(s)
-        if not isinstance(self.name, str) or self.name == '':
+        if not isinstance(self._name, str) or self._name == '':
             self.shutdown_flag.set()
-        if not isinstance(self.entity, str) or self.entity == '':
+        if not isinstance(self._entity, str) or self._entity == '':
             self.shutdown_flag.set()
 
         # declare some variables and initialize them
@@ -77,12 +75,12 @@ class Worker(threading.Thread):
         self.__mgr = None
  
         self._container = None
-        self._entity_lc = self.entity.lower()
+        self._entity_lc = self._entity.lower()
         self._retval = None
 
         # get logger
-        self.evlog = OcsLogger(self.entity, self.name)
-        self.evlog.logger.info('{0:s} {1:s} thread starting up'.format(self.entity, self.name))
+        self.evlog = OcsLogger(self._entity, self._name)
+        self.evlog.logger.info('{0:s} {1:s} thread starting up'.format(self._entity, self._name))
 
     # +
     # (hidden) method: _get_sal_connection()
@@ -90,10 +88,10 @@ class Worker(threading.Thread):
     # -
     def _get_sal_connection(self):
         try:
-            self.evlog.logger.info('Importing SALPY_{0:s}'.format(self.entity.lower()))
-            self.__sal = ocs_sal_import('SALPY_{0:s}'.format(self.entity.lower()))
+            self.evlog.logger.info('Importing SALPY_{0:s}'.format(self._entity_lc))
+            self.__sal = ocs_sal_import('SALPY_{0:s}'.format(self._entity_lc))
             if self.__sal:
-                self.evlog.logger.info('Imported SALPY_{0:s} OK'.format(self.entity.lower()))
+                self.evlog.logger.info('Imported SALPY_{0:s} OK'.format(self._entity_lc))
         except OcsGenericEntityException as e:
             self.evlog.logger.error(e.errstr)
             self.shutdown_flag.set()
@@ -104,11 +102,11 @@ class Worker(threading.Thread):
     # -
     def _get_mgr_connection(self):
         try:
-            self.evlog.logger.debug('Getting attribute SAL_{0:s}'.format(self.entity.lower()))
-            self.__mgr = ocs_sal_attribute(self.__sal, 'SAL_{0:s}'.format(self.entity.lower()))
+            self.evlog.logger.info('Getting attribute SAL_{0:s}'.format(self._entity_lc))
+            self.__mgr = ocs_sal_attribute(self.__sal, 'SAL_{0:s}'.format(self._entity_lc))
             if self.__mgr:
                 self.__mgr = self.__mgr()
-                self.evlog.logger.debug('Got attribute SAL_{0:s} OK'.format(self.entity.lower()))
+                self.evlog.logger.info('Got attribute SAL_{0:s} OK'.format(self._entity_lc))
         except OcsGenericEntityException as e:
             self.evlog.logger.error(e.errstr)
             self.shutdown_flag.set()
@@ -119,11 +117,11 @@ class Worker(threading.Thread):
     def _get_container(self):
         try:
             self.evlog.logger.info('{0:s} {1:s} thread _get_container()={2:s} entry'.format(
-                self.entity, self.name, str(self._container)))
-            sobj = ocs_sal_attribute(self.__sal, '{0:s}_logevent_{1:s}C'.format(self.entity.lower(), self.name))
+                self._entity, self._name, str(self._container)))
+            sobj = ocs_sal_attribute(self.__sal, '{0:s}_logevent_{1:s}C'.format(self._entity_lc, self._name))
             self._container = sobj()
             self.evlog.logger.info('{0:s} {1:s} thread _get_container()={2:s} exit'.format(
-                self.entity, self.name, str(self._container)))
+                self._entity, self._name, str(self._container)))
         except OcsGenericEntityException as e:
             self.evlog.logger.critical(e.errstr)
             self.shutdown_flag.set()
@@ -133,12 +131,8 @@ class Worker(threading.Thread):
     # -
     def _get_event(self):
         try:
-            # self.evlog.logger.info('{0:s} {1:s} thread _get_event()={2:s} entry'.format(
-            #     self.entity, self.name, str(self._retval)))
-            sobj = ocs_sal_attribute(self.__mgr, 'getEvent_{0:s}'.format(self.name))
+            sobj = ocs_sal_attribute(self.__mgr, 'getEvent_{0:s}'.format(self._name))
             self._retval = sobj(self._container)
-            # self.evlog.logger.info('{0:s} {1:s} thread _get_event()={2:s} exit'.format(
-            #     self.entity, self.name, str(self._retval)))
         except OcsGenericEntityException as e:
             self.evlog.logger.critical(e.errstr)
             self._retval = -1
@@ -149,30 +143,31 @@ class Worker(threading.Thread):
     def run(self):
 
         # entry message
-        self.evlog.logger.info('{0:s} {1:s} thread starting'.format(self.entity, self.name))
+        self.evlog.logger.info('{0:s} {1:s} thread starting'.format(self._entity, self._name))
 
         # connect to sal and set up for this event
         self._get_sal_connection()
         self._get_mgr_connection()
-        self.__mgr.salEvent('{0:s}_logevent_{1:s}'.format(self._entity_lc, self.name))
+        self.__mgr.salEvent('{0:s}_logevent_{1:s}'.format(self._entity_lc, self._name))
 
         # get container
         self._get_container()
         if not self._container:
             self.shutdown_flag.set()
-        self.evlog.logger.info('{0:s} {1:s} thread container created'.format(self.entity, self.name))
+        self.evlog.logger.info('{0:s} {1:s} thread container created'.format(self._entity, self._name))
 
         # loop until signal arrives from main thread
         while not self.shutdown_flag.is_set():
 
             # get event
             self._get_event()
+            self.evlog.logger.info('{0:s} {1:s} thread retval received {2:s}'.format(self._entity, self._name, str(self._retval)))
 
             # event received so report payload
             if self._retval == 0:
-                self.evlog.logger.info('{0:s} thread event received'.format(self.name))
+                self.evlog.logger.info('{0:s} {1:s} thread event received'.format(self._entity, self._name))
 
-                if self.name.find('{0:s}CommandIssued'.format(self._entity_lc)) >= 0:
+                if self._name.find('{0:s}CommandIssued'.format(self._entity_lc)) >= 0:
                     self.evlog.logger.info(
                         '\tevent.CommandSent    = {0:s}'.format(self._container.CommandSent))
                     self.evlog.logger.info(
@@ -188,7 +183,7 @@ class Worker(threading.Thread):
                     self.evlog.logger.info(
                         '\tevent.Timestamp      = {0:s}'.format(self._container.Timestamp))
 
-                elif self.name.find('{0:s}CommandStatus'.format(self._entity_lc)) >= 0:
+                elif self._name.find('{0:s}CommandStatus'.format(self._entity_lc)) >= 0:
                     self.evlog.logger.info(
                         '\tevent.CommandSource  = {0:s}'.format(self._container.CommandSource))
                     self.evlog.logger.info(
@@ -206,7 +201,7 @@ class Worker(threading.Thread):
                     self.evlog.logger.info(
                         '\tevent.Timestamp      = {0:s}'.format(self._container.Timestamp))
 
-                elif self.name.find('{0:s}EntityShutdown'.format(self._entity_lc)) >= 0:
+                elif self._name.find('{0:s}EntityShutdown'.format(self._entity_lc)) >= 0:
                     self.evlog.logger.info(
                         '\tevent.Address    = {0:d}'.format(self._container.Address))
                     self.evlog.logger.info(
@@ -218,7 +213,7 @@ class Worker(threading.Thread):
                     self.evlog.logger.info(
                         '\tevent.Timestamp  = {0:s}'.format(self._container.Timestamp))
 
-                elif self.name.find('{0:s}EntityStartup'.format(self._entity_lc)) >= 0:
+                elif self._name.find('{0:s}EntityStartup'.format(self._entity_lc)) >= 0:
                     self.evlog.logger.info(
                         '\tevent.Address    = {0:d}'.format(self._container.Address))
                     self.evlog.logger.info(
@@ -230,7 +225,7 @@ class Worker(threading.Thread):
                     self.evlog.logger.info(
                         '\tevent.Timestamp  = {0:s}'.format(self._container.Timestamp))
 
-                elif self.name.find('{0:s}EntitySummaryState'.format(self._entity_lc)) >= 0:
+                elif self._name.find('{0:s}EntitySummaryState'.format(self._entity_lc)) >= 0:
                     self.evlog.logger.info(
                         '\tevent.Address                 = {0:d}'.format(self._container.Address))
                     self.evlog.logger.info(
@@ -257,7 +252,7 @@ class Worker(threading.Thread):
 
         # exit message
         self.__mgr.salShutdown()
-        self.evlog.logger.info('{0:s} {1:s} thread shutting down'.format(self.entity, self.name))
+        self.evlog.logger.info('{0:s} {1:s} thread shutting down'.format(self._entity, self._name))
 
 
 # +
