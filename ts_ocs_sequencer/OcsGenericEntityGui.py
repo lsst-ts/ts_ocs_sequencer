@@ -49,9 +49,10 @@ class OcsGenericEntityGui(Frame):
         # declare some variables and initialize them
         self._device = None
         self._parameter = None
-        self._result = None
         self._startid = None
         self._value = None
+
+        self.result = None
 
         # create an instance of this generic entity
         self._this = OcsGenericEntity(self._system, self._entity, False)
@@ -143,9 +144,9 @@ class OcsGenericEntityGui(Frame):
     def setvalue_handler(self):
         OcsEntryDialog(self, self.get_command_dialog_string('setvalue'), ['Parameter', 'Value'])
         if self._this:
-            if self._result:
-                self._parameter = self._result['Parameter']
-                self._value = self._result['Value']
+            if self.result:
+                self._parameter = self.result['Parameter']
+                self._value = self.result['Value']
                 self._this.logger.debug("calling self._this.setvalue('{0:s}', '{1:s}')".format(str(
                     self._parameter), str(self._value)))
                 self._this.setvalue(parameter=self._parameter, value=self._value)
@@ -173,8 +174,8 @@ class OcsGenericEntityGui(Frame):
     def stop_handler(self):
         OcsEntryDialog(self, self.get_command_dialog_string('stop'), ['Device'])
         if self._this:
-            if self._result:
-                self._device = self._result['Device']
+            if self.result:
+                self._device = self.result['Device']
                 self._this.logger.debug("calling self._this.stop('{0:s}')".format(str(self._device)))
                 self._this.stop(device=self._device)
             else:
