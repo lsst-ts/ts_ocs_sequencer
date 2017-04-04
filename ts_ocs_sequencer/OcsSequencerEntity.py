@@ -353,14 +353,14 @@ if __name__ == '__main__':
         # sequencer.standby()
 
         # do some behavioural commands
-        seqlog.info('sequencer.sequence(\'enterControl entity=camera\')')
-        sequencer.sequence('enterControl entity=camera')
+        #seqlog.info('sequencer.sequence(\'enterControl entity=camera\')')
+        #sequencer.sequence('enterControl entity=camera')
 
-        seqlog.info('sequencer.sequence(\'start entity=camera startid=\'Normal\'\')')
-        sequencer.sequence('start entity=camera startid=Normal')
+        #seqlog.info('sequencer.sequence(\'start entity=camera startid=\'Normal\'\')')
+        #sequencer.sequence('start entity=camera startid=Normal')
 
-        seqlog.info('sequencer.sequence(\'enable entity=camera\')')
-        sequencer.sequence('enable entity=camera')
+        #seqlog.info('sequencer.sequence(\'enable entity=camera\')')
+        #sequencer.sequence('enable entity=camera')
 
         # end of night
         seqlog.info('sequencer.disable()')

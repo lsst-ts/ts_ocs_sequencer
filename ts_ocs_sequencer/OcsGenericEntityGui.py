@@ -162,8 +162,8 @@ class OcsGenericEntityGui(Frame):
     def start_handler(self):
         OcsEntryDialog(self, self.get_command_dialog_string('start'), ['StartId'])
         if self._this:
-            if self._result:
-                self._startid = self._result['StartId']
+            if self.result:
+                self._startid = self.result['StartId']
                 self._this.logger.debug("calling self._this.start('{0:s}')".format(str(self._startid)))
                 self._this.start(startid=self._startid)
             else:

@@ -177,6 +177,6 @@ class OcsSequencerEntityGui(OcsGenericEntityGui):
 # -
 if __name__ == '__main__':
     root = Tk()
-    x = OcsSequencerEntityGui(root, 'OCS', 'ocs', True)
+    x = OcsSequencerEntityGui(root, 'OCS', 'Sequencer', True)
     if x:
         root.mainloop()

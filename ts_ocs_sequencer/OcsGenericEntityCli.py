@@ -85,8 +85,7 @@ class OcsGenericEntityCli(object):
         self._parse_fp()
         # if the command does not exist, raise exception otherwise execute the command
         if not hasattr(self, '_'+self.args.command):
-            raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOCMD, "hasattr('{0:s}')".format(
-                str(self.args.command)))
+            raise OcsGenericEntityException(OCS_GENERIC_ENTITY_ERROR_NOCMD, "hasattr('{0:s}')".format(str(self.args.command)))
         else:
             getattr(self, '_'+self.args.command)()
 

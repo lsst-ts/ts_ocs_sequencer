@@ -9,6 +9,7 @@ from __future__ import print_function
 import signal
 from OcsEvents import *
 from OcsStates import *
+from OcsCameraEntity import *
 
 
 # +
@@ -22,7 +23,7 @@ __doc__ = """Controller for Sequencer commandable entity"""
 # -
 __author__ = "Philip N. Daly"
 __copyright__ = u"\N{COPYRIGHT SIGN} AURA/LSST 2017. All rights reserved. Released under the GPL."
-__date__ = "7 March 2017"
+__date__ = "1 April 2017"
 __email__ = "pdaly@lsst.org"
 __file__ = "OcsSequencerController.py"
 __history__ = __date__ + ": " + "original version (" + __email__ + ")"
@@ -51,7 +52,7 @@ class Worker(threading.Thread):
     # +
     # __init__
     # -
-    def __init__(self, nam='', ent='', evh=None, smc=None):
+    def __init__(self, nam='', ent='', evh=None, smc=None, cam=None):
 
         # __init__ the superclass
         threading.Thread.__init__(self)
@@ -61,6 +62,7 @@ class Worker(threading.Thread):
         self._entity = ent
         self._evh = evh
         self._smc = smc
+        self._cam = cam
 
         # check input(s)
         if not isinstance(self._name, str) or self._name == '':
@@ -117,6 +119,10 @@ class Worker(threading.Thread):
         if self._smc:
             self._smc.logger.info('{0:s} {1:s} thread state machine at address {2:s}'.format(
                 self._entity, self._name, hex(id(self._smc))))
+        if self._cam:
+            self._cam.logger.info('{0:s} {1:s} thread camera at address {2:s}'.format(
+                self._entity, self._name, hex(id(self._cam))))
+
 
     # +
     # (hidden) method: _get_sal_connection()
@@ -233,18 +239,17 @@ class Worker(threading.Thread):
 
         # check input(s)
         if not isinstance(self._indict, dict) or not self._indict:
-            return -1
+            return self._ack_command(SAL__CMD_FAILED, 'Error : No Dicitionary')
 
         # make sure entity is set to camera
         if self._indict['entity'].lower() != 'camera':
-            return self._ack_command(self._cmdid, SAL__CMD_FAILED, 'Error : No Entity')
+            return self._ack_command(SAL__CMD_FAILED, 'Error : No Entity')
 
         else:
 
             self._smc.setBusy = True
-            self._ack_command(self._cmdid, SAL__CMD_INPROGRESS, 'Ack : OK')
-            if 'timeout' in self._indict and not self._indict['timeout']:
-                self._timeout = self._indict['timeout']
+            if 'timeout' in self._indict and self._indict['timeout'] != None:
+                self._timeout = int(self._indict['timeout'])
             else:
                 self._timeout = OCS_CAMERA_COMMAND_TIMEOUT
 
@@ -252,46 +257,45 @@ class Worker(threading.Thread):
             self._log.logger.info('{0:s} {0:s} thread invoking {2:s}'.format(self._entity, self._name, self._indict['cmd']))
 
             if self._indict['cmd'].lower() == 'abort':
-                cam2.abort(timeout=self._timeout)
-                self._ack_command(self._cmdid, SAL__CMD_COMPLETE, 'Done : OK')
+                self._cam.abort(timeout=self._timeout)
+                self._ack_command(SAL__CMD_COMPLETE, 'Done : OK')
 
             elif self._indict['cmd'].lower() == 'disable':
-                cam2.disable(timeout=self._timeout)
-                self._ack_command(self._cmdid, SAL__CMD_COMPLETE, 'Done : OK')
+                self._cam.disable(timeout=self._timeout)
+                self._ack_command(SAL__CMD_COMPLETE, 'Done : OK')
 
             elif self._indict['cmd'].lower() == 'enable':
-                cam2.enable(timeout=self._timeout)
-                self._ack_command(self._cmdid, SAL__CMD_COMPLETE, 'Done : OK')
+                self._cam.enable(timeout=self._timeout)
+                self._ack_command(SAL__CMD_COMPLETE, 'Done : OK')
 
             elif self._indict['cmd'].lower() == 'entercontrol':
-                cam2.entercontrol(timeout=self._timeout)
-                self._ack_command(self._cmdid, SAL__CMD_COMPLETE, 'Done : OK')
+                self._cam.entercontrol(timeout=self._timeout)
+                self._ack_command(SAL__CMD_COMPLETE, 'Done : OK')
 
             elif self._indict['cmd'].lower() == 'exitcontrol':
-                cam2.exitcontrol(timeout=self._timeout)
-                self._ack_command(self._cmdid, SAL__CMD_COMPLETE, 'Done : OK')
+                self._cam.exitcontrol(timeout=self._timeout)
+                self._ack_command(SAL__CMD_COMPLETE, 'Done : OK')
 
             elif self._indict['cmd'].lower() == 'standby':
-                cam2.standby(timeout=self._timeout)
-                self._ack_command(self._cmdid, SAL__CMD_COMPLETE, 'Done : OK')
+                self._cam.standby(timeout=self._timeout)
+                self._ack_command(SAL__CMD_COMPLETE, 'Done : OK')
 
             elif self._indict['cmd'].lower() == 'start':
                 self._startid = self._indict['params'].split('=')[1]
                 self._log.logger.info('{0:s} {0:s} thread startid {2:s}'.format(self._entity, self._name, self._startid))
-                cam2.start(startid=self._startid, timeout=self._timeout)
-                self._ack_command(self._cmdid, SAL__CMD_COMPLETE, 'Done : OK')
+                self._cam.start(startid=self._startid, timeout=self._timeout)
+                self._ack_command(SAL__CMD_COMPLETE, 'Done : OK')
 
             elif self._indict['cmd'].lower() == 'stop':
                 self._device = self._indict['params'].split('=')[1]
                 self._log.logger.info('{0:s} {0:s} thread device {2:s}'.format(self._entity, self._name, self._device))
-                cam2.stop(device=self._device, timeout=self._timeout)
-                self._ack_command(self._cmdid, SAL__CMD_COMPLETE, 'Done : OK')
+                self._cam.stop(device=self._device, timeout=self._timeout)
+                self._ack_command(SAL__CMD_COMPLETE, 'Done : OK')
 
             else:
-                self._ack_command(self._cmdid, SAL__CMD_FAILED, 'Error : No Command')
+                self._ack_command(SAL__CMD_FAILED, 'Error : No Command')
 
             self._smc.setBusy = False
-            return 0
 
 
     # +
@@ -318,50 +322,73 @@ class Worker(threading.Thread):
         if self._name not in self._commands:
             self._ack_command(SAL__CMD_FAILED, 'Error : Command disallowed in {0:s} state'.format(
                 ocsEntitySummaryState.get(current_state, '')))
+            self._smc.setBusy = False
+            return
 
-        # do command
+        # do something
         else:
 
-            # change state
-            if self._name == 'abort':
-                self._smc.change_state(current_state, OCS_SUMMARY_STATE_FAULT)
-                self._change_state_event()
-            elif self._name == 'disable':
-                self._smc.change_state(current_state, OCS_SUMMARY_STATE_DISABLED)
-                self._change_state_event()
-            elif self._name == 'enable':
-                self._smc.change_state(current_state, OCS_SUMMARY_STATE_ENABLED)
-                self._change_state_event()
-            elif self._name == 'enterControl':
-                self._smc.change_state(current_state, OCS_SUMMARY_STATE_STANDBY)
-                self._change_state_event()
-            elif self._name == 'exitControl':
-                self._smc.change_state(current_state, OCS_SUMMARY_STATE_OFFLINE)
-                self._change_state_event()
-            elif self._name == 'setValue':
-                self._smc.change_state(current_state, OCS_SUMMARY_STATE_ENABLED)
-                self._change_state_event()
-            elif self._name == 'standby':
-                self._smc.change_state(current_state, OCS_SUMMARY_STATE_STANDBY)
-                self._change_state_event()
-            elif self._name == 'start':
-                self._smc.change_state(current_state, OCS_SUMMARY_STATE_DISABLED)
-                self._change_state_event()
-            elif self._name == 'stop':
-                pass
-            elif self._name == 'sequence':
-                self._log.logger.info('{0:s} {1:s} thread payload state={2:s}'.format(
-                    self._entity, self._name, str(self._container.command)))
-                ltsd = ocs_sal_lts237(self._container.command)
-                cmdd = dict(objd, **ltsd)
-                self._log.logger.info('{0:s} {1:s} thread cmdd={2:s}'.format(
-                    self._entity, self._name, str(cmdd)))
-                retval = self._camera_sequence(cmdd)
-            elif self._name == 'script':
-                pass
+            # reset state change flag
+            self._state_flag = False
 
-            # done
-            self._ack_command(SAL__CMD_COMPLETE, 'Done : OK')
+            # change state (as appropriate)
+            if self._name == 'abort'and current_state != OCS_SUMMARY_STATE_FAULT:
+                self._smc.change_state(current_state, OCS_SUMMARY_STATE_FAULT)
+                self._state_flag = True
+            elif self._name == 'disable' and current_state == OCS_SUMMARY_STATE_ENABLED:
+                self._smc.change_state(current_state, OCS_SUMMARY_STATE_DISABLED)
+                self._state_flag = True
+            elif self._name == 'enable' and current_state == OCS_SUMMARY_STATE_DISABLED:
+                self._smc.change_state(current_state, OCS_SUMMARY_STATE_ENABLED)
+                self._state_flag = True
+            elif self._name == 'enterControl' and (current_state == OCS_SUMMARY_STATE_UNKNOWN or current_state == OCS_SUMMARY_STATE_OFFLINE):
+                self._smc.change_state(current_state, OCS_SUMMARY_STATE_STANDBY)
+                self._state_flag = True
+            elif self._name == 'exitControl' and current_state == OCS_SUMMARY_STATE_STANDBY:
+                self._smc.change_state(current_state, OCS_SUMMARY_STATE_OFFLINE)
+                self._state_flag = True
+            elif self._name == 'standby' and current_state == OCS_SUMMARY_STATE_DISABLED:
+                self._smc.change_state(current_state, OCS_SUMMARY_STATE_STANDBY)
+                self._state_flag = True
+            elif self._name == 'start' and current_state == OCS_SUMMARY_STATE_STANDBY:
+                self._smc.change_state(current_state, OCS_SUMMARY_STATE_DISABLED)
+                self._state_flag = True
+
+            # these do not need a state change
+            elif self._name == 'setValue':
+                self._state_flag = False
+                self._ack_command(SAL__CMD_COMPLETE, 'Done : OK')
+            elif self._name == 'stop':
+                self._state_flag = False
+                self._ack_command(SAL__CMD_COMPLETE, 'Done : OK')
+            elif self._name == 'sequence':
+                self._state_flag = False
+                self._evh.logger.info('{0:s} thread received payload {1:s}'.format(self._name, str(self._container.command)))
+                ltsd = ocs_sal_lts237(self._container.command)
+                cmdd = dict(self._objd, **ltsd)
+                self._evh.logger.info('{0:s} thread cmdd {1:s}'.format(self._name, str(cmdd)))
+                self._camera_sequence(cmdd)
+            elif self._name == 'script':
+                self._state_flag = False
+                self._evh.logger.info('{0:s} thread received payload {1:s}'.format(self._name, str(self._container.location)))
+                time.sleep(1) # really want to do something here
+                self._ack_command(SAL__CMD_COMPLETE, 'Done : OK')
+
+            # generate a state change event
+            if self._state_flag:
+                sal_event = '{0:s}EntitySummaryState'.format(self._entity_lc)
+                self._evh.send_event(sal_event,
+                    Name=self._entity,
+                    CurrentState=str(self._cstate),
+                    PreviousState=str(self._pstate),
+                    Identifier=self._ocsid,
+                    Timestamp=ocs_mjd_to_iso(self._ocsid),
+                    Executing=self._name,
+                    Address=self._pid,
+                    CommandsAvailable=str(self._commands),
+                    ConfigurationsAvailable=str(self._configs),
+                    priority=SAL__EVENT_INFO)
+                self._ack_command(SAL__CMD_COMPLETE, 'Done : OK')
 
         # set state machine to not busy
         self._smc.setBusy = False
@@ -424,8 +451,8 @@ class Worker(threading.Thread):
 
         # set up object dictionary
         self._objd = {}
-        if self._name == "sequence":
-            self._objd = { 'camera': camera }
+        if self._name == 'sequence':
+            self._objd = { 'camera': self._cam }
 
         # loop until signal arrives from main thread
         self._log.logger.info('{0:s} {1:s} thread entering loop'.format(self._entity, self._name))
@@ -464,6 +491,7 @@ if __name__ == "__main__":
     # created shared entities
     event_processor = OcsEvents(False)
     state_machine = OcsStates()
+    camera = OcsCameraEntity('CCS', 'Camera', False)
 
     # set up state machine
     if state_machine:
@@ -474,13 +502,13 @@ if __name__ == "__main__":
     try:
         # create threads for each generic command
         for T in ['abort', 'disable', 'enable', 'enterControl', 'exitControl', 'standby', 'start', 'stop']:
-            t = Worker(T, 'Sequencer', event_processor, state_machine)
+            t = Worker(T, 'Sequencer', event_processor, state_machine, None)
             threads.append(t)
             t.start()
 
         # create threads for each behavioural command
         for T in ['sequence', 'script']:
-            t = Worker(T, 'Sequencer', event_processor, state_machine)
+            t = Worker(T, 'Sequencer', event_processor, state_machine, camera)
             threads.append(t)
             t.start()
 

@@ -161,7 +161,7 @@ class Worker(threading.Thread):
 
             # get event
             self._get_event()
-            self.evlog.logger.info('{0:s} {1:s} thread retval received {2:s}'.format(self._entity, self._name, str(self._retval)))
+            #self.evlog.logger.info('{0:s} {1:s} thread retval received {2:s}'.format(self._entity, self._name, str(self._retval)))
 
             # event received so report payload
             if self._retval == 0:
