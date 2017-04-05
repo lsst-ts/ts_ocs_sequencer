@@ -126,8 +126,8 @@ class OcsSequencerEntityGui(OcsGenericEntityGui):
     def sequence_handler(self):
         OcsEntryDialog(self, self.get_sequencer_command_dialog_string('sequence_handler'), ['Command'])
         if self._sequencer:
-            if self._result:
-                self._command = self._result['Command']
+            if self.result:
+                self._command = self.result['Command']
                 self._sequencer.logger.debug("calling self._sequencer.sequence('{0:s}')".format(
                     str(self._command)))
                 self._sequencer.sequence(command=self._command)
@@ -139,8 +139,8 @@ class OcsSequencerEntityGui(OcsGenericEntityGui):
     def script_handler(self):
         OcsEntryDialog(self, self.get_sequencer_command_dialog_string('script_handler'), ['Location'])
         if self._sequencer:
-            if self._result:
-                self._script = self._result['Location']
+            if self.result:
+                self._script = self.result['Location']
                 self._sequencer.logger.debug("calling self._sequencer.script_handler('{0:s}')".format(
                     str(self._script)))
                 self._sequencer.script(script=self._script)
