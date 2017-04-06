@@ -147,10 +147,6 @@ class Worker(threading.Thread):
     # -
     def _accept_command(self):
 
-        # entry message
-        # self._log.logger.info('{0:s} {1:s} thread _accept_command()={2:s} entry'.format(
-        #     self._entity, self._name, str(self._cmdid)))
-
         # accept command
         try:
             sobj = ocs_sal_attribute(self.__mgr, 'acceptCommand_{0:s}'.format(self._name))
@@ -158,10 +154,6 @@ class Worker(threading.Thread):
         except OcsGenericEntityException as e:
             self._log.logger.critical(e.errstr)
             self._cmdid = -1
-
-        # exit message
-        # self._log.logger.info('{0:s} {1:s} thread _accept_command()={2:s} exit'.format(
-        #     self._entity, self._name, str(self._cmdid)))
 
     # +
     # (hidden) method: _ack_command()
