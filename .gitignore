@@ -35,6 +35,7 @@ ospl-error.log
 .mr.developer.cfg
 .project
 .pydevproject
+.idea
 
 # Complexity
 output/*.html
