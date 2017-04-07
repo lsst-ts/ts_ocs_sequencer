@@ -366,21 +366,27 @@ class Worker(threading.Thread):
             if self._name == 'abort'and current_state != OCS_SUMMARY_STATE_FAULT:
                 self._smc.change_state(current_state, OCS_SUMMARY_STATE_FAULT)
                 self._state_flag = True
+
             elif self._name == 'disable' and current_state == OCS_SUMMARY_STATE_ENABLED:
                 self._smc.change_state(current_state, OCS_SUMMARY_STATE_DISABLED)
                 self._state_flag = True
+
             elif self._name == 'enable' and current_state == OCS_SUMMARY_STATE_DISABLED:
                 self._smc.change_state(current_state, OCS_SUMMARY_STATE_ENABLED)
                 self._state_flag = True
+
             elif self._name == 'enterControl' and (current_state == OCS_SUMMARY_STATE_UNKNOWN or current_state == OCS_SUMMARY_STATE_OFFLINE):
                 self._smc.change_state(current_state, OCS_SUMMARY_STATE_STANDBY)
                 self._state_flag = True
+
             elif self._name == 'exitControl' and current_state == OCS_SUMMARY_STATE_STANDBY:
                 self._smc.change_state(current_state, OCS_SUMMARY_STATE_OFFLINE)
                 self._state_flag = True
+
             elif self._name == 'standby' and current_state == OCS_SUMMARY_STATE_DISABLED:
                 self._smc.change_state(current_state, OCS_SUMMARY_STATE_STANDBY)
                 self._state_flag = True
+
             elif self._name == 'start' and current_state == OCS_SUMMARY_STATE_STANDBY:
                 self._smc.change_state(current_state, OCS_SUMMARY_STATE_DISABLED)
                 self._state_flag = True
@@ -389,21 +395,49 @@ class Worker(threading.Thread):
             elif self._name == 'setValue':
                 self._state_flag = False
                 self._ack_command(SAL__CMD_COMPLETE, 'Done : OK')
+
             elif self._name == 'stop':
                 self._state_flag = False
                 self._ack_command(SAL__CMD_COMPLETE, 'Done : OK')
+
             elif self._name == 'sequence':
                 self._state_flag = False
                 self._evh.logger.info('{0:s} thread received payload {1:s}'.format(self._name, str(self._container.command)))
                 ltsd = ocs_sal_lts237(self._container.command)
-                cmdd = dict(self._objd, **ltsd)
-                self._evh.logger.info('{0:s} thread cmdd {1:s}'.format(self._name, str(cmdd)))
-                self._generic_sequence(cmdd)
+                if ltsd['entity'].lower() == 'all':
+                    for E in ('Archiver', 'Camera', 'CatchupArchiver', 'ProcessingCluster', 'Tcs'):
+                        ltsd['entity'] = E.lower()
+                        if ltsd['cmd'].lower() == 'start':
+                            ltsd['params'] = 'startid={0:s}-Normal'.format(E)
+                        cmdd = dict(self._objd, **ltsd)
+                        self._evh.logger.info('{0:s} thread cmdd {1:s}'.format(self._name, str(cmdd)))
+                        self._generic_sequence(cmdd)
+                else:
+                    cmdd = dict(self._objd, **ltsd)
+                    self._evh.logger.info('{0:s} thread cmdd {1:s}'.format(self._name, str(cmdd)))
+                    self._generic_sequence(cmdd)
+
             elif self._name == 'script':
                 self._state_flag = False
                 self._evh.logger.info('{0:s} thread received payload {1:s}'.format(self._name, str(self._container.location)))
-                time.sleep(1) # really want to do something here
-                self._ack_command(SAL__CMD_COMPLETE, 'Done : OK')
+                # import the script
+                try:
+                    self._log.logger.info('Importing {0:s}'.format(self._container.location))
+                    sobj = ocs_sal_import(self._container.location)
+                except:
+                    sobj = None
+                    self._ack_command(SAL__CMD_FAILED, 'Error : No Import')
+                # get the script function
+                try:
+                    self._log.logger.info('Importing {0:s}_main'.format(self._container.location))
+                    aobj = ocs_sal_attribute(sobj, '{0:s}_main'.format(self._container.location))
+                except:
+                    aobj = None
+                    self._ack_command(SAL__CMD_FAILED, 'Error : No Attribute')
+                else:
+                    # do something
+                    aobj(self._arc, self._cam, self._cat, self._pro, self._tel)
+                    self._ack_command(SAL__CMD_COMPLETE, 'Done : OK')
 
             # generate a state change event
             if self._state_flag:

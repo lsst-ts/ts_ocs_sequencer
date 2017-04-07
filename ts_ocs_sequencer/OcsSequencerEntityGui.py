@@ -143,7 +143,7 @@ class OcsSequencerEntityGui(OcsGenericEntityGui):
                 self._script = self.result['Location']
                 self._sequencer.logger.debug("calling self._sequencer.script_handler('{0:s}')".format(
                     str(self._script)))
-                self._sequencer.script(script=self._script)
+                self._sequencer.script(location=self._script)
             else:
                 self._script = ''
                 self._sequencer.logger.debug("self._sequencer.script_handler('{0:s}') cancelled".format(
