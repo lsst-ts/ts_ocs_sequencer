@@ -7,6 +7,7 @@
 from OcsGenericEntity import *
 from OcsGui import *
 
+import ScrolledText
 
 # +
 # __doc__ string
@@ -28,6 +29,29 @@ __email__ = "pdaly@lsst.org"
 __file__ = "OcsGenericEntityGui.py"
 __history__ = __date__ + ": " + "original version (" + __email__ + ")"
 __version__ = "0.1.0"
+
+
+# +
+# class: TextHandler() inherits from logging.Handler
+# -
+class TextHandler(logging.Handler):
+
+    def __init__(self, text):
+        # run the regular Handler __init__
+        logging.Handler.__init__(self)
+        # Store a reference to the Text it will log to
+        self.text = text
+
+    def emit(self, record):
+        msg = self.format(record)
+        def append():
+            self.text.configure(state='normal')
+            self.text.insert(END, msg + '\n')
+            self.text.configure(state='disabled')
+            # Autoscroll to the bottom
+            self.text.yview(END)
+        # This is necessary because we can't modify the Text from other threads
+        self.text.after(0, append)
 
 
 # +
@@ -60,13 +84,21 @@ class OcsGenericEntityGui(Frame):
         # now add the GUI stuff
         Frame.__init__(self, self._parent, bd=1, relief=SUNKEN, bg=ocsGenericEntityBackgroundColour.get(
             self._system, OCS_GENERIC_ENTITY_BACKGROUND_COLOUR))
-        Label(self._parent, text=self._system, foreground='blue', bg=ocsGenericEntityBackgroundColour.get(
+        Label(self._parent, text='{0:s} {1:s}'.format(self._system, self._entity), foreground='blue', bg=ocsGenericEntityBackgroundColour.get(
             self._system, OCS_GENERIC_ENTITY_BACKGROUND_COLOUR),
             font=('helvetica', 12, 'normal')).grid(row=0, sticky=NSEW)
-        Label(self._parent, text=self._entity, foreground='blue', bg=ocsGenericEntityBackgroundColour.get(
-            self._system, OCS_GENERIC_ENTITY_BACKGROUND_COLOUR),
-            font=('helvetica', 12, 'bold')).grid(row=1, sticky=NSEW)
+        # Label(self._parent, text=self._entity, foreground='blue', bg=ocsGenericEntityBackgroundColour.get(
+        #    self._system, OCS_GENERIC_ENTITY_BACKGROUND_COLOUR),
+        #    font=('helvetica', 12, 'bold')).grid(row=1, sticky=NSEW)
         self.create_generic_buttons(self._parent, self._system)
+
+        # Add text widget to display logging info
+        st = ScrolledText.ScrolledText(self._parent, state='disabled')
+        st.configure(font='TkFixedFont')
+        st.grid(column=0, row=1, sticky='w', columnspan=1)
+        text_handler = TextHandler(st)
+        # Add the handler to logger
+        self._this.logger.addHandler(text_handler)
 
         self._simFlag = BooleanVar()
         self._simFlag.set(False)
