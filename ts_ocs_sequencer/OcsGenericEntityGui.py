@@ -6,8 +6,7 @@
 # -
 from OcsGenericEntity import *
 from OcsGui import *
-
-import ScrolledText
+from ScrolledText import *
 
 # +
 # __doc__ string
@@ -29,29 +28,6 @@ __email__ = "pdaly@lsst.org"
 __file__ = "OcsGenericEntityGui.py"
 __history__ = __date__ + ": " + "original version (" + __email__ + ")"
 __version__ = "0.1.0"
-
-
-# +
-# class: TextHandler() inherits from logging.Handler
-# -
-class TextHandler(logging.Handler):
-
-    def __init__(self, text):
-        # run the regular Handler __init__
-        logging.Handler.__init__(self)
-        # Store a reference to the Text it will log to
-        self.text = text
-
-    def emit(self, record):
-        msg = self.format(record)
-        def append():
-            self.text.configure(state='normal')
-            self.text.insert(END, msg + '\n')
-            self.text.configure(state='disabled')
-            # Autoscroll to the bottom
-            self.text.yview(END)
-        # This is necessary because we can't modify the Text from other threads
-        self.text.after(0, append)
 
 
 # +
@@ -93,12 +69,13 @@ class OcsGenericEntityGui(Frame):
         self.create_generic_buttons(self._parent, self._system)
 
         # Add text widget to display logging info
-        st = ScrolledText.ScrolledText(self._parent, state='disabled')
-        st.configure(font='TkFixedFont')
-        st.grid(column=0, row=1, sticky='w', columnspan=1)
-        text_handler = TextHandler(st)
+        self._st = ScrolledText(self._parent, state='disabled')
+        self._st.configure(font='TkFixedFont')
+        self._st.grid(column=0, row=1, sticky='w', columnspan=1)
+        self._th = OcsTextHandler(self._st)
+
         # Add the handler to logger
-        self._this.logger.addHandler(text_handler)
+        self._this.logger.addHandler(self._th)
 
         self._simFlag = BooleanVar()
         self._simFlag.set(False)

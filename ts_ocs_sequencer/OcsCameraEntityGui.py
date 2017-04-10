@@ -98,12 +98,12 @@ class OcsCameraEntityGui(OcsGenericEntityGui):
         Frame.__init__(self, self._parent, bd=1, relief=SUNKEN, bg=ocsGenericEntityBackgroundColour.get(
             self._system, OCS_GENERIC_ENTITY_BACKGROUND_COLOUR))
         self._generic = OcsGenericEntityGui(self._parent, self._system, self._entity, self._standalone)
-        Label(self._parent, text=self._system, foreground='blue', bg=ocsGenericEntityBackgroundColour.get(
+        Label(self._parent, text='{0:s} {1:s}'.format(self._system, self._entity), foreground='blue', bg=ocsGenericEntityBackgroundColour.get(
             self._system, OCS_GENERIC_ENTITY_BACKGROUND_COLOUR), font=('helvetica', 12, 'normal')).grid(
             row=0, sticky=NSEW)
-        Label(self._parent, text=self._entity, foreground='blue', bg=ocsGenericEntityBackgroundColour.get(
-            self._system, OCS_GENERIC_ENTITY_BACKGROUND_COLOUR),
-            font=('helvetica', 12, 'bold')).grid(row=1, sticky=NSEW)
+        #Label(self._parent, text=self._entity, foreground='blue', bg=ocsGenericEntityBackgroundColour.get(
+        #    self._system, OCS_GENERIC_ENTITY_BACKGROUND_COLOUR),
+        #    font=('helvetica', 12, 'bold')).grid(row=1, sticky=NSEW)
         self.create_camera_buttons(self._parent, self._system)
 
         self._generic._simFlag.trace('w', self.this_change)
