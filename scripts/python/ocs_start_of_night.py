@@ -27,7 +27,7 @@ def ocs_start_of_night(entity_name='', entity_object=None):
         entity_object.entercontrol()
 
         # start
-        cfg = '{0:s}-Normal'.format(entity_name)
+        cfg = 'Normal'
         entity_object.logger.info("{0:s}.start('{1:s}')".format(entity_name, cfg))
         entity_object.start(cfg)
 

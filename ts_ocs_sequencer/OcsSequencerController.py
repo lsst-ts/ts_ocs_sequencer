@@ -10,7 +10,7 @@ import signal
 from OcsEvents import *
 from OcsStates import *
 from OcsCameraEntity import *
-
+from SALPY_sequencer import *
 
 # +
 # __doc__ string
@@ -408,7 +408,8 @@ class Worker(threading.Thread):
                     for E in ('Archiver', 'Camera', 'CatchupArchiver', 'ProcessingCluster', 'Tcs'):
                         ltsd['entity'] = E.lower()
                         if ltsd['cmd'].lower() == 'start':
-                            ltsd['params'] = 'startid={0:s}-Normal'.format(E)
+                            #ltsd['params'] = 'startid={0:s}-Normal'.format(E)
+                            ltsd['params'] = 'startid=Normal'
                         cmdd = dict(self._objd, **ltsd)
                         self._evh.logger.info('{0:s} thread cmdd {1:s}'.format(self._name, str(cmdd)))
                         self._generic_sequence(cmdd)
@@ -587,9 +588,20 @@ if __name__ == "__main__":
             threads.append(t)
             t.start()
 
-
-        # keep the main thread running, otherwise signals are ignored
+        # main thread: keep running to collect signals and publish heartbeat
+        mgr = SAL_sequencer()
+        mgr.salTelemetryPub("sequencer_SequencerHeartbeat")
+        hbData = sequencer_SequencerHeartbeatC()
+        hbData.Name = "OcsSequencer"
+        hbData.Identifier = float(ocs_id(False))
+        icount = 1
         while True:
+            if (icount % OCS_SEQUENCER_COMMAND_TIMEOUT == 0):
+                hbData.Timestamp = ocs_id(True)
+                retval = mgr.putSample_SequencerHeartbeat(hbData)
+                icount = 1
+            else:
+                icount += 1
             time.sleep(1)
 
     except ServiceExit:
